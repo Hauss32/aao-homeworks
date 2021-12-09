@@ -4,7 +4,7 @@ class Map
     end
 
     def set(key, val)
-        existing_idx = self.send(:index, key)
+        existing_idx = index(key)
 
         if existing_idx
             @arr[existing_idx][1] = val
@@ -14,7 +14,7 @@ class Map
     end
 
     def get(key)
-        existing_idx = self.send(:index, key)
+        existing_idx = index(key)
 
         return @arr[existing_idx][1] if existing_idx
 
@@ -22,7 +22,7 @@ class Map
     end
 
     def delete(key)
-        existing_idx = self.send(:index, key)
+        existing_idx = index(key)
         return false unless existing_idx
 
         @arr.slice!(existing_idx, 1)
