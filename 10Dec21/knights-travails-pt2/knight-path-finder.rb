@@ -56,8 +56,38 @@ class KnightClassFinder
         nil
     end
 
-end
+    def find_path(target)
+        queue = [@root_node]
+        target_node = nil
 
-p kcf = KnightClassFinder.new([0,0])
-p kcf.root_node
+        until queue.empty? || target_node
+            node = queue.shift
+
+            if node.value == target
+                target_node = node
+                break
+            end
+
+            queue += node.children
+        end
+
+        return nil unless target_node
+
+        self.trace_path_back(target_node)
+    end
+
+    def trace_path_back(node)
+        path = [node.value]
+        curr_node = node
+
+        until curr_node.parent.nil?
+            parent = curr_node.parent
+            path.unshift(parent.value)
+            curr_node = parent
+        end
+
+        path
+    end
+
+end
 
