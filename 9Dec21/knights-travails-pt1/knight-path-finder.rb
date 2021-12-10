@@ -20,6 +20,8 @@ class KnightClassFinder
         valid_moves
     end
 
+    attr_reader :root_node
+
     def initialize(pos)
         @root_node = PolyTreeNode.new(pos)
         @considered_positions = []
@@ -34,12 +36,38 @@ class KnightClassFinder
         valid_and_new
     end
 
+    def build_move_tree(target)
+        queue = [self.root_node]
+
+        until queue.empty?
+            node = queue.shift
+            return node if node.value == target
+
+            new_moves = self.new_move_positions(node.value)
+
+            child_nodes = new_moves.map do |pos| 
+                child = PolyTreeNode.new(pos)
+                child.parent = node
+            end
+
+            queue += node.children
+        end
+
+        nil
+    end
+
 end
 
 p kcf = KnightClassFinder.new([1,1])
-# p KnightClassFinder.valid_moves([1,1])
-p kcf
-p kcf.new_move_positions([1,1])
-p kcf
-p kcf.new_move_positions([3,2])
-p kcf
+# # p KnightClassFinder.valid_moves([1,1])
+# p kcf
+# p kcf.new_move_positions([1,1])
+# p kcf
+# p kcf.new_move_positions([3,2])
+# p kcf
+target_node =  kcf.build_move_tree([7,4])
+p target_node
+puts '------'
+p target_node.parent
+puts '------'
+p kcf.root_node
