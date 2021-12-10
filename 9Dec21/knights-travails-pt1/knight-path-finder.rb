@@ -26,7 +26,20 @@ class KnightClassFinder
 
     end
 
+    def new_move_positions(pos)
+        valid_positions = KnightClassFinder.valid_moves(pos)
+        valid_and_new = valid_positions.select { |pos| !@considered_positions.include?(pos) }
+        @considered_positions += valid_and_new
+
+        valid_and_new
+    end
+
 end
 
 p kcf = KnightClassFinder.new([1,1])
-p KnightClassFinder.valid_moves([1,1])
+# p KnightClassFinder.valid_moves([1,1])
+p kcf
+p kcf.new_move_positions([1,1])
+p kcf
+p kcf.new_move_positions([3,2])
+p kcf
