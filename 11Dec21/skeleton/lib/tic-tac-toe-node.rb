@@ -1,4 +1,5 @@
 require_relative 'tic_tac_toe'
+require "byebug"
 
 class TicTacToeNode
     attr_reader :board, :next_mover_mark, :prev_move_pos
@@ -18,6 +19,20 @@ class TicTacToeNode
         else
             lose = self.children.all? { |child| child.losing_node?(mark) }
             return true if lose
+        end
+
+        false
+    end
+
+    def winning_node?(mark)
+        return true if @board.over? && @board.winner == mark
+
+        if @next_mover_mark != mark
+            opponent_win = self.children.all? { |child| child.winning_node?(mark) }
+            return false if opponent_win
+        else
+            win = self.children.any? { |child| child.winning_node?(mark) }
+            return true if win
         end
 
         false
@@ -43,10 +58,3 @@ class TicTacToeNode
         children
     end
 end
-
-# hp = HumanPlayer.new("Ned")
-# cp = ComputerPlayer.new
-# ttt = TicTacToe.new(hp, cp)
-# n = TicTacToeNode.new(ttt.board, :x)
-# p n
-# p n.children
