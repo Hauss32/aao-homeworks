@@ -11,31 +11,27 @@ class TicTacToeNode
     end
 
     def losing_node?(mark)
-        return true if @board.over? && @board.winner && @board.winner != mark
-
-        if @next_mover_mark != mark
-            lose = self.children.any? { |child| child.losing_node?(mark) }
-            return true if lose
-        else
-            lose = self.children.all? { |child| child.losing_node?(mark) }
-            return true if lose
+        if @board.over?
+            return @board.winner && @board.winner != mark
         end
 
-        false
+        if @next_mover_mark != mark
+            self.children.any? { |child| child.losing_node?(mark) }
+        else
+            self.children.all? { |child| child.losing_node?(mark) }
+        end
     end
 
     def winning_node?(mark)
-        return true if @board.over? && @board.winner == mark
-
-        if @next_mover_mark != mark
-            opponent_win = self.children.all? { |child| child.winning_node?(mark) }
-            return false if opponent_win
-        else
-            win = self.children.any? { |child| child.winning_node?(mark) }
-            return true if win
+        if @board.over?
+            return @board.winner == mark
         end
 
-        false
+        if @next_mover_mark != mark
+            self.children.all? { |child| child.winning_node?(mark) }
+        else
+            self.children.any? { |child| child.winning_node?(mark) }
+        end
     end
 
     def children
@@ -54,7 +50,6 @@ class TicTacToeNode
 
             children << node
         end
-
         children
     end
 end
