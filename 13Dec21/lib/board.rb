@@ -2,7 +2,7 @@ class Board
   attr_accessor :cups
 
   def initialize(name1, name2)
-    @player1, @player2 = name1, name2
+    @player_1, @player_2 = name1, name2
     @cups = []
 
     self.place_stones
@@ -28,7 +28,7 @@ class Board
   end
 
   def make_move(start_pos, current_player_name)
-    skip_store = current_player_name == @player1 ? 13 : 6
+    skip_store = current_player_name == @player_1 ? 13 : 6
     cup = @cups[start_pos]
     next_idx = start_pos
     stones = cup.slice!(0...cup.length)
@@ -66,9 +66,24 @@ class Board
   end
 
   def one_side_empty?
+    return true if (0..5).all? { |idx| @cups[idx].empty? }
+    return true if (7..12).all? { |idx| @cups[idx].empty? }
+
+    false
   end
 
   def winner
+    player_1_score = @cups[6].length
+    player_2_score = @cups[13].length
+
+    case player_1_score <=> player_2_score
+    when 0
+      return :draw
+    when 1
+      return @player_1
+    else
+      player_2
+    end
   end
 end
 
