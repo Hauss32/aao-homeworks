@@ -9,6 +9,14 @@ class Piece
         { color:@color, position:@position}
     end
 
+    def to_s
+       @position.join(",")
+    end
+
+    def empty?
+        @position.empty?
+    end
+
     def valid_pos?(pos)
         y, x = pos
         idxs = (0..7).to_a
@@ -16,4 +24,19 @@ class Piece
 
         idxs.include?(y) && idxs.include?(x) && not_own_pos
     end
+
+    def valid_moves
+        nil
+    end
+
+    def symbol
+        nil
+    end
+
+    private
+    def move_into_check?(end_pos)
+        nil
+    end
+
+
 end
