@@ -11,7 +11,25 @@ class Board
             end
         end
     end
-end
 
-b = Board.new
-p b
+    def [](pos)
+        y, x = pos
+        @rows[y][x]
+    end
+
+    def []=(pos, val)
+        y, x = pos
+        @rows[y][x] = val
+    end
+
+    def move_piece(color, start_pos, end_pos)
+        piece = self[start_pos]
+        raise ArgumentError.new("Selected starting cell is empty.") if piece.nil?
+        raise ArgumentError.new("Ending position is not valid.") unless piece.valid_pos?(end_pos)
+
+        piece.position = end_pos
+        piece.color = color
+        self[start_pos] = nil
+        self[end_pos] = piece
+    end
+end
