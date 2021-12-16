@@ -17,14 +17,6 @@ class Piece
         @position.empty?
     end
 
-    def valid_pos?(pos)
-        y, x = pos
-        idxs = (0..7).to_a
-        not_own_pos = pos != @position
-
-        idxs.include?(y) && idxs.include?(x) && not_own_pos
-    end
-
     def valid_moves
         nil
     end

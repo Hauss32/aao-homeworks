@@ -24,12 +24,19 @@ class Board
 
     def move_piece(color, start_pos, end_pos)
         piece = self[start_pos]
-        raise ArgumentError.new("Selected starting cell is empty.") if piece.nil?
-        raise ArgumentError.new("Ending position is not valid.") unless piece.valid_pos?(end_pos)
+        raise ArgumentError.new("Selected starting cell is empty.") if self[pos].nil?
+        raise ArgumentError.new("Ending position is not valid.") unless self.valid_pos?(end_pos)
 
         piece.position = end_pos
         piece.color = color
         self[start_pos] = nil
         self[end_pos] = piece
+    end
+
+    def valid_pos?(pos)
+        y, x = pos
+        idxs = (0..7).to_a
+
+        idxs.include?(y) && idxs.include?(x)
     end
 end
