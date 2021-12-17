@@ -23,3 +23,5 @@ module Stepable
         nil
     end
 end
+
+# TODO: Stepable pieces to return array of each change in pos they can make

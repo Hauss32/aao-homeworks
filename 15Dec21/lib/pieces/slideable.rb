@@ -33,6 +33,7 @@ module Slideable
         while true
             y += dy
             x += dx
+            pos = [y, x]
             break unless @board.valid_pos?(pos)
 
             if @board[pos].nil?
@@ -45,5 +46,6 @@ module Slideable
         
         moves
     end
-    
 end
+
+# TODO: Slidable pieces to return horizontal_dirs, vertical_dirs, or concat of both

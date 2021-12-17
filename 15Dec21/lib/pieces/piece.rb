@@ -6,7 +6,7 @@ class Piece
     end
 
     def inspect
-        { color:@color, position:@position}
+        { color:@color, type:self.class, position:@position}
     end
 
     def to_s
