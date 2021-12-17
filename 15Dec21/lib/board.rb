@@ -3,6 +3,8 @@ require_relative 'pieces/rook'
 require_relative 'pieces/queen'
 require_relative 'pieces/knight'
 require_relative 'pieces/king'
+require_relative 'pieces/pawn'
+
 
 
 class Board
@@ -11,8 +13,9 @@ class Board
         @null_piece = nil
 
         [0,1,6,7].each do |row|
-            (0..7).each do |cell| 
-                @rows[row][cell] = Piece.new(:black, self, [row, cell])
+            (0..7).each do |cell|
+                color = row <= 2 ? :black : :white
+                @rows[row][cell] = Piece.new(color, self, [row, cell])
             end
         end
     end
@@ -27,13 +30,13 @@ class Board
         @rows[y][x] = val
     end
 
-    def move_piece(color, start_pos, end_pos)
+    def move_piece(start_pos, end_pos)
         piece = self[start_pos]
         raise ArgumentError.new("Selected starting cell is empty.") if self[start_pos].nil?
-        raise ArgumentError.new("Ending position is not valid.") unless self.valid_pos?(end_pos)
+        raise ArgumentError.new("Ending position is not on the board.") unless self.valid_pos?(end_pos)
+        raise ArgumentError.new("Move is invalid for that piece.") unless piece.moves.include?(end_pos)
 
         piece.position = end_pos
-        piece.color = color
         self[start_pos] = nil
         self[end_pos] = piece
     end
