@@ -1,6 +1,9 @@
 require_relative 'pieces/bishop'
 require_relative 'pieces/rook'
 require_relative 'pieces/queen'
+require_relative 'pieces/knight'
+require_relative 'pieces/king'
+
 
 class Board
     def initialize
@@ -26,7 +29,7 @@ class Board
 
     def move_piece(color, start_pos, end_pos)
         piece = self[start_pos]
-        raise ArgumentError.new("Selected starting cell is empty.") if self[pos].nil?
+        raise ArgumentError.new("Selected starting cell is empty.") if self[start_pos].nil?
         raise ArgumentError.new("Ending position is not valid.") unless self.valid_pos?(end_pos)
 
         piece.position = end_pos
