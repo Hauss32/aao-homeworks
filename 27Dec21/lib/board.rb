@@ -5,6 +5,7 @@ require_relative 'pieces/knight'
 require_relative 'pieces/king'
 require_relative 'pieces/pawn'
 require_relative 'pieces/nullpiece'
+require 'colorize'
 
 class Board
     KING = { white:[[0,3]], black:[[7,3]] }
