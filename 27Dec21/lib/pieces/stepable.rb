@@ -12,7 +12,7 @@ module Stepable
             next unless @board.valid_pos?(new_pos)
 
             piece = @board[new_pos]
-            moves << new_pos if piece.nil? || piece.color != @color
+            moves << new_pos if piece.symbol == :nil || piece.color != @color
         end
 
         moves

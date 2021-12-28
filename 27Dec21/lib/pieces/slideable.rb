@@ -36,7 +36,7 @@ module Slideable
             pos = [y, x]
             break unless @board.valid_pos?(pos)
 
-            if @board[pos].nil?
+            if @board[pos].symbol == :nil
                 moves << [y, x]
             else
                 moves << [y, x] if @board[pos].color != @color
