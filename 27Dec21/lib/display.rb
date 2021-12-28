@@ -8,6 +8,7 @@ class Display
     end
 
     def move
+        render
         while true
             @cursor.get_input
             render
@@ -22,7 +23,9 @@ class Display
             row_strs = []
             row.each_with_index do |piece, x|
                 piece_str = piece.symbol.to_s.ljust(7)
-                if @cursor.cursor_pos == [y, x]
+                if @cursor.selected == [y, x]
+                    piece_str = piece_str.colorize(:color => :black, :background => :light_red)
+                elsif @cursor.cursor_pos == [y, x]
                     piece_str = piece_str.colorize(:color => :black, :background => :light_green)
                 end
 
