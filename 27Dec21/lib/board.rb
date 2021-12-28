@@ -77,6 +77,12 @@ class Board
         idxs.include?(y) && idxs.include?(x)
     end
 
+    def checkmate?(color)
+        return false unless self.in_check?(color)
+
+        self.has_valid_moves?(color) ? false : true
+    end
+
     def in_check?(color)
         opp_color = color == :black ? :white : :black
         king_pos = self.find_king(color)
@@ -99,5 +105,17 @@ class Board
         end
 
         nil
+    end
+
+    def has_valid_moves?(color)
+        @rows.each do |row|
+            row.each do |piece|
+                next unless piece.color == color
+
+                return true if piece.valid_moves
+            end
+        end
+
+        false
     end
 end
