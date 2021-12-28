@@ -7,7 +7,15 @@ class Display
         @cursor = Cursor.new([0,0], @board)
     end
 
+    def move
+        while true
+            @cursor.get_input
+            render
+        end
+    end
+
     def render
+        system("clear")
         puts "\n"
         puts "————————————————————————————————————————————————————————————"
         @board.rows.each_with_index do |row, y|
