@@ -76,4 +76,28 @@ class Board
 
         idxs.include?(y) && idxs.include?(x)
     end
+
+    def in_check?(color)
+        opp_color = color == :black ? :white : :black
+        king_pos = self.find_king(color)
+
+        @rows.each do |row|
+            row.each do |piece|
+                next unless piece.color == opp_color
+                return true if piece.moves.include?(king_pos)
+            end
+        end
+
+        false
+    end
+
+    def find_king(color)
+        @rows.each do |row|
+            row.each do |piece|
+                return piece.position if piece.is_a?(King) && piece.color == color
+            end
+        end
+
+        nil
+    end
 end
