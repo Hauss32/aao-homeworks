@@ -8,13 +8,13 @@ require_relative 'pieces/nullpiece'
 require_relative 'display'
 
 class Board
-    KING = { white:[[0,3]], black:[[7,3]] }
-    QUEEN = { white:[[0,4]], black:[[7,4]] }
-    BISHOP = { white:[[0,2], [0,5]], black:[[7,2], [7,5]] }
-    KNIGHT = { white:[[0,1], [0,6]], black:[[7,1], [7,6]] }
-    ROOK = { white:[[0,0], [0,7]], black:[[7,0], [7,7]] }
-    PAWN = { white:[[1,0], [1,1], [1,2], [1,3], [1,4], [1,5], [1,6], [1,7]], 
-        black:[[6,0], [6,1], [6,2], [6,3], [6,4], [6,5], [6,6], [6,7]] }
+    KING = { black:[[0,3]], white:[[7,3]] }
+    QUEEN = { black:[[0,4]], white:[[7,4]] }
+    BISHOP = { black:[[0,2], [0,5]], white:[[7,2], [7,5]] }
+    KNIGHT = { black:[[0,1], [0,6]], white:[[7,1], [7,6]] }
+    ROOK = { black:[[0,0], [0,7]], white:[[7,0], [7,7]] }
+    PAWN = { black:[[1,0], [1,1], [1,2], [1,3], [1,4], [1,5], [1,6], [1,7]], 
+        white:[[6,0], [6,1], [6,2], [6,3], [6,4], [6,5], [6,6], [6,7]] }
 
     attr_reader :rows, :display
 
@@ -66,7 +66,7 @@ class Board
         raise ArgumentError.new("Move is invalid for that piece.") unless piece.moves.include?(end_pos)
 
         piece.position = end_pos
-        self[start_pos] = nil
+        self[start_pos] = @null_piece
         self[end_pos] = piece
     end
 
