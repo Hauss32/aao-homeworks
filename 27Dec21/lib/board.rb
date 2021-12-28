@@ -5,7 +5,7 @@ require_relative 'pieces/knight'
 require_relative 'pieces/king'
 require_relative 'pieces/pawn'
 require_relative 'pieces/nullpiece'
-require 'colorize'
+require_relative 'display'
 
 class Board
     KING = { white:[[0,3]], black:[[7,3]] }
@@ -16,9 +16,12 @@ class Board
     PAWN = { white:[[1,0], [1,1], [1,2], [1,3], [1,4], [1,5], [1,6], [1,7]], 
         black:[[6,0], [6,1], [6,2], [6,3], [6,4], [6,5], [6,6], [6,7]] }
 
+    attr_reader :rows
+
     def initialize
         @null_piece = NullPiece.instance
         @rows = Array.new(8) { Array.new(8, @null_piece) }
+        @display = Display.new(self)
 
         self.set_board
     end
@@ -50,6 +53,10 @@ class Board
                 pos_arr.each { |pos| self[pos] = class_type.new(color, self, pos) }
             end
         end
+    end
+
+    def display
+        @display.render
     end
 
     def move_piece(start_pos, end_pos)
