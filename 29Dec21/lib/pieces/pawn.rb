@@ -40,7 +40,7 @@ class Pawn < Piece
             moves << [y, x]
         end
 
-        moves.select { |move| @board.valid_pos?(move) }
+        moves.select { |move| @board.valid_pos?(move) && @board[move].is_a?(NullPiece) }
     end
 
     def side_attacks

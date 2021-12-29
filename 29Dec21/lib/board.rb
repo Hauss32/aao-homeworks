@@ -48,7 +48,7 @@ class Board
                     new_row << @null_piece
                     next
                 end
-                
+
                 color = piece.color
                 type = piece.class
                 pos = piece.position.dup
@@ -141,7 +141,7 @@ class Board
             row.each do |piece|
                 next unless piece.color == color
 
-                return true if piece.valid_moves
+                return true unless piece.valid_moves.empty?
             end
         end
 

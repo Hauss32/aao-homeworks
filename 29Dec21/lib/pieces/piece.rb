@@ -18,16 +18,36 @@ class Piece
     end
 
     def valid_moves
-        nil
+        valid_moves = []
+
+        self.moves.each do |move|
+            moves_into_check = move_into_check?(move)
+
+            valid_moves << move unless moves_into_check
+        end
+
+        valid_moves
     end
 
     def symbol
         nil
     end
 
+    def moves
+        []
+    end
+
     private
     def move_into_check?(end_pos)
-        nil
+        dup_board = @board.dup
+
+        dup_board.move_piece(@position, end_pos)
+
+        if dup_board.in_check?(@color)
+            return true
+        end
+
+        false
     end
 
 
