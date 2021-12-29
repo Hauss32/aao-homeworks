@@ -90,9 +90,24 @@ class Board
 
     def move_piece(start_pos, end_pos)
         piece = self[start_pos]
+
+        if piece.valid_moves.include?(end_pos)
+            piece.position = end_pos
+            self[start_pos] = @null_piece
+            self[end_pos] = piece
+
+            return true
+        else
+            raise ArgumentError.new("Not a valid move for this piece.")
+        end
+
+        false
+    end
+
+    def move_piece!(start_pos, end_pos)
+        piece = self[start_pos]
         raise ArgumentError.new("Selected starting cell is empty.") if self[start_pos] == @null_piece
         raise ArgumentError.new("Ending position is not on the board.") unless self.valid_pos?(end_pos)
-        raise ArgumentError.new("Move is invalid for that piece.") unless piece.moves.include?(end_pos)
 
         piece.position = end_pos
         self[start_pos] = @null_piece
