@@ -33,6 +33,10 @@ class Piece
         nil
     end
 
+    def unicode_symbol
+        "   "
+    end
+
     def moves
         []
     end

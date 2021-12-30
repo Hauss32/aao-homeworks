@@ -12,6 +12,10 @@ class King < Piece
         :King
     end
 
+    def unicode_symbol
+        @color == :black ? " ♚ " : " ♔ "
+    end
+
     def move_diffs
         move_diffs = [
             [0, -1],

@@ -21,11 +21,11 @@ class Display
         system("clear")
         puts "Current position: #{@cursor.cursor_pos}"
         puts "\n"
-        puts "————————————————————————————————————————————————————————————"
+        puts "——————————————————————————————"
         @board.rows.each_with_index do |row, y|
             row_strs = []
             row.each_with_index do |piece, x|
-                piece_str = piece.symbol.to_s.ljust(7)
+                piece_str = piece.unicode_symbol
                 if @cursor.cursor_pos == [y, x] && @cursor.selected
                     piece_str = piece_str.colorize(:color => :black, :background => :light_red)
                 elsif @cursor.cursor_pos == [y, x]
@@ -39,6 +39,6 @@ class Display
             puts row_strs.join(" ")
         end
 
-        puts "————————————————————————————————————————————————————————————"
-    end
+        puts "——————————————————————————————"
+        end
 end

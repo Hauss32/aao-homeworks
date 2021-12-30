@@ -12,6 +12,10 @@ class Queen < Piece
         :Queen
     end
 
+    def unicode_symbol
+        @color == :black ? " ♛ " : " ♕ "
+    end
+
     def move_dirs
         move_dirs = self.diagonal_dirs
         move_dirs += self.horizontal_dirs

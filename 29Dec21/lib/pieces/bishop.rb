@@ -12,6 +12,10 @@ class Bishop < Piece
         :Bishop
     end
 
+    def unicode_symbol
+        @color == :black ? " ♝ " : " ♗ "
+    end
+
     def move_dirs
         self.diagonal_dirs
     end

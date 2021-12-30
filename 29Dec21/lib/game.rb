@@ -50,3 +50,8 @@ class Game
         @curr_player.make_move
     end
 end
+
+b = Board.new
+d = Display.new(b)
+game = Game.new('Chris', 'Evil Chris')
+game.play

@@ -12,6 +12,10 @@ class Knight < Piece
         :Knight
     end
 
+    def unicode_symbol
+        @color == :black ? " ♞ " : " ♘ "
+    end
+
     def move_diffs
         move_diffs = [
             [-2, -1],

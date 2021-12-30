@@ -10,6 +10,10 @@ class Pawn < Piece
         :Pawn
     end
 
+    def unicode_symbol
+        @color == :black ? " ♟︎ " : " ♙ "
+    end
+
     def moves
         steps = forward_steps
         attacks = side_attacks

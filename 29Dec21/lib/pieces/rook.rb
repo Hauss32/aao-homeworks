@@ -12,6 +12,10 @@ class Rook < Piece
         :Rook
     end
 
+    def unicode_symbol
+        @color == :black ? " ♜ " : " ♖ "
+    end
+
     def move_dirs
         self.horizontal_dirs
     end
