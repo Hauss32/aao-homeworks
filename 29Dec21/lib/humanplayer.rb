@@ -1,4 +1,6 @@
 class HumanPlayer
+    attr_reader :name, :color
+
     def initialize(name, color, display)
         @name = name
         @color = color
@@ -13,7 +15,7 @@ class HumanPlayer
 
         until selected_pos && board[selected_pos].color == @color
             @display.render
-            puts "\nSelect a #{@color} piece."
+            puts "\nSelect a #{@color} piece, #{@name}."
 
             selected_pos = cursor.get_input 
         end
