@@ -6,4 +6,10 @@ class Game
         @board = Board.new
         @current_player_idx = 0
     end
+
+    def change_player
+        next_player_idx = @current_player_idx == 0 ? 1 : 0
+
+        @current_player_idx = next_player_idx
+    end
 end
