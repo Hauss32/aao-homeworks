@@ -100,6 +100,7 @@ class Cursor
     y += @cursor_pos[0]
     x += @cursor_pos[1]
     @cursor_pos = [y, x] if @board.valid_pos?([y, x])
+    toggle_selected if @selected
 
     nil
   end
