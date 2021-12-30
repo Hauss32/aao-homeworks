@@ -1,9 +1,15 @@
 require_relative 'humanplayer'
+require_relative 'board'
+require_relative 'display'
 
 class Game
     def initialize(player_1, player_2)
-        @players = [HumanPlayer.new(player_1, :black), HumanPlayer.new(player_2, :white)]
         @board = Board.new
+        @display = Display.new(@board)
+        @players = [
+            HumanPlayer.new(player_1, :black, @display), 
+            HumanPlayer.new(player_2, :white, @display)
+        ]
         @current_player_idx = 0
     end
 
