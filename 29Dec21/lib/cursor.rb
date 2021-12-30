@@ -37,7 +37,7 @@ class Cursor
   def initialize(cursor_pos, board)
     @cursor_pos = cursor_pos
     @board = board
-    @selected = nil
+    @selected = false
   end
 
   def get_input
@@ -92,13 +92,7 @@ class Cursor
   end
 
   def toggle_selected
-     if @cursor_pos == @selected
-        @selected = nil
-     else
-        @selected = @cursor_pos
-     end
-
-     nil
+    @selected = !@selected
   end
 
   def update_pos(diff)
