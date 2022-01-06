@@ -22,7 +22,7 @@ describe Card do
         end
 
         it 'raises an error when argument value is not recognized' do
-            expect { Card.new('18Z') }.to raise_error("Card value is not recognized.")
+            expect { Card.new('18Z') }.to raise_error("Card string provided is not recognized.")
         end
     end
 
