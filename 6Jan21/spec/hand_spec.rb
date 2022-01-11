@@ -30,6 +30,7 @@ describe Hand do
     end
 
     describe '#discard' do
+        let(:jack_spades) { double("card", :name => 'JS') }
         before(:each) { subject.add_cards(some_cards) }
 
         it 'deletes an array of cards based on the card name' do
@@ -41,7 +42,7 @@ describe Hand do
         end
 
         it 'throws an error when one or more cards is not in the hand' do
-            expect { subject.discard(['3H', '9H']) }.to raise_error("One or more cards to discard are invalid.")
+            expect { subject.discard([three_hearts, jack_spades]) }.to raise_error("One or more cards to discard are invalid.")
         end
     end
 end
