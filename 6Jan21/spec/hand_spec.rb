@@ -7,14 +7,21 @@ describe Hand do
     let(:three_diamonds) { double("card", :name => '3D') }
     let(:three_spades) { double("card", :name => '3S') }
     let(:three_clubs) { double("card", :name => '3C') }
+    let(:eight_clubs) { double("card", :name => '8C') }
+    let(:nine_clubs) { double("card", :name => '9C') }
+    let(:nine_diaminds) { double("card", :name => '9D') }
     let(:ten_hearts) { double("card", :name => '10H') }
     let(:ten_clubs) { double("card", :name => '10C') }
     let(:jack_spades) { double("card", :name => 'JS') }
+    let(:jack_diamonds) { double("card", :name => 'JD') }
     let(:jack_clubs) { double("card", :name => 'JC') }
     let(:jack_hearts) { double("card", :name => 'JH') }
     let(:queen_hearts) { double("card", :name => 'QH') }
+    let(:queen_clubs) { double("card", :name => 'QC') }
     let(:king_hearts) { double("card", :name => 'KH') }
+    let(:king_clubs) { double("card", :name => 'KC') }
     let(:ace_hearts) { double("card", :name => 'AH') }
+    let(:ace_clubs) { double("card", :name => 'AC') }
 
     let(:some_cards) { [three_hearts, ten_hearts, jack_clubs, king_hearts, ace_hearts] }
 
@@ -53,110 +60,150 @@ describe Hand do
     end
 
     describe '#<=>' do
-        let(:pair_hand) do
-            hand = Hand.new
-            hand.add_cards( [three_hearts, ten_hearts, jack_spades, king_hearts, ace_hearts] )
-            hand
-        end
-
         let(:two_pair_hand) do
             hand = Hand.new
-            hand.add_cards( [three_hearts, ten_hearts, jack_spades, king_hearts, ace_hearts] )
+            hand.add_cards( [three_hearts, three_clubs, ten_hearts, jack_spades, jack_hearts] )
             hand
         end
 
-        let(:three_of_a_kind_hand) do
+        let(:equal_two_pair_hand) do
             hand = Hand.new
-            hand.add_cards( [three_hearts, ten_hearts, jack_spades, king_hearts, ace_hearts] )
+            hand.add_cards( [three_spades, three_diamonds, ten_clubs, jack_clubs, jack_diamonds] )
+            hand
+        end
+
+        let(:lesser_two_pair_hand) do
+            hand = Hand.new
+            hand.add_cards( [three_spades, three_diamonds, nine_clubs, jack_clubs, jack_diamonds] )
             hand
         end
 
         let(:straight_hand) do
             hand = Hand.new
-            hand.add_cards( [three_hearts, ten_hearts, jack_spades, king_hearts, ace_hearts] )
+            hand.add_cards( [nine_clubs, ten_hearts, jack_spades, queen_clubs, king_hearts] )
+            hand
+        end
+
+        let(:equal_straight_hand) do
+            hand = Hand.new
+            hand.add_cards( [nine_diaminds, ten_clubs, jack_hearts, queen_hearts, king_clubs] )
+            hand
+        end
+
+        let(:lesser_straight_hand) do
+            hand = Hand.new
+            hand.add_cards( [eight_clubs, nine_diaminds, ten_clubs, jack_hearts, queen_hearts] )
             hand
         end
 
         let(:flush_hand) do
             hand = Hand.new
-            hand.add_cards( [three_hearts, ten_hearts, jack_spades, king_hearts, ace_hearts] )
+            hand.add_cards( [three_hearts, ten_hearts, jack_hearts, king_hearts, ace_hearts] )
             hand
         end
 
-        let(:full_house_hand) do
+        let(:ace_high_hand) do
             hand = Hand.new
-            hand.add_cards( [three_hearts, ten_hearts, jack_spades, king_hearts, ace_hearts] )
+            hand.add_cards( [three_hearts, ten_clubs, jack_hearts, king_clubs, ace_hearts] )
             hand
         end
 
-        let(:four_of_a_kind_hand) do
+        let(:equal_ace_high_hand) do
             hand = Hand.new
-            hand.add_cards( [three_hearts, ten_hearts, jack_spades, king_hearts, ace_hearts] )
+            hand.add_cards( [three_clubs, ten_hearts, jack_clubs, king_hearts, ace_clubs] )
             hand
         end
 
-        let(:straight_flush_hand) do
+        let(:lesser_ace_high_hand) do
             hand = Hand.new
-            hand.add_cards( [three_hearts, ten_hearts, jack_spades, king_hearts, ace_hearts] )
+            hand.add_cards( [three_clubs, ten_hearts, jack_clubs, queen_hearts, ace_clubs] )
             hand
         end
 
-        let(:royal_flush_hand) do
+        let(:lesser_high_hand) do
             hand = Hand.new
-            hand.add_cards( [three_hearts, ten_hearts, jack_spades, king_hearts, ace_hearts] )
+            hand.add_cards( [three_clubs, nine_diaminds, ten_hearts, jack_clubs, king_hearts] )
             hand
         end
 
         context 'one hand outranks another' do
-            it 'returns true when royal flush beats straight flush'
+            it 'returns true when flush beats a straight' do
+                expect(flush_hand > straight_hand).to be true
+            end
 
-            it 'returns false when straight flush loses to royal flush'
+            it 'returns false when a straight loses to a flush' do
+                expect(straight_hand > flush_hand).to be false
+            end
 
-            it 'returns true when flush beats a straight'
-
-            it 'returns false when a straight loses to a flush'
-
-            it 'returns true when two-pair beats a pair'
-
-            it 'returns false when a pair loses to two-pair'
-            
+            it 'returns false when flush ties a straight' do
+                expect(flush_hand == straight_hand).to be false
+            end           
         end
 
         context 'two hands share a rank, but hands are not equal' do
-            it 'returns true when a King-high straight beats a Queen-high straight'
+            it 'returns true when a King-high straight beats a Queen-high straight' do
+                expect(straight_hand > lesser_straight_hand).to be true
+            end
 
-            it 'returns false when a Queen-high straight loses to a King-high straight'
+            it 'returns false when a Queen-high straight loses to a King-high straight' do
+                expect(lesser_straight_hand > straight_hand).to be false
+            end
 
-            it 'returns true when a two-pair of Jacks/Threes beats a two-pair of Tens/Threes'
+            it 'returns false when a Queen-high straight ties to a King-high straight' do
+                expect(lesser_straight_hand == straight_hand).to be false
+            end
+    
+            it 'returns true when a two-pair of Jacks/Threes with 10-high-card 
+                beats a two-pair of Jacks/Threes with 9-high-card' do
+                    expect(two_pair_hand > lesser_two_pair_hand).to be true
+                end
 
-            it 'returns false when a two-pair of Tens/Threes loses to a two-pair of Jacks/Threes'
+            it 'returns false when a two-pair of Jacks/Threes with 9-high-card 
+                beats a two-pair of Jacks/Threes with 10-high-card' do
+                    expect(lesser_two_pair_hand > two_pair_hand).to be false
+                end
 
-            it 'returns true when a two-pair of Jacks/Threes with Ace-high-card beats a two-pair of Jacks/Threes with 10-high-card'
+            it 'returns true when Ace-high-card with King-second-high-card 
+                beats Ace-high-card with Queen-second-high-card' do
+                    expect(ace_high_hand > lesser_ace_high_hand).to be true
+                end
 
-            it 'returns false when a two-pair of Jacks/Threes with 10-high-card beats a two-pair of Jacks/Threes with Ace-high-card'
+            it 'returns false when Ace-high-card with Queen-second-high-card 
+                beats Ace-high-card with King-second-high-card' do
+                    expect(lesser_ace_high_hand > ace_high_hand).to be false
+                end
 
-            it 'returns true when Ace-high-card beats Queen-high-card'
-
-            it 'returns false when Queen-high-card loses Ace-high-card'
-
-            it 'returns true when Ace-high-card with King-second-high beats Ace-high-card with 10-second-high'
-
-            it 'returns false when Ace-high-card with 10-second-high beats Ace-high-card with King-second-high'
-            
+            it 'returns true when Ace-high-card beats Queen-high-card'  do
+                expect(ace_high_hand > lesser_high_hand).to be true
+            end
         end
 
         context 'two hands share a rank, and are equal' do
-            it 'returns false when a King-high straight beats a King-high straight'
+            it 'returns false when a King-high straight beats a King-high straight' do
+                expect(straight_hand > equal_straight_hand).to be false
+            end
 
-            it 'returns true when a King-high straight equals a King-high straight'
+            it 'returns true when a King-high straight equals a King-high straight' do
+                expect(straight_hand == equal_straight_hand).to be true
+            end
 
-            it 'returns false when a two-pair of Jacks/Threes with Ace-high-card beats a two-pair of Jacks/Threes with Ace-high-card'
+            it 'returns false when a two-pair of Jacks/Threes with 10-high-card 
+                beats a two-pair of Jacks/Threes with 10-high-card' do
+                    expect(two_pair_hand > equal_two_pair_hand).to be false
+                end
 
-            it 'returns true when a two-pair of Jacks/Threes with Ace-high-card equals a two-pair of Jacks/Threes with Ace-high-card'
+            it 'returns true when a two-pair of Jacks/Threes with 10-high-card 
+                equals a two-pair of Jacks/Threes with 10-high-card' do
+                    expect(two_pair_hand == equal_two_pair_hand).to be true
+                end
 
-            it 'returns false when a high-card beats an equal high-card hand'
+            it 'returns false when a high-card beats an equal high-card hand' do
+                expect(ace_high_hand > equal_ace_high_hand).to be false
+            end
 
-            it 'returns true when a high-card equals an equal high-card hand'
+            it 'returns true when a high-card equals an equal high-card hand' do
+                expect(ace_high_hand == equal_ace_high_hand).to be true
+            end
             
         end
     end
