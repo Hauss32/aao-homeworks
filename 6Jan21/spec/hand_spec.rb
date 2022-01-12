@@ -31,27 +31,35 @@ describe Hand do
         end
     end
 
-    describe '#add_cards' do
-        it 'accepts an array of new cards and adds them to @cards' do
-            subject.add_cards(some_cards)
-            expect(subject.cards).to eq(some_cards)
+    describe '#add_card' do
+        it 'accepts a new card and adds it to @cards' do
+            subject.add_card(jack_clubs)
+            expect(subject.cards[0]).to eq(jack_clubs)
         end
 
         it 'throws an error when @cards already has 5 elements' do
-            subject.add_cards(some_cards)
-            expect { subject.add_cards(some_cards) }.to raise_error("Hand cannot have more than 5 cards.")
+            some_cards.each { |card| subject.add_card(card) }
+            expect { subject.add_card(three_clubs) }.to raise_error("Hand cannot have more than 5 cards.")
         end
     end
 
     describe '#discard' do
-        before(:each) { subject.add_cards(some_cards) }
+        before(:each) { some_cards.each { |card| subject.add_card(card) } }
 
-        it 'deletes an array of cards based on the card name' do
+        it 'deletes a card from @cards' do
             hand_cards = some_cards.dup
-            cards_to_remove = hand_cards.slice!(2..-1)
-            subject.discard(cards_to_remove)
+            card_to_remove = hand_cards.pop
+            subject.discard(card_to_remove)
 
             expect(subject.cards).to eq(hand_cards)
+        end
+
+        it 'does not delete other cards of the same value unless provided for discard' do
+            subject.discard(ace_hearts)
+            another_three_card = three_diamonds
+            subject.add_card(another_three_card)
+            subject.discard(another_three_card)
+            expect(subject.cards.length).to be(4)
         end
 
         it 'throws an error when one or more cards is not in the hand' do
