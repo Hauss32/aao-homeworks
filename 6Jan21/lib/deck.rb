@@ -1,3 +1,5 @@
+require_relative 'card'
+
 class Deck
     def initialize
         @cards = []
@@ -19,7 +21,7 @@ class Deck
 
         cards.each do |card_val|
             suits.each do |suit|
-                @cards << card_val + suit
+                @cards << Card.new(card_val + suit)
             end
         end
     end
