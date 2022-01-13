@@ -16,7 +16,7 @@ class Hand
         :high_card => 1
     }
 
-    attr_reader :cards
+    attr_reader :cards, :count_card_values_hash
 
     def initialize
         @cards = []
@@ -24,7 +24,8 @@ class Hand
     end
 
     def <=>(other_hand)
-
+        compare_ranks = self.hand_rank <=> other_hand.hand_rank
+        return compare_ranks unless compare_ranks == 0
     end
 
     def add_card(card)
@@ -48,20 +49,71 @@ class Hand
         raise StandardError.new("One or more cards to discard are invalid.")
     end
 
-    # private
     def hand_rank
         ranking_methods = Hand::HAND_RANKINGS.keys
-
+        
         count_card_values
-
+        
         ranking_methods.each do |method|
             has_hand_rank = self.send(method)
-
+            
             if has_hand_rank
                 rank_value = Hand::HAND_RANKINGS[method]
                 return rank_value
             end
         end
+    end
+    
+    # private
+    def multi_cards_compare(other_hand)
+        hand_multi_card_vals = get_sorted_multi_count_vals(self)
+        other_hand_multi_card_vals = get_sorted_multi_count_vals(other_hand)
+
+        hand_compare_result = card_vals_compare(hand_multi_card_vals, other_hand_multi_card_vals)
+
+        hand_compare_result
+    end
+
+    def single_cards_compare(other_hand)
+        hand_single_card_vals = get_sorted_single_count_vals(self)
+        other_hand_single_card_vals = get_sorted_single_count_vals(other_hand)
+        
+        hand_compare_result = card_vals_compare(hand_single_card_vals, other_hand_single_card_vals)
+
+        hand_compare_result
+    end
+
+    def card_vals_compare(hand_vals_sorted, other_hand_vals_sorted)
+        compare_result = 0
+
+        (hand_vals_sorted.length).times do
+            val = hand_vals_sorted.pop
+            other_val = other_hand_vals_sorted.pop
+            compare_val = val <=> other_val
+
+            next if compare_val == 0
+
+            compare_result = compare_val
+            break
+        end
+
+        compare_result
+    end
+
+    def get_sorted_multi_count_vals(hand)
+        multi_cards = hand.count_card_values_hash.select { |val, count| count > 1 }
+        # sort first by count, then by card value
+        multi_cards_sorted = multi_cards.sort_by { |val, count| [count, val] }
+        multi_card_vals_sorted = multi_cards_sorted.map { |card| card[0] }
+
+        multi_card_vals_sorted
+    end
+
+    def get_sorted_single_count_vals(hand)
+        single_cards = hand.count_card_values_hash.select { |val, count| count == 1 }
+        single_card_vals_sorted = single_cards.keys.sort
+
+        single_card_vals_sorted
     end
 
     def count_card_values
