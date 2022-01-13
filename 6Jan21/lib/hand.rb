@@ -26,6 +26,8 @@ class Hand
     def <=>(other_hand)
         compare_ranks = self.hand_rank <=> other_hand.hand_rank
         return compare_ranks unless compare_ranks == 0
+
+        tied_rank_compare(other_hand)
     end
 
     def add_card(card)
@@ -65,6 +67,27 @@ class Hand
     end
     
     # private
+    def tied_rank_compare(other_hand)
+        case hand_rank
+
+        when 10 #royal_flush
+            0 #royal_flush always ties
+
+        when 9, 6, 5, 1 #straight-flush, flush, straight, high-card
+            single_cards_compare(other_hand)
+
+        when 8, 7, 4 #four-of-a-kind, full-house, three-of-a-kind
+            multi_cards_compare(other_hand)
+
+        else #pair, two_pair
+            pair_compare = multi_cards_compare(other_hand)
+
+            return pair_compare unless pair_compare == 0
+
+            single_cards_compare(other_hand)
+        end
+    end
+
     def multi_cards_compare(other_hand)
         hand_multi_card_vals = get_sorted_multi_count_vals(self)
         other_hand_multi_card_vals = get_sorted_multi_count_vals(other_hand)

@@ -3,25 +3,25 @@ require 'rspec'
 
 describe Hand do
     subject { Hand.new }
-    let(:three_hearts) { double("card", :name => '3H') }
-    let(:three_diamonds) { double("card", :name => '3D') }
-    let(:three_spades) { double("card", :name => '3S') }
-    let(:three_clubs) { double("card", :name => '3C') }
-    let(:eight_clubs) { double("card", :name => '8C') }
-    let(:nine_clubs) { double("card", :name => '9C') }
-    let(:nine_diaminds) { double("card", :name => '9D') }
-    let(:ten_hearts) { double("card", :name => '10H') }
-    let(:ten_clubs) { double("card", :name => '10C') }
-    let(:jack_spades) { double("card", :name => 'JS') }
-    let(:jack_diamonds) { double("card", :name => 'JD') }
-    let(:jack_clubs) { double("card", :name => 'JC') }
-    let(:jack_hearts) { double("card", :name => 'JH') }
-    let(:queen_hearts) { double("card", :name => 'QH') }
-    let(:queen_clubs) { double("card", :name => 'QC') }
-    let(:king_hearts) { double("card", :name => 'KH') }
-    let(:king_clubs) { double("card", :name => 'KC') }
-    let(:ace_hearts) { double("card", :name => 'AH') }
-    let(:ace_clubs) { double("card", :name => 'AC') }
+    let(:three_hearts) { double("card", :name => '3H', :value => 3, :suit => :Hearts) }
+    let(:three_diamonds) { double("card", :name => '3D', :value => 3, :suit => :Diamonds) }
+    let(:three_spades) { double("card", :name => '3S', :value => 3, :suit => :Spades) }
+    let(:three_clubs) { double("card", :name => '3C', :value => 3, :suit => :Clubs) }
+    let(:eight_clubs) { double("card", :name => '8C', :value => 8, :suit => :Clubs) }
+    let(:nine_clubs) { double("card", :name => '9C', :value => 9, :suit => :Clubs) }
+    let(:nine_diaminds) { double("card", :name => '9D', :value => 9, :suit => :Diamonds) }
+    let(:ten_hearts) { double("card", :name => '10H', :value => 10, :suit => :Hearts) }
+    let(:ten_clubs) { double("card", :name => '10C', :value => 10, :suit => :Clubs) }
+    let(:jack_spades) { double("card", :name => 'JS', :value => 11, :suit => :Spades) }
+    let(:jack_diamonds) { double("card", :name => 'JD', :value => 11, :suit => :Diamonds) }
+    let(:jack_clubs) { double("card", :name => 'JC', :value => 11, :suit => :Clubs) }
+    let(:jack_hearts) { double("card", :name => 'JH', :value => 11, :suit => :Hearts) }
+    let(:queen_hearts) { double("card", :name => 'QH', :value => 12, :suit => :Hearts) }
+    let(:queen_clubs) { double("card", :name => 'QC', :value => 12, :suit => :Clubs) }
+    let(:king_hearts) { double("card", :name => 'KH', :value => 13, :suit => :Hearts) }
+    let(:king_clubs) { double("card", :name => 'KC', :value => 13, :suit => :Clubs) }
+    let(:ace_hearts) { double("card", :name => 'AH', :value => 14, :suit => :Hearts) }
+    let(:ace_clubs) { double("card", :name => 'AC', :value => 14, :suit => :Clubs) }
 
     let(:some_cards) { [three_hearts, ten_hearts, jack_clubs, king_hearts, ace_hearts] }
 
@@ -70,67 +70,67 @@ describe Hand do
     describe '#<=>' do
         let(:two_pair_hand) do
             hand = Hand.new
-            hand.add_cards( [three_hearts, three_clubs, ten_hearts, jack_spades, jack_hearts] )
+            [three_hearts, three_clubs, ten_hearts, jack_spades, jack_hearts].each { |card| hand.add_card(card) }
             hand
         end
 
         let(:equal_two_pair_hand) do
             hand = Hand.new
-            hand.add_cards( [three_spades, three_diamonds, ten_clubs, jack_clubs, jack_diamonds] )
+            [three_spades, three_diamonds, ten_clubs, jack_clubs, jack_diamonds].each { |card| hand.add_card(card) }
             hand
         end
 
         let(:lesser_two_pair_hand) do
             hand = Hand.new
-            hand.add_cards( [three_spades, three_diamonds, nine_clubs, jack_clubs, jack_diamonds] )
+            [three_spades, three_diamonds, nine_clubs, jack_clubs, jack_diamonds].each { |card| hand.add_card(card) }
             hand
         end
 
         let(:straight_hand) do
             hand = Hand.new
-            hand.add_cards( [nine_clubs, ten_hearts, jack_spades, queen_clubs, king_hearts] )
+            [nine_clubs, ten_hearts, jack_spades, queen_clubs, king_hearts].each { |card| hand.add_card(card) }
             hand
         end
 
         let(:equal_straight_hand) do
             hand = Hand.new
-            hand.add_cards( [nine_diaminds, ten_clubs, jack_hearts, queen_hearts, king_clubs] )
+            [nine_diaminds, ten_clubs, jack_hearts, queen_hearts, king_clubs].each { |card| hand.add_card(card) }
             hand
         end
 
         let(:lesser_straight_hand) do
             hand = Hand.new
-            hand.add_cards( [eight_clubs, nine_diaminds, ten_clubs, jack_hearts, queen_hearts] )
+            [eight_clubs, nine_diaminds, ten_clubs, jack_hearts, queen_hearts].each { |card| hand.add_card(card) }
             hand
         end
 
         let(:flush_hand) do
             hand = Hand.new
-            hand.add_cards( [three_hearts, ten_hearts, jack_hearts, king_hearts, ace_hearts] )
+            [three_hearts, ten_hearts, jack_hearts, king_hearts, ace_hearts].each { |card| hand.add_card(card) }
             hand
         end
 
         let(:ace_high_hand) do
             hand = Hand.new
-            hand.add_cards( [three_hearts, ten_clubs, jack_hearts, king_clubs, ace_hearts] )
+            [three_hearts, ten_clubs, jack_hearts, king_clubs, ace_hearts].each { |card| hand.add_card(card) }
             hand
         end
 
         let(:equal_ace_high_hand) do
             hand = Hand.new
-            hand.add_cards( [three_clubs, ten_hearts, jack_clubs, king_hearts, ace_clubs] )
+            [three_clubs, ten_hearts, jack_clubs, king_hearts, ace_clubs].each { |card| hand.add_card(card) }
             hand
         end
 
         let(:lesser_ace_high_hand) do
             hand = Hand.new
-            hand.add_cards( [three_clubs, ten_hearts, jack_clubs, queen_hearts, ace_clubs] )
+            [three_clubs, ten_hearts, jack_clubs, queen_hearts, ace_clubs].each { |card| hand.add_card(card) }
             hand
         end
 
         let(:lesser_high_hand) do
             hand = Hand.new
-            hand.add_cards( [three_clubs, nine_diaminds, ten_hearts, jack_clubs, king_hearts] )
+            [three_clubs, nine_diaminds, ten_hearts, jack_clubs, king_hearts].each { |card| hand.add_card(card) }
             hand
         end
 
