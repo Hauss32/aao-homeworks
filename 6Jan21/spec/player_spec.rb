@@ -4,14 +4,14 @@ require 'player'
 describe Player do
     subject { Player.new(100) }
 
-    let(:card_1) { double("card") }
-    let(:card_2) { double("card") }
-    let(:card_3) { double("card") }
+    let(:card_1) { double("Card", :name => '3H') }
+    let(:card_2) { double("Card", :name => '9D') }
+    let(:card_3) { double("Card", :name => 'AS') }
     let(:some_cards) { [card_1, card_2, card_3] }
     
     let(:Hand) { class_double("Hand") }
-    let(:empty_hand) { double("hand", :@cards => []) }
-    let(:hand_with_cards) { double("hand", :@cards => some_cards) }
+    let(:empty_hand) { double("hand", :add_card => true) }
+    let(:hand_with_cards) { double("hand", :cards => some_cards, :discard => true) }
 
     describe "#initialize" do
         it 'initializes @hand to nil' do
@@ -31,19 +31,23 @@ describe Player do
     end
 
     describe "#receive_cards" do
+        before(:each) { subject.instance_variable_set(:@hand, empty_hand) }
+
         it 'accepts an array of cards' do
             expect { subject.receive_cards(some_cards) }.to_not raise_error
         end
 
         it 'adds an array of cards to @hand' do
             num_cards_to_add = some_cards.length
-            subject.instance_variable_set(:@hand, empty_hand)
             expect(subject.hand).to receive(:add_card).exactly(num_cards_to_add).times
+            subject.receive_cards(some_cards)
         end
     end
 
     describe '#discard_cards' do
         let(:card_names) { ['9D', '3H'] }
+        before(:each) { subject.instance_variable_set(:@hand, hand_with_cards) }
+
         it 'accepts an array of card names' do
             expect { subject.discard_cards(card_names) }.to_not raise_error
         end
@@ -52,12 +56,13 @@ describe Player do
             num_cards_to_discard = card_names.length
             subject.instance_variable_set(:@hand, hand_with_cards)
             expect(subject.hand).to receive(:discard).exactly(num_cards_to_discard).times
+            subject.discard_cards(card_names)
         end
     end
 
     describe '#deduct_bet' do
         it 'accepts an amount to deduct from the bank' do
-            expect { subject.deduct_bet(10) }.to_not raise error
+            expect { subject.deduct_bet(10) }.to_not raise_error
         end
 
         it 'returns a bet value' do
