@@ -2,5 +2,102 @@ require 'game'
 require 'rspec'
 
 describe Game do
+    subject { Game.new(['Some Player', 'Other Player'], 100) }
+    let(:player_1) { double("player", :get_discard_input => ['3H', '4D'], :receive_winnings => true) }
+    let(:card_1) { double("card")}
+    let(:deck) { double("deck", :take => card_1)}
+
+    describe '#initialize' do
+        it 'sets @players to an array of Players from the player names provided' do
+            expect(subject.players.length).to eq(2)
+            expect { subject.players.all? { |p| p.is_a?(Player) } }.to be true
+        end
+
+        it 'initializes @pot to a value of 0' do
+            expect(subject.pot).to eq(0)
+        end
+
+        it 'initializes @deck to a new Deck' do
+            expect(subject.deck).to be_a(Deck)
+        end
+
+        it 'initializes @next_player to the first player in @players' do
+            players = subject.players
+            expect(subject.next_player).to eq(players[0])
+        end
+
+        it 'initializes @current_bet to 0' do
+            expect(subject.current_bet).to eq(0)
+        end
+    end
+
+    describe '#take_bet' do
+        before(:each) { subject.take_bet(10) }
+        it 'collects a player bet and adds it to @pot' do
+            expect(subject.pot).to eq(10)
+        end
+
+        it 'sets the @current_bet to bet value' do
+            expect(subject.current_bet).to eq(10)
+        end
+    end
+
+    describe '#take_raise' do
+        before(:each) { subject.take_bet(10) }
+        before(:each) { subject.take_raise(20) }
+
+        it 'collects a player bet and adds it to @pot' do
+            expect(subject.pot).to eq(20)
+        end
+
+        it 'sets the @current_bet to bet value' do
+            expect(subject.current_bet).to eq(20)
+        end
+    end
+
+    describe '#do_discard' do
+        it 'accepts a player as an argument' do
+            expect { subject.do_discard(player) }.to_not raise_error
+        end
+
+        it 'prompts player for cards to discard' do
+            expect(player_1).to receive(:get_discard_input)
+            subject.do_discard(player_1)
+        end
+
+        it 'chosen cards are removed from players hand' do
+            expect(player_1).to receive(:discard_cards)
+            subject.do_discard(player_1)
+        end
+        
+        it 'replaces discarded cards for the player' do
+            expect(player_1).to receive(:receive_cards)
+            subject.do_discard(player_1)
+        end
+
+        it 'replaces discarded cards with cards from the @deck' do
+            subject.instance_variable_set(:@deck, deck)
+            expect(deck).to receive(:take).exactly(2).times
+            subject.do_discard(player_1)
+        end
+    end
+
+    describe '#pay_winner' do
+        it 'accepts a player and an amount as arguemnts' do
+            expect { subject.pay_winner(player_1, 20) }.to_not raise_error
+        end
+
+        it 'increases the players bank by the amount' do
+            expect(player_1).to receive(:receive_winnings).with(20)
+            subject.pay_winner(player_1, 20)
+        end
+    end
     
+    describe '#reset_deck' do
+        it 'sets the @deck to a new Deck instance' do
+            current_deck = subject.deck
+            expect(subject.deck).to be_a(Deck)
+            expect(subject.deck).to_not be(current_deck)
+        end
+    end
 end
