@@ -70,6 +70,20 @@ class Player
         card_names
     end
 
+    def get_bet_input
+        puts "Enter an amount:"
+        input = gets.chomp
+
+        begin
+            amount = Integer(input)
+        rescue => exception
+            puts "Invalid Amount. Please try again."
+            get_bet_input
+        end
+
+        input
+    end
+
     private
     def get_cards(card_names)
         cards = []
