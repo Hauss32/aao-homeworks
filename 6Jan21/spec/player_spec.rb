@@ -18,6 +18,10 @@ describe Player do
             expect(subject.hand).to be_nil
         end
 
+        it 'initializes @current_bet to 0' do
+            expect(subject.current_bet).to eq(0)
+        end
+
         it 'accepts a number and initializes @bank with that number' do
             expect(subject.bank).to eq(100)
         end
@@ -64,9 +68,9 @@ describe Player do
         end
     end
 
-    describe '#deduct_bet' do
+    describe '#execute_bet' do
         it 'accepts an amount to deduct from the bank' do
-            expect { subject.deduct_bet(10) }.to_not raise_error
+            expect { subject.execute_bet(10) }.to_not raise_error
         end
 
         it 'returns a bet value' do
@@ -96,9 +100,14 @@ describe Player do
     end
 
     describe '#fold' do
+        before(:each) { subject.fold }
+
         it 'sets the players @hand to nil' do
-            subject.fold
             expect(subject.hand).to be_nil
+        end
+
+        it 'sets players @current_bet to 0' do
+            expect(subject.current_bet).to eq(0)
         end
     end
 end

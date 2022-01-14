@@ -1,12 +1,13 @@
 require_relative 'hand.rb'
 
 class Player
-    attr_reader :hand, :bank, :name
+    attr_reader :hand, :bank, :name, :current_bet
 
     def initialize(name, amount)
         @name = name
         @bank = amount
         @hand = nil
+        @current_bet = 0
     end
 
     def new_hand
@@ -27,12 +28,13 @@ class Player
         true
     end
 
-    def deduct_bet(amount)
+    def execute_bet(amount)
         if @bank - amount < 0
             raise ArgumentError.new("Insufficient bank to support that bet.")
         end
 
         @bank -= amount
+        @current_bet += amount
 
         amount
     end
@@ -45,6 +47,7 @@ class Player
 
     def fold
         @hand = nil
+        @current_bet = 0
     end
 
     def get_action_input
