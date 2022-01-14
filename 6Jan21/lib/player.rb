@@ -1,11 +1,12 @@
 require_relative 'hand.rb'
 
 class Player
-    attr_reader :hand, :bank
+    attr_reader :hand, :bank, :name
 
-    def initialize(amount)
-        @hand = nil
+    def initialize(name, amount)
+        @name = name
         @bank = amount
+        @hand = nil
     end
 
     def new_hand

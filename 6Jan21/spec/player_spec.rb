@@ -2,7 +2,7 @@ require 'rspec'
 require 'player'
 
 describe Player do
-    subject { Player.new(100) }
+    subject { Player.new("Some Player", 100) }
 
     let(:card_1) { double("Card", :name => '3H') }
     let(:card_2) { double("Card", :name => '9D') }
@@ -20,6 +20,10 @@ describe Player do
 
         it 'accepts a number and initializes @bank with that number' do
             expect(subject.bank).to eq(100)
+        end
+
+        it 'accepts a player name and initializes @name to that value' do
+            expect(subject.name).to eq("Some Player")
         end
     end
 
