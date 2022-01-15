@@ -2,10 +2,14 @@ require_relative 'deck'
 require_relative 'player'
 
 #TODO Add in features for all-in (split pots, etc.)
-#TODO Refactor this mess
+#TODO Update rendering to make game more playable (warning before showing cards, etc.)
+#TODO Refactor this mess (decompose, update public interface, etc.)
+#TODO Research: warning: already initialized constant
+#TODO Research: warning: previous definition of
 
 class Game
     attr_reader :players, :deck, :pot, :next_player, :current_bet
+    ANTE_BET = 5
 
     def initialize(player_names, bank_amount)
         @players = player_names.map { |name| Player.new(name, bank_amount) }
@@ -19,7 +23,11 @@ class Game
 
     def play
         until @players.length == 1
-
+            puts "\n——————————"
+            puts "New Round"
+            puts "\n——————————"
+            play_round
+            next_round
         end
 
         puts "~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!"
@@ -28,33 +36,53 @@ class Game
     end
 
     def play_round
-        player_1 takes_bet
-        until
-            all_remaining_players.current_bet == @current_bet
-            all_remaining_players.get_action
-        end
+        deal_new_hands
 
-        discard_round
+        puts "\n——————————————————————————"
+        puts "Time for first round bets!\n"
 
-        until
-            all_remaining_players.current_bet == @current_bet
-            all_remaining_players.get_action
-        end
+        do_ante_bet
+        do_betting_round
 
-        compare
-        pay_winner
+        puts "\n——————————————————————————"
+        puts "Time to discard and draw!"
+        puts
+
+        do_discard_round
+
+        puts "\n———————————————————————————"
+        puts "Time for second round bets!"
+        puts
+
+        reset_betting_round
+        do_ante_bet #TODO allow player to check/call 0 on second round
+        do_betting_round
+
+        # compare
+        # pay_winner
     end
 
     def print_round_info
+        puts "\n——————————————————————————————"
         @remaining_round_players.each do |player|
             name = player.name
             bank = player.bank
             bet = player.current_bet
-            puts "\n#{name}: Bank: #{bank} Bet: #{bet}"
+            cards = player.cards.sort.map(&:name).join(", ")
+            puts "#{name}: Bank: #{bank} Bet: #{bet} Cards: #{cards}"
         end
         puts "\nCurrent Bet: #{@current_bet}"
         puts "Pot Size: #{@pot}"
-        puts "Players in Round: #{@remaining_round_players.map(&:name).join(", ")}\n"
+        puts "Players in Round: #{@remaining_round_players.map(&:name).join(", ")}"
+        puts
+    end
+
+    def do_ante_bet
+        @next_round_player.execute_bet(Game::ANTE_BET)
+        @next_round_player.update_current_bet(Game::ANTE_BET)
+        @current_bet = Game::ANTE_BET
+        @pot += Game::ANTE_BET
+        set_round_next_player(@next_round_player)
     end
 
     def do_betting_round
@@ -68,6 +96,11 @@ class Game
             filter_round_players
             done_betting = betting_round_done?
         end
+        
+    end
+
+    def do_discard_round
+        @remaining_round_players.each { |player| do_discard(player) }
     end
 
     def do_player_action(player, action)
@@ -78,7 +111,7 @@ class Game
             nil
         when :call
             amount = @current_bet - player.current_bet
-            return if amount == 0
+            return nil if amount == 0
 
             if amount > player.bank #TODO: add actual all-in logic later
                 puts "#{player.name} is all-in!"
@@ -99,6 +132,21 @@ class Game
         else
             nil
         end
+    end
+
+    def do_discard(player)
+        cards = player.get_discard_input
+
+        begin
+            player.discard_cards(cards)
+        rescue => exception
+            puts exception
+            do_discard(player)
+        end
+
+        new_cards = deal_cards(cards.length)
+
+        player.receive_cards(new_cards)
     end
 
     def set_round_next_player(curr_player)
@@ -134,7 +182,7 @@ class Game
     end
 
     def take_raise(player)
-        puts "#{player.name} how much would you like to raise the bet to?"
+        puts "\n#{player.name}, how much would you like to raise the bet to?"
         bet_amount = player.get_bet_input
 
         until bet_amount > @current_bet
@@ -158,7 +206,6 @@ class Game
     end
 
     def do_discard(player)
-        puts "Which cards would you like to discard?"
         cards = player.get_discard_input
 
         begin
@@ -201,6 +248,25 @@ class Game
 
     def remove_players
         @players.each { |player| @players.delete(player) if player.bank == 0 }
+    end
+
+    def reset_betting_round
+        @players.each { |player| player.update_current_bet(0) }
+        @current_bet = 0
+        @next_round_player = @remaining_round_players[0]
+    end
+
+    def next_round
+        @pot = 0
+        filter_bankrupt_players
+        @remaining_round_players = players
+        reset_betting_round
+        @next_player = @next_round_player #TODO Smarter next_player logic
+
+    end
+
+    def filter_bankrupt_players
+        @players.reject! { |player| player.bank < Game::ANTE_BET }
     end
 
 

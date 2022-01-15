@@ -55,14 +55,14 @@ class Player
 
     def get_action_input
         puts "#{@name}, enter your move (type: Fold, Call, or Raise)"
-        input = gets.chomp.downcase
+        input = gets.chomp.downcase.to_sym
 
-        until ['fold', 'call', 'raise'].include?(input)
+        until [:fold, :call, :raise].include?(input)
             puts "Invalid action. Please try again."
-            input = get_player_action
+            input = get_action_input
         end
         
-        input.to_sym
+        input
     end
 
     def get_discard_input
