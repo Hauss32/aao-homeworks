@@ -34,9 +34,12 @@ class Player
         end
 
         @bank -= amount
-        @current_bet += amount
 
         amount
+    end
+
+    def update_current_bet(amount)
+        @current_bet = amount
     end
 
     def receive_winnings(amount)
@@ -51,7 +54,7 @@ class Player
     end
 
     def get_action_input
-        puts "Enter your move (type: Fold, Call, or Raise)"
+        puts "#{@name}, enter your move (type: Fold, Call, or Raise)"
         input = gets.chomp.downcase
 
         until ['fold', 'call', 'raise'].include?(input)
@@ -59,11 +62,11 @@ class Player
             input = get_player_action
         end
         
-        input.to_s
+        input.to_sym
     end
 
     def get_discard_input
-        puts "Enter card names to discard separated by a space (e.g.: 2H 4D QC)"
+        puts "#{@name}, enter card names to discard separated by a space (e.g.: 2H 4D QC)"
         input = gets.chomp.upcase
         card_names = input.split(" ")
         
@@ -75,7 +78,7 @@ class Player
         input = gets.chomp
 
         begin
-            amount = Integer(input)
+            input = Integer(input)
         rescue => exception
             puts "Invalid Amount. Please try again."
             get_bet_input
