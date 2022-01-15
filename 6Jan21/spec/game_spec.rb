@@ -3,14 +3,16 @@ require 'rspec'
 
 describe Game do
     subject { Game.new(['Some Player', 'Other Player'], 100) }
-    let(:player_1) { double("player", :get_discard_input => ['3H', '4D'], :receive_winnings => true) }
-    let(:card_1) { double("card")}
-    let(:deck) { double("deck", :take => card_1)}
+    let(:player_1) { double("player", :get_bet_input => 10, :get_discard_input => ['3H', '4D'], 
+        :execute_bet => 10, :current_bet => 0, :discard_cards => true, :receive_cards => true, 
+        :receive_winnings => true) }
+    let(:card_1) { double("card") }
+    let(:deck) { double("deck", :take => card_1) }
 
     describe '#initialize' do
         it 'sets @players to an array of Players from the player names provided' do
             expect(subject.players.length).to eq(2)
-            expect { subject.players.all? { |p| p.is_a?(Player) } }.to be true
+            expect(subject.players.all? { |p| p.is_a?(Player) }).to be true
         end
 
         it 'initializes @pot to a value of 0' do
@@ -32,32 +34,54 @@ describe Game do
     end
 
     describe '#take_bet' do
-        before(:each) { subject.take_bet(10) }
-        it 'collects a player bet and adds it to @pot' do
-            expect(subject.pot).to eq(10)
+        before(:each) do
+            subject.instance_variable_set(:@next_player, player_1)
+        end
+
+        it 'prompts a player for a bet' do
+            expect(subject.next_player).to receive(:get_bet_input)
+            subject.take_bet(subject.next_player)
         end
 
         it 'sets the @current_bet to bet value' do
-            expect(subject.current_bet).to eq(10)
+            bet_amount = subject.next_player.get_bet_input
+            subject.take_bet(subject.next_player)
+            expect(subject.current_bet).to eq(bet_amount)
+        end
+
+        it 'increases @pot by bet value' do
+            bet_amount = subject.next_player.get_bet_input
+            subject.take_bet(subject.next_player)
+            expect(subject.pot).to eq(bet_amount)
         end
     end
 
     describe '#take_raise' do
-        before(:each) { subject.take_bet(10) }
-        before(:each) { subject.take_raise(20) }
+        before(:each) do
+            subject.instance_variable_set(:@next_player, player_1)
+            subject.instance_variable_set(:@pot, 5)
+            subject.instance_variable_set(:@current_bet, 5)
+        end
 
-        it 'collects a player bet and adds it to @pot' do
-            expect(subject.pot).to eq(20)
+        it 'prompts a player for a raise' do
+            expect(subject.next_player).to receive(:get_bet_input)
+            subject.take_raise(subject.next_player)
+        end
+
+        it 'collects a player raise and adds it to @pot' do
+            subject.take_raise(subject.next_player)
+            expect(subject.pot).to eq(15)
         end
 
         it 'sets the @current_bet to bet value' do
-            expect(subject.current_bet).to eq(20)
+            subject.take_raise(subject.next_player)
+            expect(subject.current_bet).to eq(10)
         end
     end
 
     describe '#do_discard' do
         it 'accepts a player as an argument' do
-            expect { subject.do_discard(player) }.to_not raise_error
+            expect { subject.do_discard(player_1) }.to_not raise_error
         end
 
         it 'prompts player for cards to discard' do
@@ -96,6 +120,7 @@ describe Game do
     describe '#reset_deck' do
         it 'sets the @deck to a new Deck instance' do
             current_deck = subject.deck
+            subject.reset_deck
             expect(subject.deck).to be_a(Deck)
             expect(subject.deck).to_not be(current_deck)
         end
