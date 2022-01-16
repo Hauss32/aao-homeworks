@@ -1,11 +1,13 @@
 require 'game'
 require 'rspec'
 
+#TODO Restrcture specs since actual Game class has changed so much
+
 describe Game do
     subject { Game.new(['Some Player', 'Other Player'], 100) }
     let(:player_1) { double("player", :get_bet_input => 10, :get_discard_input => ['3H', '4D'], 
         :execute_bet => 10, :current_bet => 0, :discard_cards => true, :receive_cards => true, 
-        :receive_winnings => true) }
+        :receive_winnings => true, :name => 'Some Name', :update_current_bet => true) }
     let(:card_1) { double("card") }
     let(:deck) { double("deck", :take => card_1) }
 
@@ -106,14 +108,14 @@ describe Game do
         end
     end
 
-    describe '#pay_winner' do
+    describe '#pay_winners' do
         it 'accepts a player and an amount as arguemnts' do
-            expect { subject.pay_winner(player_1, 20) }.to_not raise_error
+            expect { subject.pay_winners([player_1]) }.to_not raise_error
         end
 
         it 'increases the players bank by the amount' do
-            expect(player_1).to receive(:receive_winnings).with(20)
-            subject.pay_winner(player_1, 20)
+            expect(player_1).to receive(:receive_winnings)
+            subject.pay_winners([player_1])
         end
     end
     

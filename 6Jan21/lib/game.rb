@@ -8,7 +8,7 @@ require_relative 'player'
 #TODO Research: warning: previous definition of
 
 class Game
-    attr_reader :players, :deck, :pot, :next_player, :current_bet
+    attr_reader :players, :deck, :pot, :next_player, :current_bet, :remaining_round_players
     ANTE_BET = 5
 
     def initialize(player_names, bank_amount)
@@ -17,22 +17,23 @@ class Game
         @pot = 0
         @next_player = @players[0]  
         @current_bet = 0
-        @remaining_round_players = @players
+        @remaining_round_players = @players.dup
         @next_round_player = @next_player
     end
 
     def play
         until @players.length == 1
-            puts "\n——————————"
-            puts "New Round"
-            puts "\n——————————"
+            puts "\n###########"
+            puts " New Round"
+            puts "###########"
             play_round
+            print_round_info
             next_round
         end
 
-        puts "~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!"
+        puts "~!~!~!~!"
         puts "#{@players[0].name} has won the game"
-        puts "~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!"
+        puts "~!~!~!~!"
     end
 
     def play_round
@@ -41,7 +42,7 @@ class Game
         puts "\n——————————————————————————"
         puts "Time for first round bets!\n"
 
-        do_ante_bet
+        do_ante_bet #TODO allow player to raise even if they are the ante
         do_betting_round
 
         puts "\n——————————————————————————"
@@ -58,26 +59,16 @@ class Game
         do_ante_bet #TODO allow player to check/call 0 on second round
         do_betting_round
 
-        # compare
-        # pay_winner
-    end
-
-    def print_round_info
-        puts "\n——————————————————————————————"
-        @remaining_round_players.each do |player|
-            name = player.name
-            bank = player.bank
-            bet = player.current_bet
-            cards = player.cards.sort.map(&:name).join(", ")
-            puts "#{name}: Bank: #{bank} Bet: #{bet} Cards: #{cards}"
-        end
-        puts "\nCurrent Bet: #{@current_bet}"
-        puts "Pot Size: #{@pot}"
-        puts "Players in Round: #{@remaining_round_players.map(&:name).join(", ")}"
-        puts
+        pay_winners(calculate_winners)
     end
 
     def do_ante_bet
+        if @next_round_player.bank < Game::ANTE_BET
+            puts "#{@next_round_player.name} is all-in!"
+            @next_round_player.execute_bet(@next_round_player.bank)
+            return
+        end
+
         @next_round_player.execute_bet(Game::ANTE_BET)
         @next_round_player.update_current_bet(Game::ANTE_BET)
         @current_bet = Game::ANTE_BET
@@ -95,12 +86,18 @@ class Game
             set_round_next_player(@next_round_player)
             filter_round_players
             done_betting = betting_round_done?
-        end
-        
+        end 
     end
 
     def do_discard_round
-        @remaining_round_players.each { |player| do_discard(player) }
+        @remaining_round_players.each do |player| 
+            begin
+                do_discard(player)
+            rescue => exception
+                puts exception
+            retry
+            end
+        end
     end
 
     def do_player_action(player, action)
@@ -137,12 +134,7 @@ class Game
     def do_discard(player)
         cards = player.get_discard_input
 
-        begin
-            player.discard_cards(cards)
-        rescue => exception
-            puts exception
-            do_discard(player)
-        end
+        player.discard_cards(cards)
 
         new_cards = deal_cards(cards.length)
 
@@ -205,27 +197,6 @@ class Game
         bet_amount
     end
 
-    def do_discard(player)
-        cards = player.get_discard_input
-
-        begin
-            player.discard_cards(cards)
-        rescue => exception
-            puts exception
-            do_discard(player)
-        end
-
-        new_cards = deal_cards(cards.length)
-
-        player.receive_cards(new_cards)
-    end
-
-    def pay_winner(player, amount)
-        player.receive_winnings(amount)
-
-        true
-    end
-
     def reset_deck
         @deck = Deck.new
     end
@@ -238,16 +209,17 @@ class Game
         end
     end
 
+    def pay_winners(winners)
+        win_amount = @pot / winners.length
+        winners.each { |player| player.receive_winnings(win_amount) }
+    end
+
     private
     def deal_cards(amount)
         cards = []
         amount.times { cards << @deck.take }
 
         cards
-    end
-
-    def remove_players
-        @players.each { |player| @players.delete(player) if player.bank == 0 }
     end
 
     def reset_betting_round
@@ -257,9 +229,10 @@ class Game
     end
 
     def next_round
+        reset_deck
         @pot = 0
         filter_bankrupt_players
-        @remaining_round_players = players
+        @remaining_round_players = @players.dup
         reset_betting_round
         @next_player = @next_round_player #TODO Smarter next_player logic
 
@@ -267,6 +240,29 @@ class Game
 
     def filter_bankrupt_players
         @players.reject! { |player| player.bank < Game::ANTE_BET }
+    end
+
+    def calculate_winners
+        sorted_players = @remaining_round_players.sort { |player, other_player| player.hand <=> other_player.hand }
+        best_player = sorted_players[-1]
+        winning_players = sorted_players.select { |player| player.hand == best_player.hand }
+
+        winning_players
+    end
+
+    def print_round_info
+        puts "——————————————————————————"
+        @remaining_round_players.each do |player|
+            name = player.name
+            bank = player.bank
+            bet = player.current_bet
+            cards = player.sorted_card_names
+            puts "#{name}: Bank: #{bank} Bet: #{bet} Cards: #{cards}"
+        end
+        puts "\nCurrent Bet: #{@current_bet}"
+        puts "Pot Size: #{@pot}"
+        puts "Players in Round: #{@remaining_round_players.map(&:name).join(", ")}"
+        puts
     end
 
 

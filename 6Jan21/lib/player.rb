@@ -10,6 +10,10 @@ class Player
         @current_bet = 0
     end
 
+    def sorted_card_names
+        @hand.cards.sort.map(&:name).join(", ")
+    end
+
     def new_hand
         @hand = Hand.new
     end
