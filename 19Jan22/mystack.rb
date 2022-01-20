@@ -1,6 +1,6 @@
 class MyStack
-  def initialize
-    @store = []
+  def initialize(store=[])
+    @store = store
   end
 
   def peek
