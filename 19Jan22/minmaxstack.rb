@@ -30,7 +30,7 @@ class MinMaxStack
     end
 
     def pop
-        @store.pop
+        @store.pop[:value]
     end
 
     def push(num)
