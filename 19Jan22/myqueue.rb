@@ -12,7 +12,7 @@ class MyQueue
   end
 
   def empty?
-      @store.empty
+      @store.empty?
   end
 
   def enqueue(num)
