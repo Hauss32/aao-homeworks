@@ -4,22 +4,22 @@ class MyStack
   end
 
   def peek
-      @store[-1]
+    @store[-1]
   end
 
   def size
-      @store.size
+    @store.size
   end
 
   def empty?
-      @store.empty?
+    @store.empty?
   end
 
-  def push(num)
-      @store << num
+  def push(item)
+    @store << item
   end
 
   def pop
-      @store.pop
+    @store.pop
   end
 end
