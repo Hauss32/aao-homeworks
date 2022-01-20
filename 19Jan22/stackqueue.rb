@@ -21,7 +21,7 @@ class StackQueue
     def dequeue
         reverse_stack if @stack_2.empty?
 
-        @stack_1.pop
+        @stack_2.pop
     end
 
     private
