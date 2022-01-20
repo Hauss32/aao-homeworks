@@ -19,7 +19,7 @@ class StackQueue
     end
 
     def dequeue
-        reverse_stack if @stack_2.empty
+        reverse_stack if @stack_2.empty?
 
         @stack_1.pop
     end
