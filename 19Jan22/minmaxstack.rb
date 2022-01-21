@@ -12,7 +12,7 @@ class MinMaxStack
     end
 
     def size
-        @store.length
+        @store.size
     end
 
     def empty?
