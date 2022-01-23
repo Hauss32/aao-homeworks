@@ -17,7 +17,9 @@ class MaxIntSet
   end
 
   def include?(num)
-    is_valid?
+    validate!(num)
+
+    @store[num]
   end
 
   private
