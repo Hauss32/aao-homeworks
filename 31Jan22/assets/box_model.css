@@ -4,12 +4,15 @@ body {
   /* If the user cannot load the Arial font, the sans-serif font is used */
   font-family: Arial, sans-serif;
   background-color: #FEFFF1;
-  width: 900px;
+  /* width: 900px; */
   margin: 0 auto;
+  max-width: 1200px;
 }
 
 h1 {
   font-size: 38px;
+  position: relative;
+  top: -10px;
 }
 
 h2 {
@@ -24,8 +27,12 @@ ul li a, figcaption a {
 }
 
 header {
-  display: flex;
-  justify-content: flex-start;
+  float: right;
+  /* width: 100%; */
+}
+
+figure {
+  margin: 40px 0px 40px 0px;
 }
 
 /* This selector selects only IMMEDIATE (1 level deep) image element children
@@ -34,27 +41,36 @@ header > img {
   width: 100px;
   height: auto;
   object-fit: contain;
+  float: left;
+}
+
+.clear-fix {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+nav {
+  float: right;
 }
 
 nav > ul > li {
   display: inline-block;
+  padding: 10px;
+  vertical-align: top;
+  position: relative;
+  top: -15px;
 }
 
 nav > ul > li > a {
   display: inline-block;
-  padding: 20px;
 }
 
 aside {
-  width: 180px;
-  display: inline-block;
+  /* width: 180px; */
+  /* display: inline-block; */
   vertical-align: top;
-  margin-right: 15px;
-}
-
-section {
-  width: 700px;
-  display: inline-block;
+  margin-right: 80px;
 }
 
 /* Selects all elements with the class attribute "ingredients-list" */
@@ -67,10 +83,12 @@ section {
 .ingredients-list > li {
   margin-top: 15px;
   margin-bottom: 15px;
+  text-align: right;
 }
 
 ol {
   list-style: upper-roman inside;
+  padding-left: 0;
 }
 
 ol > li {
@@ -80,6 +98,10 @@ ol > li {
 
 #name, #expertise, #review, #submit {
   display: block;
+}
+
+#reviews {
+  padding-left: 0;
 }
 
 .user_review h4 {
@@ -92,11 +114,11 @@ input[type="radio"] {
 }
 
 input[type="text"], select {
-  width: 180px;
+  width: 200px;
 }
 
 input[type="textarea"] {
-  width: 270px;
+  width: 350px;
 }
 
 label {
@@ -106,6 +128,7 @@ label {
 
 select {
   margin-top: 15px;
+  padding: 5px 10px;
 }
 
 
@@ -118,7 +141,7 @@ input:last-child:hover {
 }
 
 ol li:nth-of-type(2n) {
-  background-color: whitesmoke;
+  background-color: rgb(235, 233, 233);
 }
 
 h2 + .user_review {

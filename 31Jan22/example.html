@@ -4,7 +4,8 @@
   <title>Kevin McCall Simple Shakshukah Recipe</title>
   <meta name="description" content="The best, simple recipe for delicious Middle Eastern Shakshuka, a cumin spiced tomato sauce with sautéd onions and chili peppers topped with poached eggs. ">
   <meta charset="utf-8">
-  <link rel="stylesheet" href="./assets/css_custom_reset.css" type="text/css"/>
+  <link rel="stylesheet" href="./assets/css_reset.css" type="text/css"/>
+  <link rel="stylesheet" href="./assets/custom_grid.css" type="text/css"/>
   <link rel="stylesheet" href="./assets/box_model.css" type="text/css"/>
   <script src="./assets/external_javascript_example.js" type="text/javascript"></script>
   <script>
@@ -18,8 +19,8 @@
 
   </script>
 </head>
-<body>
-  <header>
+<body class="grid">
+  <header class="clear-fix nav-bar">
     <img src="./assets/appacademylogo.png" alt="App Academy Logo">
     <nav>
       <ul>
@@ -30,7 +31,7 @@
     </nav>
   </header>
 
-  <aside>
+  <aside class="ingredients">
     <h2 id="ingredients">Ingredients</h2>
 
     <ul class="ingredients-list">
@@ -51,7 +52,7 @@
     </ul>
   </aside>
 
-  <section>
+  <section class="section">
     <h1>Shakshukah</h1>
 
     <figure>
@@ -94,7 +95,7 @@
     </ol>
   </section>
 
-  <section id="reviews">
+  <section id="reviews" class="form">
     <h2>Reviews</h2>
       <form id="review-form" action="/reviews" method="post">
         <label for="name">Name</label>
@@ -129,7 +130,7 @@
       </form>
   </section>
 
-  <footer>
+  <footer class="footer">
     <p>Original Recipe by <a href="http://toriavey.com/toris-kitchen/2010/07/summer-2010-travel-blog-shakshuka">Tori Avey</a></p>
   </footer>
 </body>
