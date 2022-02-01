@@ -27,8 +27,9 @@ ul li a, figcaption a {
 }
 
 header {
-  float: right;
-  /* width: 100%; */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 figure {
@@ -38,28 +39,14 @@ figure {
 /* This selector selects only IMMEDIATE (1 level deep) image element children
 of the header element */
 header > img {
-  width: 100px;
+  width: 120px;
   height: auto;
   object-fit: contain;
-  float: left;
-}
-
-.clear-fix {
-  content: "";
-  display: block;
-  clear: both;
-}
-
-nav {
-  float: right;
 }
 
 nav > ul > li {
   display: inline-block;
   padding: 10px;
-  vertical-align: top;
-  position: relative;
-  top: -15px;
 }
 
 nav > ul > li > a {
