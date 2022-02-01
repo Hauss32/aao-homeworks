@@ -4,6 +4,8 @@ body {
   /* If the user cannot load the Arial font, the sans-serif font is used */
   font-family: Arial, sans-serif;
   background-color: #FEFFF1;
+  width: 900px;
+  margin: 0 auto;
 }
 
 h1 {
@@ -21,10 +23,38 @@ ul li a, figcaption a {
   color: inherit;
 }
 
+header {
+  display: flex;
+  justify-content: flex-start;
+}
+
 /* This selector selects only IMMEDIATE (1 level deep) image element children
 of the header element */
 header > img {
   width: 100px;
+  height: auto;
+  object-fit: contain;
+}
+
+nav > ul > li {
+  display: inline-block;
+}
+
+nav > ul > li > a {
+  display: inline-block;
+  padding: 20px;
+}
+
+aside {
+  width: 180px;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 15px;
+}
+
+section {
+  width: 700px;
+  display: inline-block;
 }
 
 /* Selects all elements with the class attribute "ingredients-list" */
@@ -34,8 +64,22 @@ header > img {
   list-style: square inside;
 }
 
+.ingredients-list > li {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 ol {
   list-style: upper-roman inside;
+}
+
+ol > li {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#name, #expertise, #review, #submit {
+  display: block;
 }
 
 .user_review h4 {
@@ -44,15 +88,24 @@ ol {
 }
 
 input[type="radio"] {
-    -webkit-appearance: none;
-    width: 27px;
-    height: 27px;
-    background-image: url(../assets/stars.png);
-    vertical-align: bottom;
+    vertical-align: baseline;
 }
 
-input[type="radio"]:checked {
-  background-position: 30px 30px;
+input[type="text"], select {
+  width: 180px;
+}
+
+input[type="textarea"] {
+  width: 270px;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+}
+
+select {
+  margin-top: 15px;
 }
 
 
