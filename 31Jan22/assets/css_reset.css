@@ -1,0 +1,20 @@
+html {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: inherit;
+    color: inherit;
+}
+
+body {
+    line-height: 1.5;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+img {
+    width: 100%;
+}
