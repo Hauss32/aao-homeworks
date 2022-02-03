@@ -40,6 +40,30 @@ class User
         @lname = options['lname']
     end
 
+    def save
+        if @id
+            update
+        else
+            QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname)
+                INSERT INTO users (fname, lname)
+                VALUES (?, ?)
+            SQL
+
+            @id = QuestionsDatabase.instance.last_insert_row_id
+        end
+    end
+
+    def update
+        raise "User does does not exist." unless @id
+        QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, @id)
+            UPDATE users
+            SET
+                fname = ?,
+                lname = ?
+            WHERE id = ?
+        SQL
+    end
+
     def authored_questions
         raise "User does not exist." unless @id
         Question.find_by_author_id(@id)
@@ -119,6 +143,31 @@ class Question
         @title = options['title']
         @body = options['body']
         @author_id = options['author_id']
+    end
+
+    def save
+        if @id
+            update
+        else
+            QuestionsDatabase.instance.execute(<<-SQL, @title, @body, @author_id)
+                INSERT INTO questions (title, body, author_id)
+                VALUES (?, ?, ?)
+            SQL
+
+            @id = QuestionsDatabase.instance.last_insert_row_id
+        end
+    end
+
+    def update
+        raise "Question does does not exist." unless @id
+        QuestionsDatabase.instance.execute(<<-SQL, @title, @body, @author_id, @id)
+            UPDATE questions
+            SET
+                title = ?,
+                body = ?,
+                author_id = ?
+            WHERE id = ?
+        SQL
     end
 
     def author
@@ -315,6 +364,32 @@ class Reply
         @parent_reply_id = options['parent_reply_id']
         @body = options['body']
         @user_id = options['user_id']
+    end
+
+    def save
+        if @id
+            update
+        else
+            QuestionsDatabase.instance.execute(<<-SQL, @question_id, @parent_reply_id, @body, @user_id)
+                INSERT INTO replies (question_id, parent_reply_id, body, user_id)
+                VALUES (?, ?, ?, ?)
+            SQL
+
+            @id = QuestionsDatabase.instance.last_insert_row_id
+        end
+    end
+
+    def update
+        raise "Question does does not exist." unless @id
+        QuestionsDatabase.instance.execute(<<-SQL, @question_id, @parent_reply_id, @body, @user_id, @id)
+            UPDATE replies
+            SET
+                question_id = ?,
+                parent_reply_id = ?,
+                body = ?,
+                user_id = ?
+            WHERE id = ?
+        SQL
     end
 
     def author
