@@ -11,15 +11,95 @@ class QuestionsDatabase < SQLite3::Database
     end
 end
 
-class User
+class ModelBase
+    def self.table_name
+        nil
+    end
+
     def self.find_by_id(id)
-        user = QuestionsDatabase.instance.execute(<<-SQL, id)
+        record = QuestionsDatabase.instance.execute(<<-SQL, id)
             SELECT *
-            FROM users
+            FROM #{self.table_name}
             WHERE id = ?
         SQL
 
-        User.new(user.first)
+        self.new(record.first)
+    end
+
+    def self.all
+        records = QuestionsDatabase.instance.execute(<<-SQL)
+            SELECT *
+            FROM #{self.table_name}
+        SQL
+
+        records.map { |record| self.new(record) }
+    end
+
+    def self.where(options)
+        if options.is_a?(String)
+            where_str = options
+            vals = []     
+        else  
+            cols = options.keys.map(&:to_s)
+            vals = options.values
+            where_arr = []
+            (0...cols.length).each { |idx| where_arr << (cols[idx] + ' = ? ') }
+            where_str = where_arr.join(" AND ")
+        end
+        
+        records = QuestionsDatabase.instance.execute(<<-SQL, *vals)
+            SELECT *
+            FROM #{self.table_name}
+            WHERE #{where_str}
+        SQL
+
+        records.map { |record| self.new(record) }
+    end
+
+    def self.find_by(args)
+        self.where(args)
+    end
+
+    def save
+        if @id
+            update
+        else
+            i_vars = self.instance_variables
+            i_vars.delete(:@id) #id is auto-generated
+            col_names_str = i_vars.map { |var| var.to_s[1..-1]}.join(", ")
+            values = i_vars.map { |var| instance_variable_get(var) }
+            q_marks = (['?'] * values.length).join(", ")
+            
+            QuestionsDatabase.instance.execute(<<-SQL, *values)
+                INSERT INTO #{self.class.table_name} (#{col_names_str})
+                VALUES (#{q_marks})
+            SQL
+
+            @id = QuestionsDatabase.instance.last_insert_row_id
+        end
+    end
+
+    def update
+        raise "User does does not exist." unless @id
+
+        i_vars = self.instance_variables
+        i_vars.push(i_vars.delete(:@id)) #make sure @id is last for WHERE clause
+        col_names_arr = i_vars.map { |var| var.to_s[1..-1] }
+        col_names_arr.delete('id') #id will be hard-coded in WHERE clause
+        values = i_vars.map { |var| instance_variable_get(var) }
+        set_str = col_names_arr.join(" = ?, ") + " = ?"
+
+        QuestionsDatabase.instance.execute(<<-SQL, *values)
+            UPDATE #{self.class.table_name}
+            SET #{set_str}
+            WHERE id = ?
+        SQL
+    end
+end
+
+class User < ModelBase
+    def self.table_name
+        'users'
     end
 
     def self.find_by_name(first, last)
@@ -38,30 +118,6 @@ class User
         @id = options['id']
         @fname = options['fname']
         @lname = options['lname']
-    end
-
-    def save
-        if @id
-            update
-        else
-            QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname)
-                INSERT INTO users (fname, lname)
-                VALUES (?, ?)
-            SQL
-
-            @id = QuestionsDatabase.instance.last_insert_row_id
-        end
-    end
-
-    def update
-        raise "User does does not exist." unless @id
-        QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, @id)
-            UPDATE users
-            SET
-                fname = ?,
-                lname = ?
-            WHERE id = ?
-        SQL
     end
 
     def authored_questions
@@ -97,15 +153,9 @@ class User
     end
 end
 
-class Question
-    def self.find_by_id(id)
-        question = QuestionsDatabase.instance.execute(<<-SQL, id)
-            SELECT *
-            FROM questions
-            WHERE id = ?
-        SQL
-
-        Question.new(question.first)
+class Question < ModelBase
+    def self.table_name
+        'questions'
     end
 
     def self.find_by_author_id(author_id)
@@ -145,31 +195,6 @@ class Question
         @author_id = options['author_id']
     end
 
-    def save
-        if @id
-            update
-        else
-            QuestionsDatabase.instance.execute(<<-SQL, @title, @body, @author_id)
-                INSERT INTO questions (title, body, author_id)
-                VALUES (?, ?, ?)
-            SQL
-
-            @id = QuestionsDatabase.instance.last_insert_row_id
-        end
-    end
-
-    def update
-        raise "Question does does not exist." unless @id
-        QuestionsDatabase.instance.execute(<<-SQL, @title, @body, @author_id, @id)
-            UPDATE questions
-            SET
-                title = ?,
-                body = ?,
-                author_id = ?
-            WHERE id = ?
-        SQL
-    end
-
     def author
         User.find_by_id(@author_id)
     end
@@ -196,15 +221,9 @@ class Question
 
 end
 
-class QuestionFollow
-    def self.find_by_id(id)
-        question_follow = QuestionsDatabase.instance.execute(<<-SQL, id)
-            SELECT *
-            FROM question_follows
-            WHERE id = ?
-        SQL
-
-        QuestionFollow.new(question_follow.first)
+class QuestionFollow < ModelBase
+    def self.table_name
+        'question_follows'
     end
 
     def self.followers_for_question_id(question_id)
@@ -250,15 +269,9 @@ class QuestionFollow
     end
 end
 
-class QuestionLike
-    def self.find_by_id(id)
-        question_like = QuestionsDatabase.instance.execute(<<-SQL, id)
-            SELECT *
-            FROM question_likes
-            WHERE id = ?
-        SQL
-
-        QuestionLike.new(question_like.first)
+class QuestionLike < ModelBase
+    def self.table_name
+        'question_likes'
     end
 
     def self.likers_for_question_id(question_id)
@@ -325,15 +338,9 @@ class QuestionLike
     end
 end
 
-class Reply
-    def self.find_by_id(id)
-        reply = QuestionsDatabase.instance.execute(<<-SQL, id)
-            SELECT *
-            FROM replies
-            WHERE id = ?
-        SQL
-
-        Reply.new(reply.first)
+class Reply < ModelBase
+    def self.table_name
+        'replies'
     end
 
     def self.find_by_user_id(user_id)
@@ -364,32 +371,6 @@ class Reply
         @parent_reply_id = options['parent_reply_id']
         @body = options['body']
         @user_id = options['user_id']
-    end
-
-    def save
-        if @id
-            update
-        else
-            QuestionsDatabase.instance.execute(<<-SQL, @question_id, @parent_reply_id, @body, @user_id)
-                INSERT INTO replies (question_id, parent_reply_id, body, user_id)
-                VALUES (?, ?, ?, ?)
-            SQL
-
-            @id = QuestionsDatabase.instance.last_insert_row_id
-        end
-    end
-
-    def update
-        raise "Question does does not exist." unless @id
-        QuestionsDatabase.instance.execute(<<-SQL, @question_id, @parent_reply_id, @body, @user_id, @id)
-            UPDATE replies
-            SET
-                question_id = ?,
-                parent_reply_id = ?,
-                body = ?,
-                user_id = ?
-            WHERE id = ?
-        SQL
     end
 
     def author
