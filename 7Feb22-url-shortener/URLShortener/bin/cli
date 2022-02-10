@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+
+require 'io/console'
+require 'launchy'
+
+puts "Please enter your email."
+email = gets.chomp
+user = User.find_by(email: email)
+
+unless user
+    puts "User not found."
+    return
+end
+
+puts "Would you like to visit a short URL, or make a new one?"
+puts "Type `e` for existing, or `n` for new."
+
+input = STDIN.getch.downcase
+
+until input == 'e' || input == 'n'
+    puts "#Input '#{input}' not recognized."
+    puts "Type `e` for existing, or `n` for new."
+    input = STDIN.getch.downcase
+end
+
+if input == 'e'
+    puts "Enter the short URL you want to visit."
+    short = gets.chomp
+    Visit.record_visit!(user, short)
+    url_record = ShortenedURL.find_by(short_url: short)
+    url = url_record.long_url
+    puts "Opening: #{url} ..."
+    sleep(1.5)
+    Launchy.open(url)
+    return
+else
+    puts "Enter the long URL you want a short verion of."
+    long = gets.chomp
+    short = ShortenedURL.make_short_url(user, long)
+    puts "Your short URL is:"
+    puts "#{short.short_url}"
+end
