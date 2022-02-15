@@ -19,7 +19,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Response < ApplicationRecord
-    validates :answer_choice_id, uniqueness: { scope: :user_id}
+    validate :user_already_answered?
 
     belongs_to :user,
         class_name: :User,
@@ -37,5 +37,11 @@ class Response < ApplicationRecord
 
     def sibling_responses
         self.question.responses.where.not(id: id)
+    end
+
+    def user_already_answered?
+        if sibling_responses.exists?(user_id: user_id)
+            errors[:user] << "has already answered this question"
+        end
     end
 end
