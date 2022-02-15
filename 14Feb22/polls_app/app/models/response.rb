@@ -19,12 +19,14 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Response < ApplicationRecord
+    validates :answer_choice_id, uniqueness: { scope: :user_id}
+
     belongs_to :user,
         class_name: :User,
         primary_key: :id,
         foreign_key: :user_id
 
-    belongs_to :answer_choice
+    belongs_to :answer_choice,
         class_name: :AnswerChoice,
         primary_key: :id,
         foreign_key: :answer_choice_id

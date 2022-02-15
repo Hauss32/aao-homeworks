@@ -17,6 +17,8 @@
 #  fk_rails_...  (question_id => questions.id)
 #
 class AnswerChoice < ApplicationRecord
+    validates :choice_text, presence: true
+
     belongs_to :question,
         class_name: :Question,
         primary_key: :id,

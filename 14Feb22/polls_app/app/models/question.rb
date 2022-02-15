@@ -2,11 +2,11 @@
 #
 # Table name: questions
 #
-#  id         :bigint           not null, primary key
-#  poll_text  :text             not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  poll_id    :integer          not null
+#  id            :bigint           not null, primary key
+#  question_text :text             not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  poll_id       :integer          not null
 #
 # Indexes
 #
@@ -17,6 +17,8 @@
 #  fk_rails_...  (poll_id => polls.id)
 #
 class Question < ApplicationRecord
+    validates :question_text, presence: true
+
     belongs_to :poll,
         class_name: :Poll,
         primary_key: :id,
