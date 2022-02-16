@@ -17,7 +17,8 @@ class User < ApplicationRecord
     has_many :polls,
         class_name: :Poll,
         primary_key: :id,
-        foreign_key: :user_id
+        foreign_key: :user_id,
+        dependent: :destroy
 
     has_many :responses,
         class_name: :Response,
