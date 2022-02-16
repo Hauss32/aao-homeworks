@@ -23,5 +23,21 @@ class User < ApplicationRecord
         class_name: :Response,
         primary_key: :id,
         foreign_key: :user_id
+
+    def completed_polls #one or more responses to all questions in poll
+        self.polls
+            .joins(questions: :responses)
+            .group("polls.id")
+            .having("COUNT(DISTINCT questions.id) = COUNT(DISTINCT responses.id)")
+            .pluck(:title)
+    end
+
+    def incomplete_polls #partial or no responses to poll questions
+        self.polls
+            .left_outer_joins(questions: :responses)
+            .group("polls.id")
+            .having("COUNT(DISTINCT questions.id) > COUNT(DISTINCT responses.id)")
+            .pluck(:title)
+    end
     
 end
