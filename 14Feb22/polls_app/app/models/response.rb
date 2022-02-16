@@ -19,7 +19,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Response < ApplicationRecord
-    validate :user_already_answered?
+    validate :user_already_answered?, :user_answers_own_question?
 
     belongs_to :user,
         class_name: :User,
@@ -42,6 +42,12 @@ class Response < ApplicationRecord
     def user_already_answered?
         if sibling_responses.exists?(user_id: user_id)
             errors[:user] << "has already answered this question"
+        end
+    end
+
+    def user_answers_own_question?
+        if self.question.poll.user_id == user_id
+            errors[:user] << "cannot answer their own question!"
         end
     end
 end

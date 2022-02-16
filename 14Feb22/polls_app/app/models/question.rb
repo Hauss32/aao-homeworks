@@ -32,4 +32,14 @@ class Question < ApplicationRecord
     has_many :responses,
         through: :answer_choices,
         source: :responses
+
+    def results
+        rows = self.answer_choices
+            .select("answer_choices.choice_text AS text, COUNT(responses.id) AS count_answers")
+            .left_outer_joins(:responses)
+            .where(question_id: id)
+            .group("1")
+
+        rows.each_with_object({}) { |row, hash| hash[row.text] = row.count_answers }
+    end
 end
