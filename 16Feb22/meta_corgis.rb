@@ -109,18 +109,29 @@ class MetaCorgiSnacks
     @box_id = box_id
   end
 
-  def method_missing(name, *args)
-    super unless [:bone, :kibble, :treat].include?(name)
+  # def method_missing(name, *args)
+  #   super unless [:bone, :kibble, :treat].include?(name)
 
-    info = @snack_box.get_treat_info(@box_id)
-    method_name = "get_#{name.to_s}_tastiness"
-    tastiness = @snack_box.send(method_name, @box_id)
-    result = "Treat: #{info}: #{tastiness} "
-    tastiness > 30 ? "* #{result}" : result
-  end
+  #   method_prefix = "get_#{name.to_s}"
+  #   info = @snack_box.send("#{method_prefix}_info".to_sym, @box_id)
+  #   tastiness = @snack_box.send("#{method_prefix}_tastiness".to_sym, @box_id)
+  #   result = "Treat: #{info}: #{tastiness} "
+  #   tastiness > 30 ? "* #{result}" : result
+  # end
 
 
   def self.define_snack(name)
     # Your code goes here...
+    define_method(name) do
+      method_prefix = "get_#{name.to_s}"
+      info = @snack_box.send("#{method_prefix}_info".to_sym, @box_id)
+      tastiness = @snack_box.send("#{method_prefix}_tastiness".to_sym, @box_id)
+      result = "Treat: #{info}: #{tastiness} "
+      tastiness > 30 ? "* #{result}" : result
+    end
   end
+
+  define_snack(:bone)
+  define_snack(:kibble)
+  define_snack(:treat)
 end
