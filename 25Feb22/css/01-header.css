@@ -1,0 +1,50 @@
+/* PHASE 1: Header */
+
+nav {
+    background-color: rgb(180, 1, 1);
+    font-size: 1.5em;
+    color: white;
+}
+
+#header {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    width: 100vw;
+    background-color: inherit;
+    display: flex;
+    justify-content: space-between;
+}
+
+#logo {
+    font-weight: 700;
+    margin-left: 50px;
+    padding: 15px 20px;
+    white-space: nowrap;
+}
+
+#nav-links {
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+}
+
+#logo, #nav-links > li {
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    height: 100%;
+}
+
+#nav-links > li > a {
+    display: block;
+    padding: 0px 20px;
+    text-decoration: none;
+    color: white;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#nav-links > li :hover {
+    background-color: rgb(136, 2, 2);
+    text-decoration: underline;
+}
