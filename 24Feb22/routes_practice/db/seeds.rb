@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 users = [
-    'Artlouvre5000',
+    'ArtLouvre5000',
     'ArtThief911',
     'BoudoirFan69'
 ]

@@ -1979,3 +1979,146 @@ FOREIGN KEY ("artist_id")
   [1m[36mArtwork Load (0.6ms)[0m  [1m[34mSELECT  "artworks".* FROM "artworks" ORDER BY "artworks"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
   [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "artworks_shares" ON "users"."id" = "artworks_shares"."viewer_id" WHERE "artworks_shares"."artwork_id" = $1 LIMIT $2[0m  [["artwork_id", 1], ["LIMIT", 11]]
   [1m[36mArtwork Load (0.5ms)[0m  [1m[34mSELECT  "artworks".* FROM "artworks" ORDER BY "artworks"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Started GET "/users" for ::1 at 2022-02-24 17:09:15 -0800
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/chrishauss/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.6.2/lib/active_record/log_subscriber.rb:98
+Processing by UsersController#index as */*
+  Parameters: {"user"=>{"name"=>"Eternal Chris", "email"=>"cannotbedeleted@forever.exists"}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:3
+Completed 200 OK in 17ms (Views: 4.3ms | ActiveRecord: 5.6ms)
+
+
+Started GET "/users/1" for ::1 at 2022-02-24 17:09:47 -0800
+Processing by UsersController#show as */*
+  Parameters: {"user"=>{"name"=>"Eternal Chris", "email"=>"cannotbedeleted@forever.exists"}, "id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:17
+Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/artworks" for ::1 at 2022-02-24 17:43:56 -0800
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/chrishauss/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.6.2/lib/active_record/log_subscriber.rb:98
+Processing by ArtworksController#index as */*
+  Parameters: {"user"=>{"name"=>"Eternal Chris", "email"=>"cannotbedeleted@forever.exists"}}
+  [1m[36mArtwork Load (0.8ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks"[0m
+  ↳ app/controllers/artworks_controller.rb:3
+Completed 200 OK in 19ms (Views: 5.5ms | ActiveRecord: 5.9ms)
+
+
+Started GET "/artworks/1" for ::1 at 2022-02-24 17:44:03 -0800
+Processing by ArtworksController#show as */*
+  Parameters: {"user"=>{"name"=>"Eternal Chris", "email"=>"cannotbedeleted@forever.exists"}, "id"=>"1"}
+  [1m[36mArtwork Load (0.3ms)[0m  [1m[34mSELECT  "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/artworks_controller.rb:17
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/artworks" for ::1 at 2022-02-24 17:46:12 -0800
+Processing by ArtworksController#create as */*
+  Parameters: {"artwork"=>{"title"=>"Untitled (Humble)", "image_url"=>"", "artist_id"=>"1"}}
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `restrict' for #<ActionController::Parameters:0x00007fb2302c6cc8>):
+  
+app/controllers/artworks_controller.rb:52:in `artwork_params'
+app/controllers/artworks_controller.rb:7:in `create'
+Started POST "/artworks" for ::1 at 2022-02-24 17:46:49 -0800
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/chrishauss/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.6.2/lib/active_record/log_subscriber.rb:98
+Processing by ArtworksController#create as */*
+  Parameters: {"artwork"=>{"title"=>"Untitled (Humble)", "image_url"=>"", "artist_id"=>"1"}}
+Unpermitted parameters: :title, :image_url, :artist_id
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 0.0ms)
+
+
+  
+ArgumentError (wrong number of arguments (given 3, expected 1)):
+  
+app/controllers/artworks_controller.rb:52:in `artwork_params'
+app/controllers/artworks_controller.rb:7:in `create'
+Started POST "/artworks" for ::1 at 2022-02-24 17:47:37 -0800
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/chrishauss/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.6.2/lib/active_record/log_subscriber.rb:98
+Processing by ArtworksController#create as */*
+  Parameters: {"artwork"=>{"title"=>"Untitled (Humble)", "image_url"=>"", "artist_id"=>"1"}}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/artworks_controller.rb:9
+  [1m[36mArtwork Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "artworks" WHERE "artworks"."title" = $1 AND "artworks"."artist_id" = $2 LIMIT $3[0m  [["title", "Untitled (Humble)"], ["artist_id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/artworks_controller.rb:9
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/artworks_controller.rb:9
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/artworks_controller.rb:9
+Completed 422 Unprocessable Entity in 42ms (Views: 0.2ms | ActiveRecord: 10.7ms)
+
+
+Started POST "/artworks" for ::1 at 2022-02-24 17:48:06 -0800
+Processing by ArtworksController#create as */*
+  Parameters: {"artwork"=>{"title"=>"Untitled (Humble)", "image_url"=>"app/assets/images/1_ultitled-humble", "artist_id"=>"1"}}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/artworks_controller.rb:9
+  [1m[36mArtwork Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "artworks" WHERE "artworks"."title" = $1 AND "artworks"."artist_id" = $2 LIMIT $3[0m  [["title", "Untitled (Humble)"], ["artist_id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/artworks_controller.rb:9
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/artworks_controller.rb:9
+  [1m[36mArtwork Create (0.9ms)[0m  [1m[32mINSERT INTO "artworks" ("title", "image_url", "artist_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Untitled (Humble)"], ["image_url", "app/assets/images/1_ultitled-humble"], ["artist_id", 1], ["created_at", "2022-02-25 01:48:06.020300"], ["updated_at", "2022-02-25 01:48:06.020300"]]
+  ↳ app/controllers/artworks_controller.rb:9
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/artworks_controller.rb:9
+Completed 200 OK in 5ms (Views: 0.3ms | ActiveRecord: 1.9ms)
+
+
+Started GET "/artworks/7" for ::1 at 2022-02-24 17:48:31 -0800
+Processing by ArtworksController#show as */*
+  Parameters: {"artwork"=>{"title"=>"Untitled (Humble)", "image_url"=>"app/assets/images/1_ultitled-humble", "artist_id"=>"1"}, "id"=>"7"}
+  [1m[36mArtwork Load (0.2ms)[0m  [1m[34mSELECT  "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/artworks_controller.rb:17
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.2ms)
+
+
+Started PATCH "/artworks/7" for ::1 at 2022-02-24 17:48:54 -0800
+Processing by ArtworksController#update as */*
+  Parameters: {"artwork"=>{"title"=>"Untitled-Humble", "image_url"=>"app/assets/images/1_ultitled-humble", "artist_id"=>"1"}, "id"=>"7"}
+  [1m[36mArtwork Load (0.2ms)[0m  [1m[34mSELECT  "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/artworks_controller.rb:27
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/artworks_controller.rb:31
+  [1m[36mArtwork Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "artworks" WHERE "artworks"."title" = $1 AND "artworks"."id" != $2 AND "artworks"."artist_id" = $3 LIMIT $4[0m  [["title", "Untitled-Humble"], ["id", 7], ["artist_id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/artworks_controller.rb:31
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/artworks_controller.rb:31
+  [1m[36mArtwork Update (0.3ms)[0m  [1m[33mUPDATE "artworks" SET "title" = $1, "updated_at" = $2 WHERE "artworks"."id" = $3[0m  [["title", "Untitled-Humble"], ["updated_at", "2022-02-25 01:48:54.831430"], ["id", 7]]
+  ↳ app/controllers/artworks_controller.rb:31
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/artworks_controller.rb:31
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.7ms)
+
+
+Started PUT "/artworks/8" for ::1 at 2022-02-24 17:49:12 -0800
+Processing by ArtworksController#update as */*
+  Parameters: {"artwork"=>{"title"=>"Untitled-Humble", "image_url"=>"app/assets/images/1_ultitled-humble", "artist_id"=>"1"}, "id"=>"8"}
+  [1m[36mArtwork Load (0.2ms)[0m  [1m[34mSELECT  "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/artworks_controller.rb:27
+  Rendering text template
+  Rendered text template (0.0ms)
+Completed 404 Not Found in 9ms (Views: 7.9ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/artworks/7" for ::1 at 2022-02-24 17:49:27 -0800
+Processing by ArtworksController#destroy as */*
+  Parameters: {"artwork"=>{"title"=>"Untitled-Humble", "image_url"=>"app/assets/images/1_ultitled-humble", "artist_id"=>"1"}, "id"=>"7"}
+  [1m[36mArtwork Load (0.3ms)[0m  [1m[34mSELECT  "artworks".* FROM "artworks" WHERE "artworks"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/artworks_controller.rb:39
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/artworks_controller.rb:43
+  [1m[36mArtwork Destroy (0.2ms)[0m  [1m[31mDELETE FROM "artworks" WHERE "artworks"."id" = $1[0m  [["id", 7]]
+  ↳ app/controllers/artworks_controller.rb:43
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/artworks_controller.rb:43
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 1.1ms)
+
+
