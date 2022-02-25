@@ -1,6 +1,21 @@
 class ArtworksController < ApplicationController
     def index
-        render json: Artwork.all
+        if params[:user_id]
+            artist = User.find_by_id(params[:user_id])
+
+            if artist
+                # TODO: Consolidate into 1 query from User model method
+                all_art = []
+                all_art += artist.artworks
+                all_art += artist.shared_artworks
+
+                render json: all_art
+            else
+                render plain: 'User not found.', status: :not_found
+            end
+        else 
+            render json: Artwork.all
+        end
     end
 
     def create
