@@ -1,1 +1,46 @@
 /* PHASE 2: Notifications */
+
+#nav-notifications {
+    position: relative;
+    overflow-y: visible;
+}
+
+#notifications {
+    display: flex;
+}
+
+#notifications > div {
+    background-color: black;
+    margin: auto 0 auto 5px;
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+}
+
+.badge {
+    border-radius: 50%;
+    font-size: .7em;   
+    padding: 2px;
+    text-align: center;
+    line-height: 100%;
+}
+
+#messages {
+    position: absolute;
+    bottom: 0;
+    font-size: 1em;
+    background-color: rgb(218, 218, 218);
+    color: black;
+    border: 1px solid gray;
+    width: 100%;
+    /* display: none; */
+    
+}
+
+#messages > li {
+    border: 1px solid gray;
+}
+
+#nav-links > li > #messages :hover {
+    background-color: white;
+}
