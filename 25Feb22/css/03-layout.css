@@ -1,1 +1,67 @@
 /* PHASE 3: Layout */
+.content {
+    margin: 0px 50px;
+    border: 1px solid rgb(173, 173, 173);
+    min-height: 200px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.content-header {
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+    position: relative;
+}
+
+.content-header > div {
+    display: flex;
+    position: absolute;
+    bottom: 5px;
+    right: 20px;
+    align-items: center;
+}
+
+.content-header > div > h1 {
+    font-weight: 700;
+    font-size: 1.8em;
+    color: white;
+    text-shadow: -2px 2px 0 #2c622d;
+    line-height: 1;
+}
+
+.content-header > div > button {
+    box-sizing: border-box;
+    background-color: #418f43;
+    border: none;
+    border-radius: 5%;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    height: 35px;
+    width: 105px;
+}
+
+.content-header > div > button:hover {
+    background-color: #2c622d;
+}
+
+.content-sidebar {
+    width: 250px;
+    border-right: 1px solid rgb(173, 173, 173);
+    padding: 20px;
+}
+
+.content-main {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+footer {
+    margin: 0px 50px 50px 50px;
+    min-height: 50px;
+    border: 1px solid rgb(173, 173, 173);
+}
