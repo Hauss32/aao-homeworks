@@ -1,49 +1,50 @@
 /* PHASE 1: Header */
 
-nav {
+header {
     background-color: rgb(180, 1, 1);
     font-size: 1.5em;
     color: white;
-}
-
-#header {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     width: 100vw;
+    margin: auto;
+}
+
+h1 {
+    display: block;
+    padding: 15px 20px;
+}
+
+nav {
     background-color: inherit;
     display: flex;
     justify-content: space-between;
 }
 
-#logo {
-    font-weight: 700;
-    margin-left: 50px;
-    padding: 15px 20px;
-    white-space: nowrap;
-}
-
-#nav-links {
-    margin-right: 50px;
+nav > ul {
     display: flex;
-    align-items: center;
+    margin-right: 50px;
 }
 
-#logo, #nav-links > li {
+nav > ul > li {
     border-left: 1px solid white;
     border-right: 1px solid white;
-    height: 100%;
 }
 
-#nav-links > li > a {
+nav > ul > li > a {
     display: block;
-    padding: 0px 20px;
     text-decoration: none;
     color: white;
-    height: 100%;
-    display: flex;
-    align-items: center;
+    padding: 15px 20px;
 }
 
-#nav-links > li :hover {
+#logo {
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    margin-left: 50px;
+    font-weight: 700;
+}
+
+nav > ul > li :hover {
     background-color: rgb(136, 2, 2);
 }
