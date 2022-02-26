@@ -45,6 +45,7 @@ nav > ul > li > a {
     font-weight: 700;
 }
 
-nav > ul > li :hover {
+nav > ul > li:hover {
     background-color: rgb(136, 2, 2);
+    display: block;
 }

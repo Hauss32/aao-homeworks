@@ -6,7 +6,7 @@
   <title>App Academy Friends | PHASE 0: Reset</title>
   <link rel="stylesheet" href="css/00-reset.css" type="text/css">
   <link rel="stylesheet" href="css/01-header.css" type="text/css">
-  <!-- <link rel="stylesheet" href="css/02-notifications.css" type="text/css"> -->
+  <link rel="stylesheet" href="css/02-notifications.css" type="text/css">
 </head>
 
 <body>
@@ -14,7 +14,16 @@
     <nav>
       <div id="logo"><h1>App Academy Friends</h1></div>
       <ul>
-        <li><a href="#">Notifications</a></li>
+        <li id="notifications">
+          <a href="#">Notifications
+            <div class="badge">4</div>
+          </a>
+          <ul id="messages">
+            <li>You've got a new follow!</li>
+            <li>Someone liked your post!</li>
+            <li>Other meaningless validation!</li>
+          </ul>
+        </li>
         <li><a href="#">Profile</a></li>
         <li><a href="#">Settings</a></li>
       </ul>
