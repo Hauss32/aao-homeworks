@@ -1,5 +1,5 @@
 class Comment < ApplicationRecord
-    validates :artwork_id, :author_id, :body, presence: true
+    validates :body, presence: true
 
     belongs_to :artwork
 
