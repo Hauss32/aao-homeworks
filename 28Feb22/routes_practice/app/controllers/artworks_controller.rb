@@ -62,6 +62,28 @@ class ArtworksController < ApplicationController
        end 
     end
 
+    def like
+        like = Like.new(user_id: params[:user_id], likeable_id: params[:artwork_id], likeable_type: 'Artwork')
+
+        if like.save
+            render json: like
+        else  
+            render json: like.errors.full_messages, status: :unprocessable_entity
+        end
+    end
+
+    def unlike
+        like = Like.find_by(user_id: params[:user_id], likeable_id: params[:artwork_id], likeable_type: 'Artwork')
+
+        if !like
+            render plain: 'Like not found.', status: :not_found
+        elsif like.destroy
+            render json: like
+        else
+            render json: like.errors.full_messages, status: :unprocessable_entity
+        end
+    end
+
     private
     def artwork_params
         params[:artwork].permit(:title, :image_url, :artist_id)

@@ -44,6 +44,28 @@ class CommentsController < ApplicationController
         end
     end
 
+    def like
+        like = Like.new(user_id: params[:user_id], likeable_id: params[:comment_id], likeable_type: 'Comment')
+
+        if like.save
+            render json: like
+        else  
+            render json: like.errors.full_messages, status: :unprocessable_entity
+        end
+    end
+
+    def unlike
+        like = Like.find_by(user_id: params[:user_id], likeable_id: params[:comment_id], likeable_type: 'Comment')
+
+        if !like
+            render plain: 'Like not found.', status: :not_found
+        elsif like.destroy
+            render json: like
+        else
+            render json: like.errors.full_messages, status: :unprocessable_entity
+        end
+    end
+
     private
     def comment_params
         params[:comment].permit(:author_id, :artwork_id, :body)
