@@ -21,6 +21,32 @@ class ArtworkSharesController < ApplicationController
        end
     end
 
+    def favorite
+        share = ArtworkShare.find_by_id(params[:artwork_share_id])
+
+        if !share
+            render plain: 'Artwork Share not found.', status: :not_found
+        elsif params[:user_id] != share.viewer_id.to_s
+            render plain: 'Artwork Shares can only be favorited by viewer.', status: :unprocessable_entity
+        else
+            share.update(favorite: true)
+            render json: share
+        end
+    end
+
+    def unfavorite
+        share = ArtworkShare.find_by_id(params[:artwork_share_id])
+
+        if !share
+            render plain: 'Artwork Share not found.', status: :not_found
+        elsif params[:user_id] != share.viewer_id.to_s
+            render plain: 'Artwork Shares can only be favorited by viewer.', status: :unprocessable_entity
+        else
+            share.update(favorite: false)
+            render json: share
+        end
+    end
+
     private
      def artwork_share_params
         params[:artwork_share].permit(:artwork_id, :viewer_id)

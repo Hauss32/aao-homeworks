@@ -29,4 +29,12 @@ class User < ApplicationRecord
         through: :artworks,
         source: :likes,
         dependent: :destroy
+
+    def favorite_artworks
+        artworks.where(favorite: true)
+    end
+
+    def favorite_shared_artworks
+        shared_artworks.where('artworks_shares.favorite = true')
+    end
 end

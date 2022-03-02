@@ -84,6 +84,34 @@ class ArtworksController < ApplicationController
         end
     end
 
+    def favorite
+        artwork = Artwork.find_by_id(params[:artwork_id])
+
+        if !artwork
+            render plain: 'Artwork not found.', status: :not_found
+        elsif params[:user_id] != artwork.artist_id.to_s
+            render plain: 'Artworks can only be directly favorited by creator.', status: :unprocessable_entity
+        else
+            artwork.update(favorite: true)
+            render json: artwork
+        end
+    end
+
+    def unfavorite
+        artwork = Artwork.find_by_id(params[:artwork_id])
+
+        if !artwork
+            render plain: 'Artwork not found.', status: :not_found
+        elsif params[:user_id] != artwork.artist_id.to_s
+            render plain: 'Artworks can only be directly unfavorited by creator.', status: :unprocessable_entity
+        else
+            artwork.update(favorite: false)
+            render json: artwork
+        end
+    end
+
+
+
     private
     def artwork_params
         params[:artwork].permit(:title, :image_url, :artist_id)
