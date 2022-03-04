@@ -20,11 +20,25 @@ class CatsController < ApplicationController
     end
 
     def update
-        render plain: 'No update action yet.'
+        @cat = Cat.find_by_id(params[:id])
+
+        if !@cat
+            render json: "Cat not found.", status: :not_found
+        elsif @cat.update(cat_params)
+            redirect_to cat_url(@cat)
+        else
+            render json: @cat.errors.full_messages, status: :unprocessable_entity
+        end   
     end
 
     def edit
-        render plain: 'No edit action yet.'
+        @cat = Cat.find_by_id(params[:id])
+
+        if !@cat
+            render json: "Cat not found.", status: :not_found
+        else 
+            render :edit
+        end
     end
 
     def new
