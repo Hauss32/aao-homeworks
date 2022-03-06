@@ -26,3 +26,18 @@
         <td><%= @cat.description %></td>
     </tr>
 </table>
+
+<h2>Rental Requests:</h2>
+<table>
+    <tr>
+        <th>Start Date:</th>
+        <th>End Date:</th>
+    </tr>
+
+    <% @rental_requests.each do |req| %>
+        <tr>
+            <td><%= req.start_date%></td>
+            <td><%= req.end_date%></td>
+        </tr>
+    <% end %>
+</table>
