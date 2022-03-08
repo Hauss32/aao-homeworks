@@ -7,6 +7,21 @@ class RentalRequest < ApplicationRecord
     validate :does_not_overlap_approved_request
 
     belongs_to :cat
+
+    def deny!
+        self.update!(status: 'DENIED')
+    end
+
+    def approve!
+        transaction do 
+            self.update!(status: 'APPROVED')
+
+            overlapping_pending_requests.each do |req|
+                req.update!(status: 'DENIED')
+            end
+        end
+
+    end
     
     private
     def does_not_overlap_approved_request
@@ -20,6 +35,11 @@ class RentalRequest < ApplicationRecord
     def overlapping_approved_requests
         overlaps = overlapping_requests
         overlapping_requests.where(status: 'APPROVED')
+    end
+
+    def overlapping_pending_requests
+        overlaps = overlapping_requests
+        overlapping_requests.where(status: 'PENDING')
     end
 
     def overlapping_requests
