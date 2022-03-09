@@ -5,3 +5,8 @@
         <li><%= link_to cat.name, url_for(cat) %></li>
     <% end %>
 </ul>
+
+<div class="actions-container">
+    <%= link_to 'Create a Cat!', new_cat_url, class: 'action' %>
+    <%= link_to 'Rent a Cat!', new_rental_request_url, class: 'action' %>
+</div>

@@ -50,6 +50,7 @@ class CatsController < ApplicationController
         render plain: 'No destroy action yet.'
     end
 
+
     private
     def cat_params
         params[:cat].permit(:name, :sex, :color, :birth_date, :description)

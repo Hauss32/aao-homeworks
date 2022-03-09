@@ -2,15 +2,15 @@
 
 <table>
     <tr>
-        <th>Attribute:</th>
+        <th>Attribute</th>
         <th>Value</th>
     </tr>
     <tr>
-        <td>Birth Date</td>
+        <td>Birth Date:</td>
         <td><%= @cat.birth_date %></td>
     </tr>
     <tr>
-        <td>Age</td>
+        <td>Age:</td>
         <td><%= @cat.age %></td>
     </tr>
     <tr>
@@ -27,17 +27,27 @@
     </tr>
 </table>
 
+<%= link_to 'Edit Cat', edit_cat_url(@cat), class: 'action', id: 'cat_edit' %>
+
 <h2>Rental Requests:</h2>
 <table>
     <tr>
         <th>Start Date:</th>
         <th>End Date:</th>
+        <th>Status:</th>
+        <th>Approve:</th>
+        <th>Deny:</th>
     </tr>
 
     <% @rental_requests.each do |req| %>
         <tr>
             <td><%= req.start_date%></td>
             <td><%= req.end_date%></td>
+            <td><%= req.status%></td>
+            <td class="approve"><%= req.status == 'PENDING' ? (link_to 'Approve', 
+                approve_rental_request_url(req)) : '' %></td>
+            <td class="deny"><%= req.status == 'PENDING' ? (link_to 'Deny', 
+                deny_rental_request_url(req)) : '' %></td>
         </tr>
     <% end %>
 </table>
