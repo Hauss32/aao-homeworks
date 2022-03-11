@@ -3,9 +3,9 @@ class User < ApplicationRecord
 
     before_validation :ensure_session_token
 
-    validates :username, :session_token, presence: false
+    validates :username, :session_token, :password_digest, presence: false
     validates :session_token, uniqueness: true
-    validates :password, presence: { message: 'Password must be 6 or more characters.',
+    validates :password, length: { minimum: 6, message: 'Password must be 6 or more characters.',
          allow_nil: true }
 
     
