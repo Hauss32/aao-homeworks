@@ -9,9 +9,19 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <header>
-    <div>
       <p>99</p>
       <h1>NinetyNineCats</h1>
+    <div id="header-actions">
+      <% if current_user %>
+        <form action="/session" method="post">
+          <input type="hidden" name="_method" value="DELETE">
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+          <input type="submit" value="Log Out" class="action">
+        </form>
+      <% else %>
+        <a href="<%= new_user_url %>" class="action">Sign Up!</a>
+        <a href="<%= new_session_url %>" class="action">Log In!</a>
+      <% end %>
     </div>
   </header>
   <body>

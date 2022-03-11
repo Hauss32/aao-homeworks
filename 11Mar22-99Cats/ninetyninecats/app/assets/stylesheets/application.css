@@ -77,27 +77,43 @@ html {
     z-index: 1;
  }
 
- header > div {
-     width: max-content;
-     position: relative;
- }
-
- header > div> h1 {
+ header > h1 {
     font-size: 2em;
-    background-color: inherit;
+    background-color: transparent;
     color: var(--main-font-color);
-    position: absolute;
+    position: fixed;
     left: 25px;
     top: 25px;
  }
 
- header > div > p {
+ header > p {
     font-size: 5em;
     background-color: inherit;
     color: var(--sec-font-color);
-    position: absolute;
+    position: fixed;
     left: 150px;
  }
+
+ #header-actions {
+     display: flex;
+     flex-wrap: nowrap;
+     box-sizing: border-box;
+     position: fixed;
+     top: 18px;
+     right: 25px;
+ }
+
+  #header-actions > a {
+      margin: 5px;
+ }
+
+  #header-actions > form {
+      margin: 0;
+      padding: 0;
+  }
+  #header-actions > form > input {
+      margin-top: 5px;
+  }
 
  body {
      max-width: 550px;
