@@ -1,0 +1,219 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html {
+    --main-bg-color: rgb(228, 240, 250);
+    --sec-bg-color: rgb(31, 31, 122);
+    --main-font-color: white;
+    --sec-font-color: rgb(52, 52, 146);
+    background-color: var(--main-bg-color);
+}
+ 
+ header {
+    width: 100vw;
+    background-color: var(--sec-bg-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 80px;
+    z-index: 1;
+ }
+
+ header > div {
+     width: max-content;
+     position: relative;
+ }
+
+ header > div> h1 {
+    font-size: 2em;
+    background-color: inherit;
+    color: var(--main-font-color);
+    position: absolute;
+    left: 25px;
+    top: 25px;
+ }
+
+ header > div > p {
+    font-size: 5em;
+    background-color: inherit;
+    color: var(--sec-font-color);
+    position: absolute;
+    left: 150px;
+ }
+
+ body {
+     max-width: 550px;
+     width:fit-content;
+     margin: 180px auto;
+     background-color: var(--main-font-color);
+     border-radius: 5px;
+     border: 1px solid rgb(151, 205, 251);
+     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+     position: relative;
+ }
+
+ body > h1 {
+     font-size: 1.7em;
+     padding: 25px 25px 5px 25px;
+     font-weight: 700;
+     color: var(--sec-bg-color);
+ }
+
+ body > h2 {
+     font-size: 1.4em;
+     padding: 25px 25px 5px 25px;
+     font-weight: 700;
+     color: var(--sec-bg-color);
+ }
+
+ ul {
+     padding: 15px;
+     min-width: 250px;
+ }
+
+ li {
+     font-size: 1.3em;
+     padding: 8px;
+     color: var(--sec-bg-color);
+ }
+
+ a {
+     color: var(--sec-bg-color);
+ }
+
+ a:visited {
+     color: var(--sec-font-color)
+ }
+
+ form {
+     margin: 25px;
+ }
+
+ label, input, textarea {
+     display: block;
+ }
+
+ label {
+     margin: 16px 0px 4px 0px;
+     font-weight: 700;
+ }
+
+ table {
+     margin: 25px;
+     text-align: left;
+ }
+
+ th {
+     font-weight: 700;
+     padding: 5px 10px 5px 0;
+     font-size: 1.2em;
+ }
+
+ tr:first-child {
+     font-weight: 700;
+ }
+
+ td {
+    padding: 10px 15px 10px 0;
+    font-size: 1.1em;
+ }
+
+ footer {
+    font-size: .8em;
+    width: 100vw;
+    background-color: var(--sec-bg-color);
+    color:var(--main-font-color);
+    padding: 15px 25px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+ }
+
+ .actions-container {
+     display: flex;
+     flex-direction: column;
+     margin: 0px 0px 25px 25px;
+
+ }
+
+ .action {
+    display: block;
+    padding: 5px 12px;
+    border: 2px solid var(--sec-bg-color);
+    width: fit-content;
+    text-decoration: none;
+    margin-top: 15px;
+    border-radius: 5px;
+    color: var(--sec-bg-color);
+    background-color: var(--main-bg-color);
+ }
+
+ .action:hover {
+    background-color: var(--sec-bg-color);
+    color: var(--main-font-color);
+    border: 2px solid var(--main-bg-color);
+ }
+
+ #cat_edit {
+     position: absolute;
+     top: 10px;
+     right: 25px;
+ }

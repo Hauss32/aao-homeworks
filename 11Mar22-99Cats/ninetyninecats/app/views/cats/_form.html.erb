@@ -1,0 +1,36 @@
+<% 
+path = action == 'new' ? '/cats' : "/cats/#{cat.id}"
+submit = action == 'new' ? 'Create a cat!' : 'Edit cat!'
+%>
+
+<form action="<%= path %>" method="post">
+    <% if action == 'edit' %>
+        <input type="hidden" name="_method" value="PATCH">
+    <% end %>
+
+    <label for="name">Name</label>
+    <input type="text" name="cat[name]" id="name" value="<%= cat.name %>">
+
+    <label for="sex">Sex</label>
+    <select name="cat[sex]" id="sex">
+        <option disabled <%= cat.sex ? '' : 'selected' %>>--Select Sex--</option>
+        <option value="M" <%= cat.sex == "M" ? 'selected' : '' %>>Male</option>
+        <option value="F" <%= cat.sex == "F" ? 'selected' : '' %>>Female</option>
+    </select>
+
+    <label for="birth_date">Date of Birth</label>
+    <input type="date" name="cat[birth_date]" id="birth_date" value="<%= cat.birth_date %>">
+
+    <label for="coat_color">Coat Color</label>
+    <select name="cat[color]" id="coat_color">
+        <option disabled <%= cat.color ? '' : 'selected' %>>--Select Color--</option>
+        <% Cat::COLORS.each do |color| %>
+            <option value="<%= color %>" <%= cat.color == color ? 'selected' : '' %>><%= color %></option>
+        <% end %>
+    </select>
+
+    <label for="description">Description</label>
+    <textarea name="cat[description]" id="description"><%= cat.description %></textarea>
+
+    <input class="action" type="submit" value="<%= submit %>">
+</form>
