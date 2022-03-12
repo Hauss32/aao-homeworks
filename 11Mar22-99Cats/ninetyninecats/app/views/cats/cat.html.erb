@@ -27,7 +27,9 @@
     </tr>
 </table>
 
+<% if @is_owner %>
 <%= link_to 'Edit Cat', edit_cat_url(@cat), class: 'action', id: 'cat_edit' %>
+<% end %>
 
 <h2>Rental Requests:</h2>
 <table>
@@ -44,10 +46,17 @@
             <td><%= req.start_date%></td>
             <td><%= req.end_date%></td>
             <td><%= req.status%></td>
+
+            <% if @is_owner %>
             <td class="approve"><%= req.status == 'PENDING' ? (link_to 'Approve', 
                 approve_rental_request_url(req)) : '' %></td>
             <td class="deny"><%= req.status == 'PENDING' ? (link_to 'Deny', 
                 deny_rental_request_url(req)) : '' %></td>
+            <% else %>
+                <td></td>
+                <td></td>
+            <% end %>
+            
         </tr>
     <% end %>
 </table>

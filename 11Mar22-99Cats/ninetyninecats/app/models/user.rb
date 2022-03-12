@@ -8,6 +8,8 @@ class User < ApplicationRecord
     validates :password, length: { minimum: 6, message: 'Password must be 6 or more characters.',
          allow_nil: true }
 
+    has_many :cats
+
     
     def self.find_by_credentials(username, password)
         user = self.find_by(username: username)
@@ -34,7 +36,7 @@ class User < ApplicationRecord
     def correct_password?(password)
         BCrypt::Password.new(self.password_digest).is_password?(password)
     end
-    
+
     private
     def ensure_session_token
         self.session_token ||= self.class.generate_session_token

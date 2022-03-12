@@ -1,4 +1,6 @@
 class CatsController < ApplicationController
+    before_action :require_ownership, only: [:edit, :update]
+
     def index
         @cats = Cat.all
         render :index
@@ -6,12 +8,14 @@ class CatsController < ApplicationController
 
     def show
         @cat = Cat.find_by_id(params[:id])
+        @is_owner = is_owner?
         @rental_requests = @cat.rental_requests.order(:start_date)
         render :cat
     end
 
     def create
         new_cat = Cat.new(cat_params)
+        new_cat.user_id = current_user.id
 
         if new_cat.save
             redirect_to cat_url(new_cat)
@@ -50,9 +54,16 @@ class CatsController < ApplicationController
         render plain: 'No destroy action yet.'
     end
 
-
     private
     def cat_params
         params[:cat].permit(:name, :sex, :color, :birth_date, :description)
+    end
+
+    def is_owner?
+        current_user.cats.include?(Cat.find_by_id(params[:id]))
+    end
+
+    def require_ownership
+        redirect_to cat_url(params[:id]) unless is_owner?
     end
 end
