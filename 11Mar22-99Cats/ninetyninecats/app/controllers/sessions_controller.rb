@@ -1,13 +1,11 @@
 class SessionsController < ApplicationController
+    before_action :require_no_user!, only: [:new, :create]
+
     def new
         render :new
     end
 
     def create
-        puts '########################'
-        puts params[:session][:username]
-        puts params[:session][:password]
-        puts '########################'
         user = User.find_by_credentials(
             params[:session][:username], 
             params[:session][:password])
@@ -15,9 +13,8 @@ class SessionsController < ApplicationController
         if !user
             render json: 'Invalid Credentials.', status: :unprocessable_entity
         else  
-            user.reset_session_token!
             session[:session_token] = user.session_token
-            redirect_to root_url
+            login_user!
         end
 
     end
