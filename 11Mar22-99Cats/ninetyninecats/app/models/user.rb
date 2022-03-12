@@ -9,6 +9,7 @@ class User < ApplicationRecord
          allow_nil: true }
 
     has_many :cats
+    has_many :rental_requests
 
     
     def self.find_by_credentials(username, password)

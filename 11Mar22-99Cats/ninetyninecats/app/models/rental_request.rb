@@ -7,6 +7,9 @@ class RentalRequest < ApplicationRecord
     validate :does_not_overlap_approved_request
 
     belongs_to :cat
+    belongs_to :requester,
+        class_name: :User,
+        foreign_key: :user_id
 
     def deny!
         self.update!(status: 'DENIED')

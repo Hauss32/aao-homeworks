@@ -3,6 +3,7 @@ class RentalRequestsController < ApplicationController
 
     def create
         new_request = RentalRequest.new(rental_request_params)
+        new_request.user_id = current_user.id
 
         if new_request.save
             redirect_to cat_url(params[:rental_request][:cat_id])

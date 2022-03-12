@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_12_195857) do
+ActiveRecord::Schema.define(version: 2022_03_12_205942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2022_03_12_195857) do
     t.datetime "updated_at", null: false
     t.text "description", null: false
     t.integer "user_id", default: 3, null: false
+    t.index ["user_id"], name: "index_cats_on_user_id"
   end
 
   create_table "rental_requests", force: :cascade do |t|
@@ -33,7 +34,9 @@ ActiveRecord::Schema.define(version: 2022_03_12_195857) do
     t.string "status", default: "PENDING", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", default: 2, null: false
     t.index ["cat_id"], name: "index_rental_requests_on_cat_id"
+    t.index ["user_id"], name: "index_rental_requests_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -48,4 +51,5 @@ ActiveRecord::Schema.define(version: 2022_03_12_195857) do
 
   add_foreign_key "cats", "users"
   add_foreign_key "rental_requests", "cats"
+  add_foreign_key "rental_requests", "users"
 end
