@@ -1,0 +1,17 @@
+<h1>Sign Up!</h1>
+
+<form action="/users" method="post">
+    <%= auth_token %>
+
+    <label for="username">Username</label>
+    <input type="text" name="user[username]" id="username">
+
+    <label for="password">Password</label>
+    <input type="password" name="user[password]" id="password">
+
+    <input type="submit" value="Create My Account!" class="action">
+</form>
+
+<% content_for :footer do %>
+    <p>Signup page made with love in California.</p>
+<% end %>

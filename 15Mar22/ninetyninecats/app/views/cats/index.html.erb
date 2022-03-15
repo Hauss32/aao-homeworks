@@ -1,0 +1,16 @@
+<h1>All the cats!</h1>
+
+<ul>
+    <% @cats.each do |cat| %>
+        <li><%= link_to cat.name, url_for(cat) %></li>
+    <% end %>
+</ul>
+
+<div class="actions-container">
+    <%= link_to 'Create a Cat!', new_cat_url, class: 'action' %>
+    <%= link_to 'Rent a Cat!', new_rental_request_url, class: 'action' %>
+</div>
+
+<% content_for :footer do %>
+    <p>Home page made with love in California.</p>
+<% end %>

@@ -1,0 +1,7 @@
+<h1>Create a new Cat!</h1>
+
+<%= render 'form', cat: Cat.new, action: 'new' %>
+
+<% content_for :footer do %>
+    <p>New cat page made with love in California.</p>
+<% end %>

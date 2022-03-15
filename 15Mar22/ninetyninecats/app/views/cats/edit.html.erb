@@ -1,0 +1,7 @@
+<h1>Edit <%= @cat.name %></h1>
+
+<%= render 'form', cat: @cat, action: 'edit' %>
+
+<% content_for :footer do %>
+    <p>Cat edit page made with love in California.</p>
+<% end %>
