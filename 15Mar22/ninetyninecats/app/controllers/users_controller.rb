@@ -13,6 +13,8 @@ class UsersController < ApplicationController
 
         if user.save
             session[:session_token] = user.session_token
+            msg = UserMailer.welcome_email(user)
+            msg.deliver_now
             login_user!
         else
             render json: user.errors.full_messages
