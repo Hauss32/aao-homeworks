@@ -1,0 +1,26 @@
+<h1>About <%= @album.title %></h1>
+
+<table>
+    <thead>
+        <th>Attribute</th>
+        <th>Value</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Band:</td>
+            <td><%= @album.band.name %></td>
+        </tr>
+        <tr>
+            <td>Title:</td>
+            <td><%= @album.title %></td>
+        </tr>
+        <tr>
+            <td>Year:</td>
+            <td><%= @album.year %></td>
+        </tr>
+        <tr>
+            <td>Album Type:</td>
+            <td><%= @album.is_live_album ? 'Live Album' : 'Studio Album' %></td>
+        </tr>
+    </tbody>
+</table>

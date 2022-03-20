@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
     def log_in_user!
         if current_user
             session[:session_token] = current_user.reset_session_token!
-            render json: 'Success!', status: :ok
+            redirect_to root_url
         else
             redirect_to new_session_url
         end

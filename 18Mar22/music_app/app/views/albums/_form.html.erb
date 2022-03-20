@@ -1,0 +1,45 @@
+<% 
+endpoint = album.persisted? ? album_url(album) : albums_url
+submit_text = album.persisted? ? 'Save' : 'Create Album'
+%>
+
+<form action="<%= endpoint %>" method="post">
+    <% if album.persisted? %>
+        <input 
+            type="hidden" 
+            name="_method" 
+            value="PUT">
+    <% end %>
+
+    <input 
+        type="hidden" 
+        name="authenticity_token" 
+        value="<%= form_authenticity_token %>">
+
+    <label for="band">Band</label>
+    <select name="album[band_id]" id="band">
+        <% bands.each do |band| %>
+            <option value="<%= band.id %>" <% 'selected' if band.id == album.band_id %>>
+                <%= band.name %>
+            </option>
+        <% end %>
+    </select>
+
+    <label for="title">Title</label>
+    <input type="text" name="album[title]" id="title" value="<%= album.title %>">
+
+    <label for="year">Year</label>
+    <input type="number" name="album[year]" id="year" value="<%= album.year %>">
+
+    <input type="radio" name="album[is_live_album]" id="live" value="true"
+        <%= 'checked' if album.is_live_album %>>
+    <label for="live">Live Album</label>
+
+    <input type="radio" name="album[is_live_album]" id="studio" value="false"
+        <%= 'checked' unless album.is_live_album %>>
+    <label for="studio">Studio Album</label>
+
+
+
+    <input type="submit" value="<%= submit_text %>">
+</form>
