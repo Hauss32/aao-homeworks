@@ -1,0 +1,23 @@
+<% 
+endpoint = band.persisted? ? band_url(band) : new_band_url
+submit_text = band.persisted? ? 'Save' : 'Create Band'
+%>
+
+<form action="<%= endpoint %>" method="post">
+    <% if band.persisted? %>
+        <input 
+            type="hidden" 
+            name="_method" 
+            value="PUT">
+    <% end %>
+
+    <input 
+        type="hidden" 
+        name="authenticity_token" 
+        value="<%= form_authenticity_token %>">
+
+    <label for="name">Name</label>
+    <input type="text" name="band[name]" id="name" value="<%= band.name %>">
+
+    <input type="submit" value="<%= submit_text %>">
+</form>

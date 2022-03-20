@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
         if @user.save
             session[:session_token] = @user.session_token
-            render json: 'Success!', status: :ok
+            redirect_to root_url
         else
             redirect_to new_user_url
         end

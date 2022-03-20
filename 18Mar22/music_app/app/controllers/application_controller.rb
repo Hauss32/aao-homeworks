@@ -11,11 +11,11 @@ class ApplicationController < ActionController::Base
     end
 
     def require_user!
-        redirect_to new_session_url
+        redirect_to new_session_url unless current_user
     end
 
     def require_no_user!
-        render json: 'You are already logged in.', status: :forbidden
+        render json: 'You are already logged in.', status: :forbidden if current_user
     end
 
     private
