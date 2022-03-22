@@ -1,0 +1,31 @@
+<h1>About <%= @track.title %></h1>
+
+<table>
+    <thead>
+        <th>Attribute</th>
+        <th>Value</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Album:</td>
+            <td><%= @track.album.title %></td>
+        </tr>
+        <tr>
+            <td>Title:</td>
+            <td><%= @track.title %></td>
+        </tr>
+        <tr>
+            <td>Track Number:</td>
+            <td><%= @track.ord %></td>
+        </tr>
+        <tr>
+            <td>Track Type:</td>
+            <td><%= @track.is_bonus_track ? 'Bonus Track' : 'Regular Track' %></td>
+        </tr>
+    </tbody>
+</table>
+
+<% if @track.lyrics.length > 0 %>
+<h3>Lyrics:</h3>
+<p><%= @track.lyrics %></p>
+<% end %>

@@ -1,5 +1,7 @@
 class Album < ApplicationRecord
-    validate :title, :year, :is_live_album
+    validates :title, :year, presence: true
 
     belongs_to :band
+
+    has_many :tracks, dependent: :destroy
 end

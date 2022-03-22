@@ -19,7 +19,8 @@ class AlbumsController < ApplicationController
         if album.save
             redirect_to album_url(album)
         else
-            redirect_to new_band_album_url
+            @bands ||= Band.all
+            render 'new'
         end
 
     end

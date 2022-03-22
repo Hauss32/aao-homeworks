@@ -12,5 +12,9 @@ Rails.application.routes.draw do
 
   resources :home, only: [:index]
 
-  resources :albums, only: [:index, :destroy, :show, :edit, :create, :update]
+  resources :albums, only: [:index, :destroy, :show, :edit, :create, :update] do
+    resources :tracks, only: [:new, :index]
+  end
+
+  resources :tracks, only: [:create, :index, :edit, :show, :update, :destroy]
 end
