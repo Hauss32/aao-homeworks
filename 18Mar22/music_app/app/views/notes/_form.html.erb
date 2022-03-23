@@ -1,0 +1,24 @@
+<% if flash[:note] %>
+    <div class="errors">
+        <ul>
+            <% flash[:note].each do |error| %>
+                <li><%= error %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+
+<form action="<%= notes_url %>" method="post">
+    <input 
+        type="hidden" 
+        name="authenticity_token"
+        value="<%= form_authenticity_token %>">
+
+    <input type="hidden" name="note[track_id]" value="<%= params[:id] %>">
+
+    <label for="body">Comment:</label>
+    <textarea name="note[body]" id="body"><%= flash[:note_body] %></textarea>
+
+    <input type="submit" value="Post Comment">
+
+</form>

@@ -35,6 +35,7 @@ class TracksController < ApplicationController
 
     def show
         @track = Track.find_by_id(params[:id])
+        @notes = Note.all.joins(:user)
 
         if @track
             render 'track'

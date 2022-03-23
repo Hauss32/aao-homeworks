@@ -5,6 +5,8 @@ class User < ApplicationRecord
     validates :email, :session_token, presence: true, uniqueness: true
     validates :password, length: { minimum: 8, allow_nil: true }
 
+    has_many :notes
+
     def self.find_by_credentials(email, password)
         user = User.find_by(email: email)
         return nil unless user
