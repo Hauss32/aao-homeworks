@@ -6,15 +6,17 @@ class SessionsController < ApplicationController
         )
 
         if user
-            session[:session_token] = user.session_token
+            session[:session_token] = @user.session_token
             log_in_user!
         else  
-            redirect_to new_session_url
+            flash.now[:error] = 'Invalid Credentials. Please try again.'
+            flash.now[:email] = params[:session][:email]
+            render 'new'
         end
     end
 
     def new
-        render 'new_session'
+        render 'new'
     end
 
     def destroy

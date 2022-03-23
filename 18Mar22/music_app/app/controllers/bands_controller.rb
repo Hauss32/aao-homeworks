@@ -7,12 +7,12 @@ class BandsController < ApplicationController
     end
 
     def create
-        band = Band.new(band_params)
+        @band = Band.new(band_params)
 
-        if band.save
-            redirect_to band_url(band)
+        if @band.save
+            redirect_to band_url(@band)
         else
-            redirect_to new_band_url
+            render 'new'
         end
 
     end
@@ -33,14 +33,14 @@ class BandsController < ApplicationController
     end
 
     def update
-        band = Band.find_by_id(params[:id])
+        @band = Band.find_by_id(params[:id])
 
-        if band.nil?
+        if @band.nil?
             render json: 'Band not found.', status: :not_found
-        elsif band.update(band_params)
-            redirect_to band_url(band)
+        elsif @band.update(band_params)
+            redirect_to band_url(@band)
         else
-            render json: band.errors.full_messages, status: :unprocessable_entity
+            render 'edit'
         end
     end
 

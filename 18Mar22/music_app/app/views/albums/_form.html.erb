@@ -3,6 +3,16 @@ endpoint = album.persisted? ? album_url(album) : albums_url
 submit_text = album.persisted? ? 'Save' : 'Create Album'
 %>
 
+<% if album.errors.full_messages.length > 0 %>
+    <div class="errors">
+        <ul>
+            <% album.errors.full_messages.each do |error| %>
+                <li><%= error %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+
 <form action="<%= endpoint %>" method="post">
     <% if album.persisted? %>
         <input 

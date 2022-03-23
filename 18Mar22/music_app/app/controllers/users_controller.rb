@@ -10,12 +10,13 @@ class UsersController < ApplicationController
             session[:session_token] = @user.session_token
             redirect_to root_url
         else
-            redirect_to new_user_url
+            render 'new'
         end
     end
 
     def new
-        render 'new_user'
+        @user = User.new
+        render 'new'
     end
 
 end

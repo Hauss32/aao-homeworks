@@ -1,5 +1,13 @@
 <h1>Sign In!</h1>
 
+<% if  flash[:error] %>
+    <div class="errors">
+        <ul>
+            <li><%= flash[:error] %></li>
+        </ul>
+    </div>
+<% end %>
+
 <form action="<%= session_url %>" method="post">
     <input 
         type="hidden" 
@@ -7,7 +15,7 @@
         value="<%= form_authenticity_token %>">
 
     <label for="email">Email</label>
-    <input type="text" name="session[email]" id="email">
+    <input type="text" name="session[email]" id="email" value="<%= flash[:email] %>">
 
     <label for="password">Password</label>
     <input type="password" name="session[password]" id="password">

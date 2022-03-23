@@ -3,6 +3,16 @@ endpoint = track.persisted? ? track_url(track) : tracks_url
 submit_text = track.persisted? ? 'Save' : 'Create Track'
 %>
 
+<% if track.errors.full_messages.length > 0 %>
+    <div class="errors">
+        <ul>
+            <% track.errors.full_messages.each do |error| %>
+                <li><%= error %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+
 <form action="<%= endpoint %>" method="post">
     <% if track.persisted? %>
         <input 

@@ -3,6 +3,16 @@ endpoint = band.persisted? ? band_url(band) : new_band_url
 submit_text = band.persisted? ? 'Save' : 'Create Band'
 %>
 
+<% if band.errors.full_messages.length > 0 %>
+    <div class="errors">
+        <ul>
+            <% band.errors.full_messages.each do |error| %>
+                <li><%= error %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+
 <form action="<%= endpoint %>" method="post">
     <% if band.persisted? %>
         <input 

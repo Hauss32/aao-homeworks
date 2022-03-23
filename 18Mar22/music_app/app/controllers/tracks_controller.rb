@@ -45,14 +45,15 @@ class TracksController < ApplicationController
     end
 
     def update
-        track = Track.find_by_id(params[:id])
+        @track = Track.find_by_id(params[:id])
 
-        if track.nil?
+        if @track.nil?
             render json: 'Track not found.', status: :not_found
-        elsif track.update(track_params)
-            redirect_to track_url(track)
+        elsif @track.update(track_params)
+            redirect_to track_url(@track)
         else
-            render json: track.errors.full_messages, status: :unprocessable_entity
+            @albums = Album.all
+            render 'edit'
         end
     end
 

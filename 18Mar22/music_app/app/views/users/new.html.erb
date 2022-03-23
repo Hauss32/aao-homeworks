@@ -1,5 +1,15 @@
 <h1>Sign Up!</h1>
 
+<% if @user.errors.full_messages.length > 0 %>
+    <div class="errors">
+        <ul>
+            <% @user.errors.full_messages.each do |error| %>
+                <li><%= error %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+
 <form action="<%= users_url %>" method="post">
     <input 
         type="hidden" 
@@ -7,7 +17,7 @@
         value="<%= form_authenticity_token %>">
 
     <label for="email">Email</label>
-    <input type="text" name="user[email]" id="email">
+    <input type="text" name="user[email]" id="email" value="<%= @user.email %>">
 
     <label for="password">Password</label>
     <input type="password" name="user[password]" id="password">

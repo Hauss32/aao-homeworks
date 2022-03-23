@@ -30,5 +30,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  errors:
-    format: "%{message}"
+  activerecord:
+    attributes:
+      track:
+        ord: "Track Number"
+      note:
+        body: "Comment"

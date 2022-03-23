@@ -14,10 +14,10 @@ class AlbumsController < ApplicationController
     end
 
     def create
-        album = Album.new(album_params)
+        @album = Album.new(album_params)
 
-        if album.save
-            redirect_to album_url(album)
+        if @album.save
+            redirect_to album_url(@album)
         else
             @bands ||= Band.all
             render 'new'
@@ -44,14 +44,15 @@ class AlbumsController < ApplicationController
     end
 
     def update
-        album = Album.find_by_id(params[:id])
+        @album = Album.find_by_id(params[:id])
 
-        if album.nil?
+        if @album.nil?
             render json: 'Album not found.', status: :not_found
-        elsif album.update(album_params)
-            redirect_to album_url(album)
+        elsif @album.update(album_params)
+            redirect_to album_url(@album)
         else
-            render json: album.errors.full_messages, status: :unprocessable_entity
+            @bands = Band.all
+            render 'edit'
         end
     end
 
