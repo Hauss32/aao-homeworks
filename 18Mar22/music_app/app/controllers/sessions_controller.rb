@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
         )
 
         if user
-            session[:session_token] = @user.session_token
+            session[:session_token] = user.session_token
             log_in_user!
         else  
             flash.now[:error] = 'Invalid Credentials. Please try again.'

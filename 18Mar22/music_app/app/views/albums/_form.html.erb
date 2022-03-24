@@ -41,15 +41,15 @@ submit_text = album.persisted? ? 'Save' : 'Create Album'
     <label for="year">Year</label>
     <input type="number" name="album[year]" id="year" value="<%= album.year %>">
 
+    <label for="live">Live Album</label>
     <input type="radio" name="album[is_live_album]" id="live" value="true"
         <%= 'checked' if album.is_live_album %>>
-    <label for="live">Live Album</label>
 
+    <label for="studio">Studio Album</label>
     <input type="radio" name="album[is_live_album]" id="studio" value="false"
         <%= 'checked' unless album.is_live_album %>>
-    <label for="studio">Studio Album</label>
 
 
 
-    <input type="submit" value="<%= submit_text %>">
+    <input type="submit" value="<%= submit_text %>" class="action">
 </form>

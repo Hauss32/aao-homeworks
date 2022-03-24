@@ -13,3 +13,234 @@
  *= require_tree .
  *= require_self
  */
+
+ /* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+:root {
+  --main-font-family: 'Permanent Marker', cursive;
+  --sec-font-family: 'Amatic SC', cursive;
+  --main-green: #55AF5F;
+  --sec-green: #55AF8C;
+  --main-purple: #5F55AF;
+  --sec-purple: #8C55AF;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+header {
+    background-color: var(--sec-green);
+    height: 70px;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-content: center;
+}
+
+header > h1 {
+    font-family: var(--main-font-family);
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 15px 25px;
+    font-size: 2.5em;
+    color: white;
+    text-shadow:-4px 2px var(--sec-purple);
+}
+
+header > div {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.action {
+    font-family: var(--sec-font-family);
+    display: block;
+    background-color: var(--sec-purple);
+    border: 3px solid var(--main-purple);
+    color: white;
+    text-shadow: -2px 2px var(--main-purple);
+    border-radius: 4px;
+
+}
+
+.action:hover {
+    background-color: var(--main-purple);
+    border: 3px solid var(--sec-purple);
+    text-shadow: -2px 2px var(--sec-purple);
+}
+
+header > div > a, 
+header > div > form > input {
+    margin: auto 10px;
+    font-size: 1.6em !important;
+    padding: 0 10px !important;
+    text-decoration: none;
+}
+
+section {
+    border: 3px solid var(--sec-purple);
+    border-radius: 4px;
+    background-color: var(--sec-green);
+    margin: auto;
+    margin-top: 120px;
+    margin-bottom: 80px;
+    width: fit-content;
+    max-width: 800px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+                 rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+                  rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+section > div {
+    margin: 10px;
+    background-color: white;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 1.4em;
+}
+
+section > div > h1 {
+    font-size: 1.3em;
+    font-family: var(--main-font-family);
+    color: var(--main-purple);
+    margin-bottom: 15px;
+}
+
+section > div > h2, h3 {
+    font-size: 1em;
+    font-family: var(--main-font-family);
+    color: var(--main-purple);
+    margin-bottom: 8px;
+}
+
+li {
+    padding: 5px;
+}
+
+table {
+    margin: 10px 10px 20px 10px;
+    text-align: left;
+    width: fit-content;
+    font-size: .7em;
+}
+
+th, td {
+    padding: 5px;
+    overflow-wrap: break-word;
+    vertical-align: middle;
+}
+
+th {
+    font-weight: 700;
+    font-size: 1.1em;
+    text-decoration: underline;
+}
+
+td > form {
+    display: inline-block;
+}
+
+pre {
+    margin: 5px 5px 20px 5px;
+    font-size: .8em;
+    font-style: italic;
+}
+
+label {
+    font-size: .7em;
+    font-weight: 700;
+    display: block;
+}
+
+input, select {
+    margin-bottom: 10px;
+    padding: 3px;
+    display: block;
+}
+
+input.action {
+    font-size: 1em;
+    padding: 0px 5px;
+    margin: auto;
+    margin-left: 0px;
+}
+
+textarea {
+    min-width: 300px;
+    min-height: 150px;
+    margin-bottom: 10px;
+}
+
+.errors {
+    font-size: .6em;
+    background-color: #FDEAEA;
+    margin: 10px 10px 10px 0px;
+    width: fit-content; 
+    padding: 0px 5px;
+}
+
+footer {
+    font-family: var(--sec-font-family);
+    background-color: var(--sec-green);
+    color: white;
+    height: 40px;
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    left: 0; 
+}
+
+footer > p {
+    font-size: 1.4em;
+    line-height: 40px;
+    margin-left: 20px;
+    text-shadow: -2px 1px var(--sec-purple);
+}

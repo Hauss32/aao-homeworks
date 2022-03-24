@@ -5,12 +5,16 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Permanent+Marker&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <header>
+      <h1>MusicApp</h1>
       <div>
         <% if !current_user %>
           <%= link_to 'Sign Up', new_user_url, class: 'action' %>
@@ -28,6 +32,11 @@
         <% end%>
       </div>
     </header>
-    <%= yield %>
+    <section>
+      <div><%= yield %></div>
+    </section>
+    <footer>
+      <p>MusicApp is not real. Please don't email me.</p>
+    </footer>
   </body>
 </html>

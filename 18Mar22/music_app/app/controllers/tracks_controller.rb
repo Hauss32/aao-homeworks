@@ -35,7 +35,7 @@ class TracksController < ApplicationController
 
     def show
         @track = Track.find_by_id(params[:id])
-        @notes = Note.all.joins(:user)
+        @notes = Note.all.joins(:user).where(track_id: params[:id])
 
         if @track
             render 'track'
