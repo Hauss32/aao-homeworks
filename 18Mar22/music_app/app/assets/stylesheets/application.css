@@ -22,6 +22,7 @@
 :root {
   --main-font-family: 'Permanent Marker', cursive;
   --sec-font-family: 'Amatic SC', cursive;
+  --body-font-family: 'Sanchez', serif;
   --main-green: #55AF5F;
   --sec-green: #55AF8C;
   --main-purple: #5F55AF;
@@ -170,6 +171,7 @@ table {
     text-align: left;
     width: fit-content;
     font-size: .7em;
+    font-family: var(--body-font-family);
 }
 
 th, td {
