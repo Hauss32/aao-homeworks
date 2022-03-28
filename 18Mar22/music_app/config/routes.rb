@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'home#index'
 
-  resources :users, only: [:create, :new]
+  resources :users, only: [:create, :new] do
+    collection do
+      get 'activate'
+    end
+  end
 
   resources :bands do
     resources :albums, only: [:new, :index]
@@ -21,4 +25,6 @@ Rails.application.routes.draw do
   end
 
   resources :notes, only: [:create, :destroy]
+
+
 end

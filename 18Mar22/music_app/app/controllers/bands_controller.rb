@@ -1,5 +1,5 @@
 class BandsController < ApplicationController
-    before_action :require_user!
+    before_action :require_activated_user!
 
     def index
         @bands = Band.all

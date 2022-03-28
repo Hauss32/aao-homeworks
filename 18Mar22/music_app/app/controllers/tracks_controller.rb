@@ -1,5 +1,5 @@
 class TracksController < ApplicationController
-    before_action :require_user!
+    before_action :require_activated_user!
 
     def index
         album_id = params[:album_id]

@@ -1,6 +1,6 @@
 class User < ApplicationRecord
     attr_reader :password
-    after_initialize :ensure_session_token
+    after_initialize :ensure_session_token, :ensure_activation_code
 
     validates :email, :session_token, presence: true, uniqueness: true
     validates :password, length: { minimum: 8, allow_nil: true }
@@ -36,6 +36,10 @@ class User < ApplicationRecord
     private
     def ensure_session_token
         self.session_token ||= generate_session_token
+    end
+
+    def ensure_activation_code
+        self.activation_code ||= SecureRandom.urlsafe_base64(16)
     end
 
     def generate_session_token

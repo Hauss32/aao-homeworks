@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
         if @user.save
             session[:session_token] = @user.session_token
+            send_activation_email
             redirect_to root_url
         else
             render 'new'
@@ -17,6 +18,24 @@ class UsersController < ApplicationController
     def new
         @user = User.new
         render 'new'
+    end
+
+    def activate
+        user = User.find_by(activation_code: params[:activation_code])
+
+        if user
+            user.is_activated = true
+            user.save
+            redirect_to root_url
+        else
+            render json: 'Activation code not recognized.', status: :unprocessable_entity
+        end
+    end
+
+    private
+    def send_activation_email
+        msg = UserMailer.activation_email(@user)
+        msg.deliver_now
     end
 
 end
