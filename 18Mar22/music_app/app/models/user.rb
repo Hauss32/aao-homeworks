@@ -3,6 +3,7 @@ class User < ApplicationRecord
     after_initialize :ensure_session_token, :ensure_activation_code
 
     validates :email, :session_token, presence: true, uniqueness: true
+    validates :password_digest, presence: true
     validates :password, length: { minimum: 8, allow_nil: true }
 
     has_many :notes
