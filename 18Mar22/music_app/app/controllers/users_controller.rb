@@ -11,6 +11,7 @@ class UsersController < ApplicationController
             send_activation_email
             redirect_to root_url
         else
+            flash.now[:errors] = @user.errors.full_messages
             render 'new'
         end
     end
