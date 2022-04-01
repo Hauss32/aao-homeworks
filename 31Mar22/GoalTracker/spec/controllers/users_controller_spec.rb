@@ -11,10 +11,10 @@ RSpec.describe UsersController, type: :controller do
         end
 
         context 'with invalid form data' do 
-            it 're-renders the new termplate with errors' do
+            it 're-renders the new template with errors' do
                 post :create, params: { user: {email: 'test@test.test', password: ''} }
                 expect(response).to render_template('new')
-                expect(falsh[:errors]).to be_present
+                expect(flash[:errors]).to be_present
             end
         end
     end
