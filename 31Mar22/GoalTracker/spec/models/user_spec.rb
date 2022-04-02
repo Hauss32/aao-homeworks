@@ -10,6 +10,7 @@ RSpec.describe User, type: :model do
     it { should validate_uniqueness_of(:session_token) }
     it { should validate_uniqueness_of(:email) }
     it { should validate_length_of(:password).is_at_least(8) }
+    it { should have_many(:goals) }
   end
 
   describe 'associations' do
