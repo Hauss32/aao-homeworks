@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe GoalsController, type: :controller do
     let(:user_1) { User.create(email: 'user_1@test.test', password: 'password')}
-    # let(:user_2) { User.create(email: 'user_2@test.test', password: 'password')}
     let(:goal_1) { create(:goal, user_id: user_1.id) }
-    # let(:goal_2) { create(:goal, user_id: user_2.id) }
 
     describe 'GET #index' do
         before(:each) { allow(controller).to receive(:current_user) { user_1 } }

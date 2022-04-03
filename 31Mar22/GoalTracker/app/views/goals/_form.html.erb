@@ -20,10 +20,10 @@ button_text = goal.persisted? ? 'Save' : 'Create Goal'
         <option value="false" <%= 'selected' unless goal.is_public %>>No</option>
     </select>
 
-    <label for="is_completed">Is this a goal completed?</label>
-    <select name="goal[is_completed]" id="is_completed">
-        <option value="true" <%= 'selected' if goal.is_completed %>>Yes</option>
-        <option value="false" <%= 'selected' unless goal.is_completed %>>No</option>
+    <label for="is_complete">Is this a goal completed?</label>
+    <select name="goal[is_complete]" id="is_complete">
+        <option value="true" <%= 'selected' if goal.is_complete %>>Yes</option>
+        <option value="false" <%= 'selected' unless goal.is_complete %>>No</option>
     </select>
 
     <input type="submit" value="<%= button_text %>">
