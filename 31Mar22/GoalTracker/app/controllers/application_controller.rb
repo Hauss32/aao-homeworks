@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
     helper_method :current_user, :log_in_user!, :log_out_user!
 
+    def render_not_found
+        render file: "#{Rails.root}/public/404.html",  :status => 404
+    end
+    
     def log_in_user!(user)
         user.reset_session_token!
         redirect_to root_url

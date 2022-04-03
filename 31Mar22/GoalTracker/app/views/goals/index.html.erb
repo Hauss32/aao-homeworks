@@ -1,0 +1,15 @@
+<h1>All the goals!</h1>
+
+<h2>Your Goals:</h2>
+<ul>
+    <% @own_goals.each do |goal| %>
+        <li><%= link_to goal.title, goal_url(goal) %></li>
+    <% end %>
+</ul>
+
+<h2>Other Goals:</h2>
+<ul>
+    <% @other_goals.each do |goal| %>
+        <li><%= link_to goal.title, goal_url(goal) %></li>
+    <% end %>
+</ul>

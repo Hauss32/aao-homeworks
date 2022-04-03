@@ -1,0 +1,30 @@
+<% 
+button_text = goal.persisted? ? 'Save' : 'Create Goal'
+%>
+
+<form action="<%= goals_url %>" method="post">
+    <%= auth_token %>
+    <% if goal.persisted? %>
+        <input type="hidden" name="_method" value="PATCH">
+    <% end %>
+
+    <label for="title">Goal Title</label>
+    <input type="text" name="goal[title]" id="title" value="<%= goal.title %>">
+
+    <label for="description">Description</label>
+    <textarea name="goal[description]" id="description"><%= goal.description %></textarea>
+
+    <label for="is_public">Is this a public goal?</label>
+    <select name="goal[is_public]" id="is_public">
+        <option value="true" <%= 'selected' if goal.is_public %>>Yes</option>
+        <option value="false" <%= 'selected' unless goal.is_public %>>No</option>
+    </select>
+
+    <label for="is_completed">Is this a goal completed?</label>
+    <select name="goal[is_completed]" id="is_completed">
+        <option value="true" <%= 'selected' if goal.is_completed %>>Yes</option>
+        <option value="false" <%= 'selected' unless goal.is_completed %>>No</option>
+    </select>
+
+    <input type="submit" value="<%= button_text %>">
+</form>

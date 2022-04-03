@@ -7,7 +7,10 @@ RSpec.describe GoalsController, type: :controller do
     # let(:goal_2) { create(:goal, user_id: user_2.id) }
 
     describe 'GET #index' do
+        before(:each) { allow(controller).to receive(:current_user) { user_1 } }
+
         it 'returns a 200 code' do
+            @current_user = user_1
             get :index
             expect(response).to have_http_status(200)
         end
@@ -20,13 +23,18 @@ RSpec.describe GoalsController, type: :controller do
     end
 
     describe 'GET #new' do
+        before(:each) { allow(controller).to receive(:current_user) { user_1 } }
+
         it 'renders new goal form' do 
+            get :new
             expect(response).to render_template(:new)
         end
     end
 
     describe 'POST #create' do 
         context 'with valid data' do
+            before(:each) { allow(controller).to receive(:current_user) { user_1 } }
+
             it 'redirects to new goal record' do 
                 post :create, params: { goal: {
                     title: 'Goalie Goal',
@@ -36,6 +44,8 @@ RSpec.describe GoalsController, type: :controller do
         end
 
         context 'with invalid data' do
+            before(:each) { allow(controller).to receive(:current_user) { user_1 } }
+
             it 're-renders new page with errors' do
                 post :create, params: { goal: {
                     title: '',
@@ -82,7 +92,7 @@ RSpec.describe GoalsController, type: :controller do
 
         it 'redirects to goal page' do
             get :show, params: { id: goal_1.id }
-            expect(response).to redirect_to(goal_url(goal_1))
+            expect(response).to render_template(:goal)
         end
     end
 
