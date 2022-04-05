@@ -1,8 +1,9 @@
 <% 
+endpoint = goal.persisted? ? goal_url(goal) : goals_url
 button_text = goal.persisted? ? 'Save' : 'Create Goal'
 %>
 
-<form action="<%= goals_url %>" method="post">
+<form action="<%= endpoint %>" method="post">
     <%= auth_token %>
     <% if goal.persisted? %>
         <input type="hidden" name="_method" value="PATCH">

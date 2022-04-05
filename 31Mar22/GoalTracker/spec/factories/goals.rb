@@ -1,7 +1,7 @@
 FactoryBot.define do 
     factory :goal do
-        title { Faker::Lorem.sentences(number: 1) }
-        description { Faker::Lorem.sentences(number: 4) }
+        title { Faker::Lorem.sentences(number: 1)[0] }
+        description { Faker::Lorem.sentences(number: 4).join(' ') }
         is_complete { false }
         is_public { false }
 
