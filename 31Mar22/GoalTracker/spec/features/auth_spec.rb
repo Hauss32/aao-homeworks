@@ -30,7 +30,7 @@ feature 'sign in process' do
             visit new_session_url
             fill_in 'email', with: 'test@test.test'
             fill_in 'password', with: 'password'
-            click_on 'Sign In'
+            click_button 'Sign In'
             expect(page).to have_content('Home Page')
         end
     end
@@ -42,7 +42,8 @@ feature 'the sign out process' do
         visit new_session_url
         fill_in 'email', with: 'test@test.test'
         fill_in 'password', with: 'password'
-        click_on 'Sign In'
+        click_button 'Sign In'
+        visit root_url
         click_on 'Log Out'
         expect(page).to have_content('Sign In')
     end
