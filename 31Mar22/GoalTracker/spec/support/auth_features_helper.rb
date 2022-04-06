@@ -1,4 +1,4 @@
-module GoalFeaturesHelper
+module AuthFeaturesHelper
     def log_in(user)
         visit new_session_url
         fill_in 'email', with: user.email

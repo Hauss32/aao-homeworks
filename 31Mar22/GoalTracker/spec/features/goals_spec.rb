@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'rails_helper'
-require_relative '../support/goal_features_helper'
+require_relative '../support/auth_features_helper'
 
 include GoalFeaturesHelper
 

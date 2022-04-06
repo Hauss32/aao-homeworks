@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+    include Commentable
+
     attr_reader :password
     after_initialize :ensure_tokens
 
