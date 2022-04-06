@@ -1,0 +1,5 @@
+<h1><%= @user.email %></h1>
+
+<%= render 'comments/comments', comments: @comments %>
+
+<%= render 'comments/new', commentable_id: @user.id, commentable_type: 'User' %>

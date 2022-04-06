@@ -52,6 +52,7 @@ class GoalsController < ApplicationController
         if @goal.nil?
             render_not_found
         else
+            @comments = @goal.comments
             render 'goal'
         end 
     end

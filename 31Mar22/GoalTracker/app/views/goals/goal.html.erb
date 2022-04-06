@@ -14,3 +14,7 @@
 <% else %>
     <p>This is an open goal.</p>
 <% end %>
+
+<%= render 'comments/comments', comments: @comments %>
+
+<%= render 'comments/new', commentable_id: @goal.id, commentable_type: 'Goal' %>

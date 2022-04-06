@@ -1,0 +1,19 @@
+<h2>Leave a Comment</h2>
+
+<% if flash[:errors] %>
+    <ul>
+    <% flash[:errors].each do |error| %>
+        <li><%= error %></li>
+    <% end %>
+    </ul>
+<% end %>
+
+<form action="<%= comments_url %>" method="post">
+    <%= auth_token %>
+    <input type="hidden" name="comment[commentable_id]" value="<%= commentable_id %>">
+    <input type="hidden" name="comment[commentable_type]" value="<%= commentable_type %>">
+    <label for="comment">Comment</label>
+    <textarea name="comment[body]" id="comment"></textarea>
+
+    <input type="submit" value="Post Comment">
+</form>

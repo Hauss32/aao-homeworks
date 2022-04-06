@@ -15,6 +15,17 @@ class UsersController < ApplicationController
         render 'new'
     end
 
+    def show
+        @user = User.find_by_id(params[:id])
+
+        if @user.nil?
+            render_not_found
+        else
+            @comments = @user.comments
+            render 'user'
+        end
+    end
+
     private
     def user_params
         params[:user].permit(:email, :password)
