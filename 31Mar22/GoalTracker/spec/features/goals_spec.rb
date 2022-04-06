@@ -2,12 +2,12 @@ require 'spec_helper'
 require 'rails_helper'
 require_relative '../support/auth_features_helper'
 
-include GoalFeaturesHelper
+include AuthFeaturesHelper
 
 feature 'CRUD for Goal objects' do
-    given(:user_1) { User.create(email: 'test@test.test', password: 'password') }
-    given(:user_2) { User.create(email: 'test_2@test.test', password: 'password') }
-    given(:goal_1) { Goal.create(title: 'Make Goal', description: 'At least 2.', user_id: user_1.id) }
+    given!(:user_1) { User.create(email: 'test@test.test', password: 'password') }
+    given!(:user_2) { User.create(email: 'test_2@test.test', password: 'password') }
+    given!(:goal_1) { Goal.create(title: 'Make Goal', description: 'At least 2.', user_id: user_1.id) }
 
     feature 'creating a goal' do
         background(:each) { log_in(user_1) }
@@ -64,7 +64,6 @@ feature 'CRUD for Goal objects' do
 
         scenario 'shows goal related to logged-in user' do 
             visit goals_url
-            save_and_open_page
             expect(page).to have_content(goal_1.title)
         end
 

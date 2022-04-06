@@ -4,7 +4,10 @@ RSpec.describe "goals/goal" do
     let(:user_1) { User.create(email: 'user_1@test.test', password: 'password')}
     let(:goal_1) { create(:goal, user_id: user_1.id) }
 
-    before(:each) { assign(:goal, goal_1) }
+    before(:each) do 
+        assign(:goal, goal_1)
+        assign(:comments, [])
+    end 
 
     it 'renders with the title of the goal' do
         render
