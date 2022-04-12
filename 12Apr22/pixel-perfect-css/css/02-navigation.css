@@ -1,19 +1,30 @@
 /* PHASE 2: Navigation */
 
 .header-logo {
-
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px 20px;
 }
 
-.header-logo:hover {
+.header-logo a {
+    border-right: 1px solid white;
+    font-weight: 700;
+}
 
+header a:hover {
+    background-color: black;
+    color: white;
 }
 
 .header-list {
-
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
 }
 
 .header-list > li {
-
+    height: 100%;
+    font-size: 16px;
 }
 
 .header-list > li:hover {

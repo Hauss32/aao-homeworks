@@ -2,17 +2,30 @@
 
 body {
   /* Write your css here... */
+  width: 100%;
+}
 
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header {
-
+  background-color: #f00;
+  font-family: sans-serif;
+  color: white;
 }
 
 .header a {
-
+  font-weight: 400;
+  padding: 10px 20px;
+  border-left: 1px solid white;
 }
 
 .header-nav {
-
+  width: 900px;
+  margin: auto;
+  height: 100%;
+  border-right: 1px solid white;
 }
