@@ -78,6 +78,10 @@ nav ul li a {
     display: block;
 }
 
+.hamburger-dropdown {
+  display: none;
+}
+
 body {
   margin: 0 auto;
     width: 60%;
@@ -112,5 +116,53 @@ label {
 /* Media Queries! */
 @media all and (max-width: 900px) {
 /* Code Goes Here */
+ .col-1-3 {
+   width: 100%;
+ }
+ 
+ nav > ul {
+   display: none;
+ }
+
+ .hamburger-dropdown {
+   display: block;
+ }
+
+ .hamburger-dropdown > li {
+   background-image: url(./hamburger.png);
+   width: 50px;
+   height: 50px;
+   background-size: 50px 50px;
+   position: relative;
+ }
+
+ .hamburger-dropdown ul {
+   position: absolute;
+   display: none;
+   border: 3px solid black;
+   background-color: lightgray;
+   top: 50px;
+   box-sizing: border-box;
+ }
+
+ .hamburger-dropdown li {
+   display: block;
+   padding: 0px;
+ }
+
+ .hamburger-dropdown a {
+   padding: 10px;
+ }
+
+
+ .hamburger-dropdown a:hover {
+   background-color: white;
+ }
+
+ .hamburger-dropdown:hover ul {
+   display: block;
+ }
+
+
 }
 
