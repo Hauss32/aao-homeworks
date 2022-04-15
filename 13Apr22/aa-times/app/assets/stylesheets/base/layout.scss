@@ -41,6 +41,10 @@ hr {
 	background-color: $light-gray;
 }
 
+a:hover {
+	text-decoration: underline;
+}
+
 .hr-top, .hr-bottom {
 	width: 100%;
 	margin: 0;
@@ -55,3 +59,4 @@ hr {
 	padding: 5px;
 	border-radius: 3px;
 }
+
