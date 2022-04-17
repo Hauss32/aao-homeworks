@@ -1,0 +1,31 @@
+.nav-section {
+    display: flex;
+    border-bottom: 1px solid $gray;
+    justify-content: center;
+    align-items: center;
+
+    li {
+        padding: 10px;
+    }
+
+    a:hover {
+        background-color: $light-gray;
+        text-decoration: none;
+    }
+
+    li:last-of-type {
+        font-size: 11px;
+    }
+
+    li:last-of-type a:hover {
+        background-color: white;
+        text-decoration: underline;
+    }
+}
+
+@media all and (max-width: 1000px) {
+
+    .nav-section {
+        display: none;
+    }
+}

@@ -60,3 +60,16 @@
 #gear-icon {
   position: relative;
 }
+
+@media all and (max-width: 1000px) {
+
+  .main-nav {
+    button {
+      display: none;
+    }
+  }
+
+  .left-nav {
+    margin-left: 0;
+  }
+}
