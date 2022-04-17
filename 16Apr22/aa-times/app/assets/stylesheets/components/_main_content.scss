@@ -3,6 +3,7 @@
     margin-top: 10px;
     display: grid;
     grid-template-columns: 2fr 1fr;
+    position: relative;
 
     header {
         font-weight: bold;
@@ -101,6 +102,17 @@ article {
     li {
         margin: 5px 0;
     }
+}
+
+#overlay {
+    background-color: white;
+    opacity: 70%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
 }
 
 @media all and (max-width: 1000px) {

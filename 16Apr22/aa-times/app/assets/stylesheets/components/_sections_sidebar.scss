@@ -4,6 +4,7 @@
     position: absolute;
     left: 0px;
     top: 20px;
+    display: none;
 
     section {
         padding: 5px;
@@ -19,7 +20,8 @@
     }
 }
 
-.expand {
+.sections-sidebar.expand {
+    display: block;
     width: 200px;
     opacity: 1;
     position: fixed;
@@ -27,7 +29,7 @@
     left: 0;
     bottom: 0;
     background-color: white;
-    z-index: 100;
+    z-index: 3;
     box-shadow: 5px 0 3px -2px $light-gray;
 }
 
@@ -39,7 +41,7 @@
         position: absolute;
         left: 180px;
         top: -10px;
-        z-index: 101;
+        z-index: 4;
         border: 1px solid $light-gray;
         padding: 10px;
         background-color: white;
@@ -77,13 +79,13 @@
         border-bottom: 15px solid transparent;
         width: 0;
         height: 0;
-        z-index: 102;
+        z-index: 5;
     }
 
     ul:after {
         border-right-color: $light-gray;
         left: -20px;
-        z-index: 101;
+        z-index: 4;
     }
 
     :hover {
