@@ -1,0 +1,49 @@
+main {
+    width: 600px;
+    background-color: lightgray;
+    margin: 50px auto;
+    font-family: sans-serif;
+}
+
+section {
+    border: 1px solid transparent;
+}
+
+article {
+    margin: 10px;
+    background-color: white;
+}
+
+h1 {
+    font-size: 1.3em;
+    color: blue;
+}
+
+h2 {
+    font-size: 1em;
+    color: rgb(169, 167, 167);
+}
+
+p {
+    padding: 20px;
+}
+
+.post-info {
+    display: flex;
+    justify-content: flex-start;
+
+    padding: 20px;
+    border-bottom: 2px solid lightgray;
+}
+
+.post-info > :last-child {
+    padding: 0 10px 10px 10px;
+}
+
+.img {
+    width: 50px;
+    height: 50px;
+    border: 2px solid blue;
+    background-color: lightblue;
+}
+
