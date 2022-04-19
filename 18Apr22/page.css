@@ -1,0 +1,163 @@
+body {
+    font-family: sans-serif;
+    background-color: rgb(238, 238, 238);
+}
+
+header {
+    height: 40px;
+    background-color: rgb(175, 21, 21);
+    color: white;
+    border-bottom: 3px solid black;
+    padding: 0 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    font-size: 1.4em;
+}
+
+header h1 {
+    padding: 0 20px;
+    line-height: 40px;
+    height: 100%;
+    border-left: 3px solid black;
+
+}
+
+ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 40px;
+}
+
+nav > ul > li {
+    border-right: 3px solid black;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+}
+
+nav > ul > li:first-of-type {
+    border-left: 3px solid black;
+}
+
+.notifications {
+    position: absolute;
+    left: -3px;
+    border: none;
+    display: none;
+    color: black;
+    font-size: 1em;
+    width: 100%;
+    border: 3px solid black;
+    border-bottom: none;
+    height: auto;
+}
+
+.notifications li {
+    background-color: white;
+    padding: 5px;
+    border-bottom: 3px solid black;
+    box-sizing: border-box;
+}
+
+nav a {
+    color: white;
+    height: 100%;
+    line-height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+a > i {
+    display: block;
+    height: 12px;
+    width: 12px; 
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+    font-size: .8em;
+    font-weight: 700;
+    padding: 3px;
+    margin-left: 4px;
+    text-align: center;
+    line-height: 12px;
+}
+
+nav li:hover {
+    background-color: black;
+}
+
+nav li:hover i {
+    background-color: rgb(175, 21, 21);
+}
+
+nav li:hover ul {
+    display: block;
+}
+
+.notifications li:hover {
+    background-color: lightgray;
+}
+
+a {
+    text-decoration: none;
+    display: block;
+    margin: auto;
+    padding: 0 20px;
+}
+
+main {
+    margin: 0 100px;
+    border: 3px solid lightgray;
+    border-top: none;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+}
+
+section {
+    margin: 20px;
+}
+
+section h1 {
+    padding-bottom: 15px;
+    font-weight: 700;
+}
+
+.sidebar {
+    border-right: 3px solid lightgray;
+    padding-right: 20px;
+}
+
+footer {
+    margin: 0 100px;
+    border: 3px solid lightgray;
+    border-top: none;
+    background-color: rgb(233, 233, 233);
+    color: rgb(154, 154, 154);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer p {
+    padding: 20px;
+}
+
+footer a {
+    color: rgb(154, 154, 154);
+    padding: 0px 10px;
+}
+
+footer ul {
+    padding-right: 10px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: rgb(99, 99, 99);
+}
