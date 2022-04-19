@@ -1,0 +1,154 @@
+body {
+    background-color: rgb(29, 29, 29);
+    color: rgb(180, 180, 180);
+    font-family: sans-serif;
+    
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+li {
+    padding: 0px 10px;
+}
+
+nav {
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    padding: 0px 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.selector-grid {
+    height: 25px;
+    width: 25px;
+    background-color: rgb(180, 180, 180);
+}
+
+.profile-pic {
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    background-color: rgb(180, 180, 180);
+}
+
+main {
+    width: 500px;
+    margin: 200px auto;
+}
+
+main h1 {
+    font-size: 5em;
+    color: white;
+    text-align: center;
+}
+
+main ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main p {
+    margin-top: 30px;
+    font-size: .8em;
+    text-align: center;
+}
+
+main a {
+    color: rgb(112, 163, 231);
+    display: inline-block;
+}
+
+.search {
+    width: 100%;
+    background-color: inherit;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 40px;
+    height: 40px;
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.search:hover {
+    background-color: rgb(49, 49, 49);
+    border-color: rgb(49, 49, 49);
+}
+
+.search i:first-of-type {
+    position: absolute;
+    left: 15px;
+    font-size: .8em;
+}
+
+.search i:last-of-type {
+    position: absolute;
+    right: 15px;
+    transform: rotate(-45deg);
+}
+
+input[type=text] {
+    width: 76%;
+    height: 80%;
+    border: none;
+    background-color: inherit;
+    color: white;
+    font-size: 1.1em;
+}
+
+input:focus-visible {
+    outline: 0;
+}
+
+button {
+    height: 35px;
+    padding: 10px;
+    color: white;
+    background-color: rgb(49, 49, 49);
+    border: 0;
+    border-radius: 3px;
+}
+
+footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background-color: rgb(14, 14, 14);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    font-size: .9em;
+}
+
+footer p {
+    flex-basis: 100%;
+    text-align: center;
+}
+
+footer ul {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0px 100px 10px 100px;
+}
+
