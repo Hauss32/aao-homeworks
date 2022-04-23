@@ -1,0 +1,22 @@
+<% 
+button_text = post.persisted? ? 'Save' : 'Create'
+%>
+
+<% if flash[:errors] %>
+    <ul class="errors">
+        <% flash[:errors].each do |error| %>
+            <li><%= error %></li>
+        <% end %>
+    </ul>
+<% end %>
+
+<%=  form_with model: post, local: true do |form| %>
+    <%= form.hidden_field :sub_id, value: post.sub_id %>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <%= form.label :url, 'URL' %>
+    <%= form.text_field :url %>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <%= form.submit button_text %>
+<% end %>

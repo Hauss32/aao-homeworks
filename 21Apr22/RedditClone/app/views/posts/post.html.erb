@@ -1,0 +1,8 @@
+<h1><%= @post.title %></h1>
+<h3>Author: <%= @post.email %></h3>
+
+<% unless @post.url.empty? %>
+    <a href="<% @post.url %>">View Post Link</a>
+<% end %>
+
+<p><%= @post.body %></p>

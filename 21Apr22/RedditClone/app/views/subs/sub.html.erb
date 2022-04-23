@@ -7,4 +7,11 @@
 <p><%= @sub.description %></p>
 
 <h3>Moderator</h3>
-<p><%= @sub.class %></p>
+<p><%= @sub.email %></p>
+
+<h3>Posts</h3>
+<ul>
+    <% @posts.each do |post| %>
+        <li><%= link_to post.title, post_url(post) %></li>
+    <% end %>
+</ul>

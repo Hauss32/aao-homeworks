@@ -29,6 +29,7 @@ class SubsController < ApplicationController
                 .where(id: params[:id])
                 .select('subs.*, email')
                 .first
+        @posts = @sub.posts
         render 'sub'
     end
 
