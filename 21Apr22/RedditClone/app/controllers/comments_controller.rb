@@ -6,7 +6,11 @@ class CommentsController < ApplicationController
         @comment.user_id = current_user.id
 
         if @comment.save
-            redirect_to post_url(@comment.post_id)
+            if @comment.parent_comment_id.nil?
+                redirect_to post_url(@comment.post_id)
+            else
+                redirect_to comment_url(@comment.parent_comment_id)
+            end
         else
             flash.new[:errors] = @comment.errors.full_messages
             render 'new'
@@ -19,8 +23,13 @@ class CommentsController < ApplicationController
         render 'new'
     end
 
+    def show
+        @comment = Comment.find_by_id(params[:id])
+        render 'comment'
+    end
+
     private
     def comment_params
-        params[:comment].permit(:body, :post_id)
+        params[:comment].permit(:body, :post_id, :parent_comment_id)
     end
 end

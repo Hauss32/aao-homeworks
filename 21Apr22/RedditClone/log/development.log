@@ -6907,3 +6907,1120 @@ Completed 200 OK in 22ms (Views: 18.4ms | ActiveRecord: 1.3ms)
   [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" ORDER BY "posts"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
   [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = $1[0m  [["post_id", 1]]
   [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6711173107426626090)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddParentCommentId (20220426005150)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.9ms)[0m  [1m[35mALTER TABLE "comments" ADD "parent_comment_id" integer NOT NULL[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(6711173107426626090)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6711173107426626090)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddParentCommentId (20220426005150)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.8ms)[0m  [1m[35mALTER TABLE "comments" ADD "parent_comment_id" integer[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "comments" ADD CONSTRAINT "fk_rails_9d3999db39"
+FOREIGN KEY ("parent_comment_id_id")
+  REFERENCES "parent_comment_id" ("id")
+[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(6711173107426626090)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6711173107426626090)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddParentCommentId (20220426005150)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "comments" ADD "parent_comment_id" integer[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "comments" ADD CONSTRAINT "fk_rails_da28d53ee7"
+FOREIGN KEY ("parent_comment_id")
+  REFERENCES "comment" ("id")
+[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(6711173107426626090)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6711173107426626090)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddParentCommentId (20220426005150)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.7ms)[0m  [1m[35mALTER TABLE "comments" ADD "parent_comment_id" integer[0m
+  [1m[35m (2.4ms)[0m  [1m[35mALTER TABLE "comments" ADD CONSTRAINT "fk_rails_da28d53ee7"
+FOREIGN KEY ("parent_comment_id")
+  REFERENCES "comments" ("id")
+[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220426005150"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(6711173107426626090)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/posts/3" for ::1 at 2022-04-25 18:08:58 -0700
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (1.4ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.9ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = $1 AND "comments"."parent_comment_id" IS NULL[0m  [["post_id", 3]]
+  [1m[36mSub Load (0.4ms)[0m  [1m[34mSELECT  "subs"."id", "subs"."title" FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1 LIMIT $2[0m  [["post_id", 3], ["LIMIT", 11]]
+  [1m[36mCACHE Sub Load (0.0ms)[0m  [1m[34mSELECT  "subs"."id", "subs"."title" FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1 LIMIT $2[0m  [["post_id", 3], ["LIMIT", 11]]
+  [1m[36mCACHE Sub Load (0.0ms)[0m  [1m[34mSELECT  "subs"."id", "subs"."title" FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1 LIMIT $2[0m  [["post_id", 3], ["LIMIT", 11]]
+  [1m[36mCACHE Sub Load (0.0ms)[0m  [1m[34mSELECT  "subs"."id", "subs"."title" FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1 LIMIT $2[0m  [["post_id", 3], ["LIMIT", 11]]
+  Rendered posts/post.html.erb within layouts/application (79.7ms)
+Completed 500 Internal Server Error in 124ms (ActiveRecord: 20.1ms)
+
+
+  
+ActionView::Template::Error (undefined method `comment_url' for #<#<Class:0x00007f9c5d671640>:0x00007f9c5d668040>):
+    17: <h3>Comments:</h3>
+    18: <ul>
+    19:     <% @comments.each do |comment| %>
+    20:         <li><%= link_to shorten_link_content(comment.body), comment_url(comment) %></li>
+    21:     <% end %>
+    22: </ul>
+  
+app/views/posts/post.html.erb:20:in `block in _app_views_posts_post_html_erb___2583358342190937016_70154779297040'
+app/views/posts/post.html.erb:19:in `_app_views_posts_post_html_erb___2583358342190937016_70154779297040'
+app/controllers/posts_controller.rb:31:in `show'
+Started GET "/posts/3" for ::1 at 2022-04-25 18:13:27 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.7ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = $1 AND "comments"."parent_comment_id" IS NULL[0m  [["post_id", 3]]
+  Rendered posts/post.html.erb within layouts/application (10.9ms)
+Completed 200 OK in 60ms (Views: 29.3ms | ActiveRecord: 1.9ms)
+
+
+Started GET "/comments/1" for ::1 at 2022-04-25 18:13:40 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendered comments/comment.html.erb within layouts/application (3.8ms)
+Completed 200 OK in 34ms (Views: 30.7ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/comments/1" for ::1 at 2022-04-25 18:14:45 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendered comments/comment.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 25ms (Views: 22.6ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/posts/3" for ::1 at 2022-04-25 18:14:51 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.5ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = $1 AND "comments"."parent_comment_id" IS NULL[0m  [["post_id", 3]]
+  Rendered posts/post.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 25ms (Views: 20.8ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/posts/3" for ::1 at 2022-04-25 18:25:06 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.4ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = $1 AND "comments"."parent_comment_id" IS NULL[0m  [["post_id", 3]]
+  [1m[36mSub Load (0.6ms)[0m  [1m[34mSELECT  "subs"."id", "subs"."title" FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1 LIMIT $2[0m  [["post_id", 3], ["LIMIT", 11]]
+  [1m[36mCACHE Sub Load (0.0ms)[0m  [1m[34mSELECT  "subs"."id", "subs"."title" FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1 LIMIT $2[0m  [["post_id", 3], ["LIMIT", 11]]
+  [1m[36mCACHE Sub Load (0.0ms)[0m  [1m[34mSELECT  "subs"."id", "subs"."title" FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1 LIMIT $2[0m  [["post_id", 3], ["LIMIT", 11]]
+  [1m[36mCACHE Sub Load (0.0ms)[0m  [1m[34mSELECT  "subs"."id", "subs"."title" FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1 LIMIT $2[0m  [["post_id", 3], ["LIMIT", 11]]
+  Rendered posts/post.html.erb within layouts/application (76.2ms)
+Completed 500 Internal Server Error in 119ms (ActiveRecord: 17.6ms)
+
+
+  
+ActionView::Template::Error (undefined method `subit' for #<ActionView::Helpers::FormBuilder:0x00007f9c8cac75f8>):
+    26:     <%= form.hidden_field :post_id, value: @post.id %>
+    27:     <%= form.label :body, 'Comment:' %>
+    28:     <%= form.text_area :body %>
+    29:     <%= form.subit 'Post Comment' %>
+    30: <% end %>
+  
+app/views/posts/post.html.erb:29:in `block in _app_views_posts_post_html_erb___2583358342190937016_70154786226360'
+app/views/posts/post.html.erb:25:in `_app_views_posts_post_html_erb___2583358342190937016_70154786226360'
+app/controllers/posts_controller.rb:31:in `show'
+Started GET "/posts/3" for ::1 at 2022-04-25 18:25:16 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.5ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = $1 AND "comments"."parent_comment_id" IS NULL[0m  [["post_id", 3]]
+  Rendered posts/post.html.erb within layouts/application (3.4ms)
+Completed 200 OK in 29ms (Views: 25.0ms | ActiveRecord: 1.4ms)
+
+
+Started POST "/comments" for ::1 at 2022-04-25 18:26:50 -0700
+Processing by CommentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"uENZXBEsiislRI52JlI/hj2BIcE+vF0mWAqZI6CSXEBLOgeOi0R++CEXRwnZbH3GczXTlnwNiRmO4GKv24ktXQ==", "post_id"=>"3", "body"=>"What if the rat has a hat? Is a cat still better than a hatted rat?", "commit"=>"Post Comment"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.2ms)
+
+
+  
+NoMethodError (undefined method `permit' for nil:NilClass):
+  
+app/controllers/comments_controller.rb:29:in `comment_params'
+app/controllers/comments_controller.rb:5:in `create'
+Started POST "/comments" for ::1 at 2022-04-25 18:28:10 -0700
+Processing by CommentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"uENZXBEsiislRI52JlI/hj2BIcE+vF0mWAqZI6CSXEBLOgeOi0R++CEXRwnZbH3GczXTlnwNiRmO4GKv24ktXQ==", "post_id"=>"3", "body"=>"What if the rat has a hat? Is a cat still better than a hatted rat?", "commit"=>"Post Comment"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.1ms)
+
+
+  
+NoMethodError (undefined method `permit' for nil:NilClass):
+  
+app/controllers/comments_controller.rb:29:in `comment_params'
+app/controllers/comments_controller.rb:5:in `create'
+Started POST "/comments" for ::1 at 2022-04-25 18:30:36 -0700
+Processing by CommentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"uENZXBEsiislRI52JlI/hj2BIcE+vF0mWAqZI6CSXEBLOgeOi0R++CEXRwnZbH3GczXTlnwNiRmO4GKv24ktXQ==", "post_id"=>"3", "body"=>"What if the rat has a hat? Is a cat still better than a hatted rat?", "commit"=>"Post Comment"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.2ms)
+
+
+  
+NoMethodError (undefined method `permit' for nil:NilClass):
+  
+app/controllers/comments_controller.rb:29:in `comment_params'
+app/controllers/comments_controller.rb:5:in `create'
+Started POST "/comments" for ::1 at 2022-04-25 18:31:43 -0700
+Processing by CommentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"uENZXBEsiislRI52JlI/hj2BIcE+vF0mWAqZI6CSXEBLOgeOi0R++CEXRwnZbH3GczXTlnwNiRmO4GKv24ktXQ==", "post_id"=>"3", "body"=>"What if the rat has a hat? Is a cat still better than a hatted rat?", "commit"=>"Post Comment"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.1ms)
+
+
+  
+NoMethodError (undefined method `permit' for nil:NilClass):
+  
+app/controllers/comments_controller.rb:29:in `comment_params'
+app/controllers/comments_controller.rb:5:in `create'
+Started POST "/comments" for ::1 at 2022-04-25 18:33:21 -0700
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by CommentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"uENZXBEsiislRI52JlI/hj2BIcE+vF0mWAqZI6CSXEBLOgeOi0R++CEXRwnZbH3GczXTlnwNiRmO4GKv24ktXQ==", "post_id"=>"3", "body"=>"What if the rat has a hat? Is a cat still better than a hatted rat?", "commit"=>"Post Comment"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 28ms (ActiveRecord: 9.2ms)
+
+
+  
+NoMethodError (undefined method `permit' for nil:NilClass):
+  
+app/controllers/comments_controller.rb:29:in `comment_params'
+app/controllers/comments_controller.rb:5:in `create'
+Started GET "/posts/3" for ::1 at 2022-04-25 18:38:29 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (1.1ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  Rendered posts/post.html.erb within layouts/application (0.5ms)
+Completed 500 Internal Server Error in 63ms (ActiveRecord: 23.2ms)
+
+
+  
+SyntaxError (/Users/chrishauss/Desktop/Code_Exercises/aao-homeworks/21Apr22/RedditClone/app/views/posts/post.html.erb:25: syntax error, unexpected '<', expecting keyword_end
+'.freeze; <%= form_with url: :comment, m...
+          ^
+/Users/chrishauss/Desktop/Code_Exercises/aao-homeworks/21Apr22/RedditClone/app/views/posts/post.html.erb:43: syntax error, unexpected keyword_ensure, expecting end-of-input
+          ensure
+          ^~~~~~):
+  
+app/views/posts/post.html.erb:25: syntax error, unexpected '<', expecting keyword_end
+app/views/posts/post.html.erb:43: syntax error, unexpected keyword_ensure, expecting end-of-input
+app/controllers/posts_controller.rb:31:in `show'
+Started GET "/posts/3" for ::1 at 2022-04-25 18:38:47 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (1.4ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[36mComment Load (0.7ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = $1 AND "comments"."parent_comment_id" IS NULL[0m  [["post_id", 3]]
+  Rendered posts/post.html.erb within layouts/application (18.5ms)
+Completed 200 OK in 171ms (Views: 162.2ms | ActiveRecord: 6.1ms)
+
+
+Started POST "/comments" for ::1 at 2022-04-25 18:38:51 -0700
+Processing by CommentsController#create as HTML
+  Parameters: {"authenticity_token"=>"AWciGPYvTFSYC4REMU/MTu7cCt12GC8CcNWzH38pzq7yHnzKbEe4h5xYTTvOcY4OoGj4ijSp+z2mP0iTBDK/sw==", "comment"=>{"post_id"=>"3", "body"=>"What if the rat has a hat? Is a cat still better than a hatted rat?"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "comments" ("user_id", "post_id", "body", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", 4], ["post_id", 3], ["body", "What if the rat has a hat? Is a cat still better than a hatted rat?"], ["created_at", "2022-04-26 01:38:51.543620"], ["updated_at", "2022-04-26 01:38:51.543620"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/posts/3
+Completed 302 Found in 9ms (ActiveRecord: 2.8ms)
+
+
+Started GET "/posts/3" for ::1 at 2022-04-25 18:38:51 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.5ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = $1 AND "comments"."parent_comment_id" IS NULL[0m  [["post_id", 3]]
+  Rendered posts/post.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 43ms (Views: 39.1ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-25 18:39:02 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendered comments/comment.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 31ms (Views: 26.2ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 15:34:15 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (11.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.7ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendered comments/comment.html.erb within layouts/application (10.1ms)
+Completed 200 OK in 182ms (Views: 61.1ms | ActiveRecord: 13.0ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 15:45:51 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendered comments/comment.html.erb within layouts/application (8.5ms)
+Completed 500 Internal Server Error in 17ms (ActiveRecord: 2.4ms)
+
+
+  
+ActionView::Template::Error (Missing partial comments/_nested_comments, application/_nested_comments with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :coffee, :jbuilder]}. Searched in:
+  * "/Users/chrishauss/Desktop/Code_Exercises/aao-homeworks/21Apr22/RedditClone/app/views"
+):
+     8: 
+     9: <h3>Replies:</h3>
+    10: <ul>
+    11:     <%= render 'nested_comments' %>
+    12: </ul>
+    13: 
+    14: <h3>Reply to this comment:</h3>
+  
+app/views/comments/comment.html.erb:11:in `_app_views_comments_comment_html_erb__1864663380170709801_70126143618400'
+app/controllers/comments_controller.rb:24:in `show'
+Started GET "/comments/2" for ::1 at 2022-04-26 15:46:38 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 2], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (5.9ms)
+  Rendered comments/comment.html.erb within layouts/application (10.1ms)
+Completed 200 OK in 31ms (Views: 27.8ms | ActiveRecord: 1.7ms)
+
+
+  [1m[36mComment Load (1.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+Started GET "/comments/2" for ::1 at 2022-04-26 15:53:08 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 2], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (2.2ms)
+  Rendered comments/comment.html.erb within layouts/application (6.3ms)
+Completed 200 OK in 27ms (Views: 24.5ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 15:58:20 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 2], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (1.3ms)
+  Rendered comments/comment.html.erb within layouts/application (5.5ms)
+Completed 200 OK in 26ms (Views: 23.4ms | ActiveRecord: 1.7ms)
+
+
+Started DELETE "/session" for ::1 at 2022-04-26 15:58:31 -0700
+Processing by SessionsController#destroy as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"pczAnzuEZqZoAprRwk1a83iFeJjoh0UwjSib0diGXnNWtZ5NoeySdWxRU649cxizNjGKz6o2kQ9bwmBdo50vbg==", "commit"=>"Log Out"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["email", "user234"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."session_token" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["session_token", "5Bd6L7tS5eRxXbIKmbpz7g"], ["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (6.4ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "5Bd6L7tS5eRxXbIKmbpz7g"], ["updated_at", "2022-04-26 22:58:31.645423"], ["id", 4]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/session/new
+Completed 200 OK in 15ms (ActiveRecord: 8.9ms)
+
+
+Started GET "/session/new" for ::1 at 2022-04-26 15:58:31 -0700
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 22ms (Views: 21.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 15:58:34 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+Redirected to http://localhost:3000/session/new
+Filter chain halted as :require_logged_in_user! rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/session/new" for ::1 at 2022-04-26 15:58:34 -0700
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 18ms (Views: 17.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/session" for ::1 at 2022-04-26 15:58:40 -0700
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"iHWs/3WV1wlcznnaLXCuiTmtvUGm+vki5swttlBz0cR7DPIt7/0j2lidsKXSTuzJdxlPFuRLLR0wJtY6K2ig2Q==", "email"=>"user123", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "user123"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (1.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["email", "user123"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."session_token" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["session_token", "3CrcPWmc47YCohvqES49iA"], ["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "3CrcPWmc47YCohvqES49iA"], ["updated_at", "2022-04-26 22:58:40.831729"], ["id", 3]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/comments/2
+Completed 302 Found in 193ms (ActiveRecord: 3.2ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 15:58:40 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3CrcPWmc47YCohvqES49iA"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 2], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (1.0ms)
+  Rendered comments/comment.html.erb within layouts/application (4.0ms)
+Completed 200 OK in 23ms (Views: 20.3ms | ActiveRecord: 1.4ms)
+
+
+Started POST "/comments" for ::1 at 2022-04-26 15:59:17 -0700
+Processing by CommentsController#create as HTML
+  Parameters: {"authenticity_token"=>"hzntuSOLmNMJnmAXQCJC7pn2Eah71xh25TbEnjpg/TF0QLNrueNsAA3NqWi/HACu10Lj/zlmzEkz3D8SQXuMLA==", "comment"=>{"post_id"=>"3", "parent_comment_id"=>"2", "body"=>"Still not better. Unless the hatted rat was as fat as the cat..."}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3CrcPWmc47YCohvqES49iA"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (2.7ms)[0m  [1m[32mINSERT INTO "comments" ("user_id", "post_id", "body", "created_at", "updated_at", "parent_comment_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 3], ["post_id", 3], ["body", "Still not better. Unless the hatted rat was as fat as the cat..."], ["created_at", "2022-04-26 22:59:17.592545"], ["updated_at", "2022-04-26 22:59:17.592545"], ["parent_comment_id", 2]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/posts/3
+Completed 302 Found in 8ms (ActiveRecord: 3.9ms)
+
+
+Started GET "/posts/3" for ::1 at 2022-04-26 15:59:17 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3CrcPWmc47YCohvqES49iA"], ["LIMIT", 1]]
+  [1m[36mPost Load (2.4ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (2.1ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = $1 AND "comments"."parent_comment_id" IS NULL[0m  [["post_id", 3]]
+  Rendered posts/post.html.erb within layouts/application (4.4ms)
+Completed 200 OK in 27ms (Views: 19.6ms | ActiveRecord: 5.0ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 15:59:52 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3CrcPWmc47YCohvqES49iA"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 2], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 3], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (0.8ms)
+  Rendered comments/_nested_comments.html.erb (5.4ms)
+  Rendered comments/comment.html.erb within layouts/application (9.5ms)
+Completed 200 OK in 31ms (Views: 26.4ms | ActiveRecord: 2.8ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 16:00:35 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3CrcPWmc47YCohvqES49iA"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 2], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 3], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (0.8ms)
+  Rendered comments/_nested_comments.html.erb (5.2ms)
+  Rendered comments/comment.html.erb within layouts/application (9.3ms)
+Completed 200 OK in 30ms (Views: 27.0ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 16:01:08 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3CrcPWmc47YCohvqES49iA"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 2], ["LIMIT", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 3], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (0.7ms)
+  Rendered comments/_nested_comments.html.erb (4.6ms)
+  Rendered comments/comment.html.erb within layouts/application (8.4ms)
+Completed 200 OK in 29ms (Views: 24.9ms | ActiveRecord: 2.4ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 16:01:44 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3CrcPWmc47YCohvqES49iA"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 2], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 3], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (0.8ms)
+  Rendered comments/_nested_comments.html.erb (4.6ms)
+  Rendered comments/comment.html.erb within layouts/application (8.6ms)
+Completed 200 OK in 32ms (Views: 28.6ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 16:01:59 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3CrcPWmc47YCohvqES49iA"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 2], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 3], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (0.8ms)
+  Rendered comments/_nested_comments.html.erb (4.5ms)
+  Rendered comments/comment.html.erb within layouts/application (9.0ms)
+Completed 200 OK in 29ms (Views: 25.4ms | ActiveRecord: 2.3ms)
+
+
+Started GET "/comments/3" for ::1 at 2022-04-26 16:02:15 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3CrcPWmc47YCohvqES49iA"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 3], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (1.4ms)
+  Rendered comments/comment.html.erb within layouts/application (5.5ms)
+Completed 200 OK in 29ms (Views: 25.1ms | ActiveRecord: 1.9ms)
+
+
+Started DELETE "/session" for ::1 at 2022-04-26 16:02:20 -0700
+Processing by SessionsController#destroy as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"A3MwwydnrMKaORGcKqTmJt0pNcXkqKeB/eJ+XHrWAaBmadiYWzTJfXVNrpG3DWLaAkbniQMFxj+hsBMOfkoDeQ==", "commit"=>"Log Out"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3CrcPWmc47YCohvqES49iA"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["email", "user123"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."session_token" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["session_token", "UgrKwcbt6e5zP8KJOXZJ_A"], ["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "UgrKwcbt6e5zP8KJOXZJ_A"], ["updated_at", "2022-04-26 23:02:20.896315"], ["id", 3]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/session/new
+Completed 200 OK in 5ms (ActiveRecord: 1.8ms)
+
+
+Started GET "/session/new" for ::1 at 2022-04-26 16:02:20 -0700
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 20ms (Views: 19.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/session" for ::1 at 2022-04-26 16:02:26 -0700
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"glgH+GWuo+O2IbtSi7wNDRDOUbZ5i6AGWiPLl2SkoRZxIVkq/8ZXMLJyci10gk9NXnqj4Ts6dDmMyTAbH7/QCw==", "email"=>"user234", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "user234"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (1.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["email", "user234"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Exists (2.9ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."session_token" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["session_token", "WuSsr2rfaiE_CXE9YwNEDg"], ["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "WuSsr2rfaiE_CXE9YwNEDg"], ["updated_at", "2022-04-26 23:02:27.145639"], ["id", 4]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 200ms (ActiveRecord: 6.6ms)
+
+
+Started GET "/" for ::1 at 2022-04-26 16:02:27 -0700
+Processing by HomepageController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WuSsr2rfaiE_CXE9YwNEDg"], ["LIMIT", 1]]
+  Rendering homepage/index.html.erb within layouts/application
+  Rendered homepage/index.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 18ms (Views: 16.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/comments/3" for ::1 at 2022-04-26 16:02:31 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WuSsr2rfaiE_CXE9YwNEDg"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 3], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (1.3ms)
+  Rendered comments/comment.html.erb within layouts/application (4.9ms)
+Completed 200 OK in 25ms (Views: 22.7ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/comments" for ::1 at 2022-04-26 16:03:52 -0700
+Processing by CommentsController#create as HTML
+  Parameters: {"authenticity_token"=>"/kJHWPSgqycywgZLVPddAbIovMISHj+VUE2ELhIopVQNOxmKbshf9DaRzzSryR9B/JxOlVCv66qGp3+iaTPUSQ==", "comment"=>{"post_id"=>"3", "parent_comment_id"=>"3", "body"=>"Well, let's suppose the hatted rat was not just as fat as the cat, but was instead as small as a gnat and flies like a bat?"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WuSsr2rfaiE_CXE9YwNEDg"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "comments" ("user_id", "post_id", "body", "created_at", "updated_at", "parent_comment_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 4], ["post_id", 3], ["body", "Well, let's suppose the hatted rat was not just as fat as the cat, but was instead as small as a gnat and flies like a bat?"], ["created_at", "2022-04-26 23:03:52.234854"], ["updated_at", "2022-04-26 23:03:52.234854"], ["parent_comment_id", 3]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/posts/3
+Completed 302 Found in 5ms (ActiveRecord: 1.6ms)
+
+
+Started GET "/posts/3" for ::1 at 2022-04-26 16:03:52 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WuSsr2rfaiE_CXE9YwNEDg"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.4ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = $1 AND "comments"."parent_comment_id" IS NULL[0m  [["post_id", 3]]
+  Rendered posts/post.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 27ms (Views: 23.2ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 16:04:23 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WuSsr2rfaiE_CXE9YwNEDg"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.7ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 2], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 3], ["LIMIT", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 3]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 4], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (0.9ms)
+  Rendered comments/_nested_comments.html.erb (5.3ms)
+  Rendered comments/_nested_comments.html.erb (10.0ms)
+  Rendered comments/comment.html.erb within layouts/application (14.7ms)
+Completed 200 OK in 42ms (Views: 36.6ms | ActiveRecord: 3.4ms)
+
+
+Started GET "/comments/4" for ::1 at 2022-04-26 16:04:28 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WuSsr2rfaiE_CXE9YwNEDg"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 4], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (1.3ms)
+  Rendered comments/comment.html.erb within layouts/application (4.9ms)
+Completed 200 OK in 26ms (Views: 23.6ms | ActiveRecord: 1.0ms)
+
+
+Started DELETE "/session" for ::1 at 2022-04-26 16:04:31 -0700
+Processing by SessionsController#destroy as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ubeJxwU9M1hb7KhfCNWuZPg2Ujzdv1J6fPHR0jTNH5PcrWGceW5W57SYF1KVfCqYJ1mAcDoSM8Qgo7yAMFEdSg==", "commit"=>"Log Out"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "WuSsr2rfaiE_CXE9YwNEDg"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["email", "user234"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."session_token" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["session_token", "Oo5bhYWJ4S3hQCzO3tkmeA"], ["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (1.3ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "Oo5bhYWJ4S3hQCzO3tkmeA"], ["updated_at", "2022-04-26 23:04:31.648357"], ["id", 4]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/session/new
+Completed 200 OK in 5ms (ActiveRecord: 2.4ms)
+
+
+Started GET "/session/new" for ::1 at 2022-04-26 16:04:31 -0700
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 20ms (Views: 19.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/comments/4" for ::1 at 2022-04-26 16:04:35 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"4"}
+Redirected to http://localhost:3000/session/new
+Filter chain halted as :require_logged_in_user! rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/session/new" for ::1 at 2022-04-26 16:04:35 -0700
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 21ms (Views: 21.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/session" for ::1 at 2022-04-26 16:04:43 -0700
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"0dJ+v3jK4clrWZK+ehIXznTl/Zd6SAMnRd2a7jo1TaMiqyBt4qIVGm8KW8GFLFWOOlEPwDj51xiTN2FiQS48vg==", "email"=>"user123", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "user123"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["email", "user123"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."session_token" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["session_token", "Jye5SsPzYc17iTkX6mLnmw"], ["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "Jye5SsPzYc17iTkX6mLnmw"], ["updated_at", "2022-04-26 23:04:43.694913"], ["id", 3]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/comments/4
+Completed 302 Found in 196ms (ActiveRecord: 1.7ms)
+
+
+Started GET "/comments/4" for ::1 at 2022-04-26 16:04:43 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "Jye5SsPzYc17iTkX6mLnmw"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 4], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (1.3ms)
+  Rendered comments/comment.html.erb within layouts/application (4.2ms)
+Completed 200 OK in 20ms (Views: 18.7ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/comments" for ::1 at 2022-04-26 16:05:01 -0700
+Processing by CommentsController#create as HTML
+  Parameters: {"authenticity_token"=>"S6jYisoRYXAP+yZvHzwy2JL/Szr4SogMIRAQQGDpbxO40YZYUHmVowuo7xDgAnCY3Eu5bbr7XDP3+uvMG/IeDg==", "comment"=>{"post_id"=>"3", "parent_comment_id"=>"4", "body"=>"This is exhausting."}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "Jye5SsPzYc17iTkX6mLnmw"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "comments" ("user_id", "post_id", "body", "created_at", "updated_at", "parent_comment_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 3], ["post_id", 3], ["body", "This is exhausting."], ["created_at", "2022-04-26 23:05:01.140437"], ["updated_at", "2022-04-26 23:05:01.140437"], ["parent_comment_id", 4]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/posts/3
+Completed 302 Found in 7ms (ActiveRecord: 2.1ms)
+
+
+Started GET "/posts/3" for ::1 at 2022-04-26 16:05:01 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "Jye5SsPzYc17iTkX6mLnmw"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.8ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.7ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = $1 AND "comments"."parent_comment_id" IS NULL[0m  [["post_id", 3]]
+  Rendered posts/post.html.erb within layouts/application (3.2ms)
+Completed 200 OK in 28ms (Views: 23.1ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 16:06:19 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "Jye5SsPzYc17iTkX6mLnmw"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 2], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 2]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 3], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 3]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 4], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 4]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 5], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (0.6ms)
+  Rendered comments/_nested_comments.html.erb (3.5ms)
+  Rendered comments/_nested_comments.html.erb (6.3ms)
+  Rendered comments/_nested_comments.html.erb (10.6ms)
+  Rendered comments/comment.html.erb within layouts/application (24.7ms)
+Completed 200 OK in 66ms (Views: 36.2ms | ActiveRecord: 13.8ms)
+
+
+Started GET "/comments/5" for ::1 at 2022-04-26 16:06:43 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "Jye5SsPzYc17iTkX6mLnmw"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 5], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (1.3ms)
+  Rendered comments/comment.html.erb within layouts/application (5.3ms)
+Completed 200 OK in 28ms (Views: 24.5ms | ActiveRecord: 1.4ms)
+
+
+Started DELETE "/session" for ::1 at 2022-04-26 16:06:47 -0700
+Processing by SessionsController#destroy as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"lEl83AjWTK5zA6RZ7VTczs9YhvUneL5r0LdnxVGLt+HxU5SHdIUpEZx3G1Rw/VgyEDdUucDV39WM5QqXVRe1OA==", "commit"=>"Log Out"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "Jye5SsPzYc17iTkX6mLnmw"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["email", "user123"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."session_token" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["session_token", "gaImA2Bg5rQcAqxa0oQXTQ"], ["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "gaImA2Bg5rQcAqxa0oQXTQ"], ["updated_at", "2022-04-26 23:06:47.570235"], ["id", 3]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/session/new
+Completed 200 OK in 6ms (ActiveRecord: 1.9ms)
+
+
+Started GET "/session/new" for ::1 at 2022-04-26 16:06:47 -0700
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 25ms (Views: 24.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/comments/5" for ::1 at 2022-04-26 16:06:49 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"5"}
+Redirected to http://localhost:3000/session/new
+Filter chain halted as :require_logged_in_user! rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/session/new" for ::1 at 2022-04-26 16:06:49 -0700
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 22ms (Views: 21.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/session" for ::1 at 2022-04-26 16:06:55 -0700
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"VVMqc5g1CAMVXQhIhHjeE1SqXiZNoeL5TZPARpFJM8OmKnShAl380BEOwTd7RpxTGh6scQ8QNsabeTvK6lJC3g==", "email"=>"user234", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "user234"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (8.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["email", "user234"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."session_token" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["session_token", "nweqalBr1V4-2LFQChIJog"], ["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (1.7ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "nweqalBr1V4-2LFQChIJog"], ["updated_at", "2022-04-26 23:06:56.039748"], ["id", 4]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/comments/5
+Completed 302 Found in 207ms (ActiveRecord: 12.0ms)
+
+
+Started GET "/comments/5" for ::1 at 2022-04-26 16:06:56 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "nweqalBr1V4-2LFQChIJog"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 5], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (1.2ms)
+  Rendered comments/comment.html.erb within layouts/application (4.2ms)
+Completed 200 OK in 22ms (Views: 20.4ms | ActiveRecord: 0.9ms)
+
+
+Started POST "/comments" for ::1 at 2022-04-26 16:09:23 -0700
+Processing by CommentsController#create as HTML
+  Parameters: {"authenticity_token"=>"HyXQE7kwjXK8VVfYuaFz97A/LrD548D5MXupwPhu+TfsXI7BI1h5obgGnqdGnzG3/ovc57tSFMbnkVJMg3WIKg==", "comment"=>{"post_id"=>"3", "parent_comment_id"=>"5", "body"=>"Ok, hear me out. A tatted, hatted, fat rat with a (baseball) bat. You with me? Could be the next big NFT collection."}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "nweqalBr1V4-2LFQChIJog"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "comments" ("user_id", "post_id", "body", "created_at", "updated_at", "parent_comment_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 4], ["post_id", 3], ["body", "Ok, hear me out. A tatted, hatted, fat rat with a (baseball) bat. You with me? Could be the next big NFT collection."], ["created_at", "2022-04-26 23:09:23.726992"], ["updated_at", "2022-04-26 23:09:23.726992"], ["parent_comment_id", 5]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/comments/5
+Completed 302 Found in 7ms (ActiveRecord: 1.8ms)
+
+
+Started GET "/comments/5" for ::1 at 2022-04-26 16:09:23 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "nweqalBr1V4-2LFQChIJog"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 5], ["LIMIT", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 5]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 6], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (0.9ms)
+  Rendered comments/_nested_comments.html.erb (5.4ms)
+  Rendered comments/comment.html.erb within layouts/application (9.9ms)
+Completed 200 OK in 36ms (Views: 31.8ms | ActiveRecord: 2.5ms)
+
+
+Started GET "/posts/3" for ::1 at 2022-04-26 16:10:43 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "nweqalBr1V4-2LFQChIJog"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.6ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = $1 AND "comments"."parent_comment_id" IS NULL[0m  [["post_id", 3]]
+  Rendered posts/post.html.erb within layouts/application (6.9ms)
+Completed 200 OK in 39ms (Views: 24.4ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 16:10:59 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "nweqalBr1V4-2LFQChIJog"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 2], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 3], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 3]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 4], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 4]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 5], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 5]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 6], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (0.8ms)
+  Rendered comments/_nested_comments.html.erb (4.3ms)
+  Rendered comments/_nested_comments.html.erb (7.9ms)
+  Rendered comments/_nested_comments.html.erb (11.1ms)
+  Rendered comments/_nested_comments.html.erb (15.3ms)
+  Rendered comments/comment.html.erb within layouts/application (19.2ms)
+Completed 200 OK in 41ms (Views: 35.1ms | ActiveRecord: 4.2ms)
+
+
+Started DELETE "/session" for ::1 at 2022-04-26 16:11:42 -0700
+Processing by SessionsController#destroy as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Mc8t7iRd1PTEdrtq3RIwhX5JcivK9Iil0+wBtITPsN5U1cW1WA6xSysCBGdAu7R5oSagZy1Z6RuPvmzmgFOyBw==", "commit"=>"Log Out"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "nweqalBr1V4-2LFQChIJog"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["email", "user234"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."session_token" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["session_token", "KCh7ktbWoqZfvT5V01VVwg"], ["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (1.9ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "KCh7ktbWoqZfvT5V01VVwg"], ["updated_at", "2022-04-26 23:11:42.471265"], ["id", 4]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/session/new
+Completed 200 OK in 6ms (ActiveRecord: 3.0ms)
+
+
+Started GET "/session/new" for ::1 at 2022-04-26 16:11:42 -0700
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 22ms (Views: 22.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 16:11:45 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+Redirected to http://localhost:3000/session/new
+Filter chain halted as :require_logged_in_user! rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/session/new" for ::1 at 2022-04-26 16:11:45 -0700
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 19ms (Views: 18.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/session" for ::1 at 2022-04-26 16:11:54 -0700
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"pFLTYQ4R8VZOBUWp25mNS0f+05l3nB7yIu5JkG9bxvJXK42zlHkFhUpWjNYkp88LCUohzjUtys30BLIcFEC37w==", "email"=>"user345", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "user345"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["email", "user345"], ["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."session_token" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["session_token", "2kjKSeKmpdxWWVJO2ZD9iw"], ["id", 5], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "2kjKSeKmpdxWWVJO2ZD9iw"], ["updated_at", "2022-04-26 23:11:55.117005"], ["id", 5]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/comments/2
+Completed 302 Found in 194ms (ActiveRecord: 2.0ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 16:11:55 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "2kjKSeKmpdxWWVJO2ZD9iw"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 2], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 3], ["LIMIT", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 3]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 4], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 4]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 5], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 5]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 6], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (0.6ms)
+  Rendered comments/_nested_comments.html.erb (2.8ms)
+  Rendered comments/_nested_comments.html.erb (5.2ms)
+  Rendered comments/_nested_comments.html.erb (8.2ms)
+  Rendered comments/_nested_comments.html.erb (11.3ms)
+  Rendered comments/comment.html.erb within layouts/application (14.2ms)
+Completed 200 OK in 35ms (Views: 31.5ms | ActiveRecord: 2.5ms)
+
+
+Started GET "/comments/5" for ::1 at 2022-04-26 16:12:01 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "2kjKSeKmpdxWWVJO2ZD9iw"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 5], ["LIMIT", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 5]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 6], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (0.9ms)
+  Rendered comments/_nested_comments.html.erb (5.3ms)
+  Rendered comments/comment.html.erb within layouts/application (9.2ms)
+Completed 200 OK in 31ms (Views: 27.6ms | ActiveRecord: 2.0ms)
+
+
+Started POST "/comments" for ::1 at 2022-04-26 16:12:52 -0700
+Processing by CommentsController#create as HTML
+  Parameters: {"authenticity_token"=>"KslT0/3mqgIHoHVfsjx98dz54KaBKn9UBZJbem5sCmjZsA0BZ45e0QPzvCBNAj+xkk0S8cObq2vTeKD2FXd7dQ==", "comment"=>{"post_id"=>"3", "parent_comment_id"=>"5", "body"=>"And yet I still read all of the comments... "}}
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "2kjKSeKmpdxWWVJO2ZD9iw"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "comments" ("user_id", "post_id", "body", "created_at", "updated_at", "parent_comment_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["user_id", 5], ["post_id", 3], ["body", "And yet I still read all of the comments... "], ["created_at", "2022-04-26 23:12:52.315726"], ["updated_at", "2022-04-26 23:12:52.315726"], ["parent_comment_id", 5]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/comments/5
+Completed 302 Found in 8ms (ActiveRecord: 3.3ms)
+
+
+Started GET "/comments/5" for ::1 at 2022-04-26 16:12:52 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "2kjKSeKmpdxWWVJO2ZD9iw"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 5], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 5]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 6], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (0.9ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 7], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (0.7ms)
+  Rendered comments/_nested_comments.html.erb (7.3ms)
+  Rendered comments/comment.html.erb within layouts/application (11.2ms)
+Completed 200 OK in 32ms (Views: 27.6ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/posts/3" for ::1 at 2022-04-26 16:12:58 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "2kjKSeKmpdxWWVJO2ZD9iw"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.7ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = $1 AND "comments"."parent_comment_id" IS NULL[0m  [["post_id", 3]]
+  Rendered posts/post.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 25ms (Views: 20.4ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/comments/2" for ::1 at 2022-04-26 16:13:00 -0700
+Processing by CommentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "2kjKSeKmpdxWWVJO2ZD9iw"], ["LIMIT", 1]]
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering comments/comment.html.erb within layouts/application
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 2], ["LIMIT", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 3], ["LIMIT", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 3]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 4], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 4]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 5], ["LIMIT", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."parent_comment_id" = $1[0m  [["parent_comment_id", 5]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 6], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (0.6ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mComment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "comments" WHERE "comments"."parent_comment_id" = $1 LIMIT $2[0m  [["parent_comment_id", 7], ["LIMIT", 1]]
+  Rendered comments/_nested_comments.html.erb (0.7ms)
+  Rendered comments/_nested_comments.html.erb (6.4ms)
+  Rendered comments/_nested_comments.html.erb (9.5ms)
+  Rendered comments/_nested_comments.html.erb (12.5ms)
+  Rendered comments/_nested_comments.html.erb (16.6ms)
+  Rendered comments/comment.html.erb within layouts/application (20.7ms)
+Completed 200 OK in 42ms (Views: 35.6ms | ActiveRecord: 4.7ms)
+
+

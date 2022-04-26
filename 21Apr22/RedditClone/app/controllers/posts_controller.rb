@@ -27,6 +27,7 @@ class PostsController < ApplicationController
             .select('posts.*, email')
             .first
         @subs = @post.subs.select(:id, :title)
+        @comments = @post.comments.where(parent_comment_id: nil)
         render 'post'
     end
 

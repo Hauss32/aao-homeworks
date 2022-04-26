@@ -1,0 +1,14 @@
+<% 
+child_comments = comment.child_comments
+%>
+
+<% unless child_comments.empty? %>
+    <ul>
+        <% child_comments.each do |c| %>           
+            <li>
+            <p><%= c.author.email %> says: <%= c.body %> <%= link_to 'Reply', comment_url(c) %></p>
+            <%= render 'nested_comments', comment: c %>
+            </li>
+        <% end %>
+    </ul>
+<% end %>
