@@ -10,13 +10,14 @@ class PostsController < ApplicationController
             redirect_to post_url(@post)
         else
             flash.now[:errors] = @post.errors.full_messages
+            @subs = Sub.all
             render 'new'
         end
     end
 
     def new
         @post = Post.new
-        @post.sub_id = params[:id]
+        @subs = Sub.all
         render 'new'
     end
 
@@ -25,6 +26,7 @@ class PostsController < ApplicationController
             .where(id: params[:id])
             .select('posts.*, email')
             .first
+        @subs = @post.subs.select(:id, :title)
         render 'post'
     end
 
@@ -35,26 +37,27 @@ class PostsController < ApplicationController
             redirect_to post_url(@post)
         else
             flash.now[:errors] = @post.errors.full_messages
+            @subs = Sub.all
             render 'edit'
         end
     end
 
     def edit
         @post = Post.find_by_id(params[:id])
+        @subs = Sub.all
         render 'edit' 
     end
 
     def destroy
         post = Post.find_by_id(params[:id])
         return unless post
-        sub_id = post.sub_id
         post.destroy
-        redirect_to sub_url(sub_id)
+        redirect_to subs_url
     end
 
     private
     def post_params
-        params[:post].permit(:title, :body, :url, :sub_id)
+        params[:post].permit(:title, :body, :url, sub_ids: [] )
     end
 
     def require_ownership!

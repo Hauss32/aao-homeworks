@@ -11,7 +11,7 @@ button_text = post.persisted? ? 'Save' : 'Create'
 <% end %>
 
 <%=  form_with model: post, local: true do |form| %>
-    <%= form.hidden_field :sub_id, value: post.sub_id %>
+    <%= form.collection_check_boxes :sub_ids, subs, :id, :title %>
     <%= form.label :title %>
     <%= form.text_field :title %>
     <%= form.label :url, 'URL' %>

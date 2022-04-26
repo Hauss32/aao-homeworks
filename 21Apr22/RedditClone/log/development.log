@@ -6045,3 +6045,668 @@ Processing by HomepageController#index as HTML
 Completed 200 OK in 27ms (Views: 25.0ms | ActiveRecord: 0.4ms)
 
 
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6711173107426626090)[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateSubPosts (20220425222345)
+  [1m[35m (4.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (22.4ms)[0m  [1m[35mCREATE TABLE "sub_posts" ("id" bigserial primary key, "sub_id" integer NOT NULL, "post_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_sub_posts_on_post_id_and_sub_id" ON "sub_posts"  ("post_id", "sub_id")[0m
+  [1m[35mSQL (1.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220425222345"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(6711173107426626090)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started DELETE "/session" for ::1 at 2022-04-25 16:27:20 -0700
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SessionsController#destroy as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"L92AGqQoqzlW0MpVyqQz8edLjY3iwXh4rFBGoaVS5xLcpN7IPkBf6lKDAyo1mnGxqf9/2qBwrEd6ur0t3kmWDw==", "commit"=>"Log Out"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "Arf1ydhYh3lQiUKTNO52Rw"], ["LIMIT", 1]]
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (2.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["email", "user123"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."session_token" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["session_token", "gAJiw9pWAfLHX2ua3l7V6A"], ["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (2.5ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "gAJiw9pWAfLHX2ua3l7V6A"], ["updated_at", "2022-04-25 23:27:21.267713"], ["id", 3]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/session/new
+Completed 200 OK in 34ms (ActiveRecord: 13.3ms)
+
+
+Started GET "/session/new" for ::1 at 2022-04-25 16:27:21 -0700
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 151ms (Views: 150.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/session" for ::1 at 2022-04-25 16:27:25 -0700
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"2zf3cHdHDIxj51rIBEwrltmwkwzfU0bjGJslb5V3QJcoTqmi7S/4X2e0k7f7cmnWlwRhW53iktzOcd7j7mwxig==", "email"=>"user234", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "user234"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["email", "user234"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."session_token" = $1 AND ("users"."id" != $2) LIMIT $3[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["updated_at", "2022-04-25 23:27:25.574215"], ["id", 4]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 196ms (ActiveRecord: 1.3ms)
+
+
+Started GET "/" for ::1 at 2022-04-25 16:27:25 -0700
+Processing by HomepageController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  Rendering homepage/index.html.erb within layouts/application
+  Rendered homepage/index.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 27ms (Views: 25.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/subs/1" for ::1 at 2022-04-25 16:27:37 -0700
+Processing by SubsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mSub Load (1.4ms)[0m  [1m[34mSELECT  subs.*, email FROM "subs" INNER JOIN "users" ON "users"."id" = "subs"."user_id" WHERE "subs"."id" = $1 ORDER BY "subs"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 33ms (ActiveRecord: 5.9ms)
+
+
+  
+ActiveRecord::HasManyThroughAssociationNotFoundError (Could not find the association :sub_posts in model Sub):
+  
+app/controllers/subs_controller.rb:32:in `show'
+Started GET "/subs/1" for ::1 at 2022-04-25 16:30:03 -0700
+Processing by SubsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 4.8ms)
+
+
+  
+SyntaxError (/Users/chrishauss/Desktop/Code_Exercises/aao-homeworks/21Apr22/RedditClone/app/models/sub.rb:13: syntax error, unexpected tSYMBEG, expecting keyword_do or '{' or '('
+    has_many :posts,
+             ^):
+  
+app/models/sub.rb:13: syntax error, unexpected tSYMBEG, expecting keyword_do or '{' or '('
+app/controllers/subs_controller.rb:28:in `show'
+Started GET "/subs/1" for ::1 at 2022-04-25 16:31:27 -0700
+Processing by SubsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mSub Load (0.6ms)[0m  [1m[34mSELECT  subs.*, email FROM "subs" INNER JOIN "users" ON "users"."id" = "subs"."user_id" WHERE "subs"."id" = $1 ORDER BY "subs"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 24ms (ActiveRecord: 8.3ms)
+
+
+  
+SyntaxError (/Users/chrishauss/Desktop/Code_Exercises/aao-homeworks/21Apr22/RedditClone/app/models/sub_post.rb:4: syntax error, unexpected ':', expecting keyword_end
+    belongs_to: :sub
+              ^
+/Users/chrishauss/Desktop/Code_Exercises/aao-homeworks/21Apr22/RedditClone/app/models/sub_post.rb:5: syntax error, unexpected ':', expecting keyword_end
+    belongs_to: :post
+              ^):
+  
+app/models/sub_post.rb:4: syntax error, unexpected ':', expecting keyword_end
+app/models/sub_post.rb:5: syntax error, unexpected ':', expecting keyword_end
+app/controllers/subs_controller.rb:32:in `show'
+Started GET "/subs/1" for ::1 at 2022-04-25 16:31:55 -0700
+Processing by SubsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mSub Load (0.6ms)[0m  [1m[34mSELECT  subs.*, email FROM "subs" INNER JOIN "users" ON "users"."id" = "subs"."user_id" WHERE "subs"."id" = $1 ORDER BY "subs"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering subs/sub.html.erb within layouts/application
+  [1m[36mPost Load (1.5ms)[0m  [1m[34mSELECT "posts".* FROM "posts" INNER JOIN "sub_posts" ON "posts"."id" = "sub_posts"."post_id" WHERE "sub_posts"."sub_id" = $1[0m  [["sub_id", 1]]
+  Rendered subs/sub.html.erb within layouts/application (12.0ms)
+Completed 200 OK in 57ms (Views: 23.5ms | ActiveRecord: 14.6ms)
+
+
+Started GET "/subs/1/posts/new" for ::1 at 2022-04-25 16:32:04 -0700
+Processing by PostsController#new as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  Rendering posts/new.html.erb within layouts/application
+  [1m[36mSub Load (0.3ms)[0m  [1m[34mSELECT "subs".* FROM "subs"[0m
+  Rendered posts/_form.html.erb (76.7ms)
+  Rendered posts/new.html.erb within layouts/application (78.5ms)
+Completed 200 OK in 107ms (Views: 100.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/subs/new" for ::1 at 2022-04-25 16:32:13 -0700
+Processing by SubsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  Rendering subs/new.html.erb within layouts/application
+  Rendered subs/_form.html.erb (1.5ms)
+  Rendered subs/new.html.erb within layouts/application (3.6ms)
+Completed 200 OK in 22ms (Views: 20.8ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/subs" for ::1 at 2022-04-25 16:32:42 -0700
+Processing by SubsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"B/XGjD5P3BP4MWPUN+WaBZQy8OMcHbJw8k9cmXuXEZn0jJhepCcowPxiqqvI29hF2oYCtF6sZk8kpacVAIxghA==", "sub"=>{"title"=>"Bats", "description"=>"Kind of creepy, kind of cute."}, "commit"=>"Create"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSub Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "subs" WHERE "subs"."title" = $1 LIMIT $2[0m  [["title", "Bats"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "subs" ("user_id", "title", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", 4], ["title", "Bats"], ["description", "Kind of creepy, kind of cute."], ["created_at", "2022-04-25 23:32:42.269795"], ["updated_at", "2022-04-25 23:32:42.269795"]]
+  [1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/subs/2
+Completed 302 Found in 10ms (ActiveRecord: 3.1ms)
+
+
+Started GET "/subs/2" for ::1 at 2022-04-25 16:32:42 -0700
+Processing by SubsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mSub Load (0.4ms)[0m  [1m[34mSELECT  subs.*, email FROM "subs" INNER JOIN "users" ON "users"."id" = "subs"."user_id" WHERE "subs"."id" = $1 ORDER BY "subs"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering subs/sub.html.erb within layouts/application
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT "posts".* FROM "posts" INNER JOIN "sub_posts" ON "posts"."id" = "sub_posts"."post_id" WHERE "sub_posts"."sub_id" = $1[0m  [["sub_id", 2]]
+  Rendered subs/sub.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 20ms (Views: 17.1ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/subs/new" for ::1 at 2022-04-25 16:32:46 -0700
+Processing by SubsController#new as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  Rendering subs/new.html.erb within layouts/application
+  Rendered subs/_form.html.erb (1.4ms)
+  Rendered subs/new.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 21ms (Views: 19.5ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/subs" for ::1 at 2022-04-25 16:33:21 -0700
+Processing by SubsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"McOCwa/gNctFyhcTLS1LozkE9l+8dSWIcU853k0mXTDCutwTNYjBGEGZ3mzSEwnjd7AECP7E8benpcJSNj0sLQ==", "sub"=>{"title"=>"Rats", "description"=>"Cute as pets, pretty darn gross otherwise."}, "commit"=>"Create"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSub Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "subs" WHERE "subs"."title" = $1 LIMIT $2[0m  [["title", "Rats"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "subs" ("user_id", "title", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", 4], ["title", "Rats"], ["description", "Cute as pets, pretty darn gross otherwise."], ["created_at", "2022-04-25 23:33:21.302537"], ["updated_at", "2022-04-25 23:33:21.302537"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/subs/3
+Completed 302 Found in 6ms (ActiveRecord: 1.8ms)
+
+
+Started GET "/subs/3" for ::1 at 2022-04-25 16:33:21 -0700
+Processing by SubsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mSub Load (0.5ms)[0m  [1m[34mSELECT  subs.*, email FROM "subs" INNER JOIN "users" ON "users"."id" = "subs"."user_id" WHERE "subs"."id" = $1 ORDER BY "subs"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering subs/sub.html.erb within layouts/application
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT "posts".* FROM "posts" INNER JOIN "sub_posts" ON "posts"."id" = "sub_posts"."post_id" WHERE "sub_posts"."sub_id" = $1[0m  [["sub_id", 3]]
+  Rendered subs/sub.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 20ms (Views: 17.5ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/subs/1/posts/new" for ::1 at 2022-04-25 16:33:27 -0700
+Processing by PostsController#new as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  Rendering posts/new.html.erb within layouts/application
+  [1m[36mSub Load (0.4ms)[0m  [1m[34mSELECT "subs".* FROM "subs"[0m
+  Rendered posts/_form.html.erb (2.7ms)
+  Rendered posts/new.html.erb within layouts/application (4.4ms)
+Completed 200 OK in 23ms (Views: 20.8ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/subs/1/posts" for ::1 at 2022-04-25 16:33:31 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/subs/1/posts"):
+  
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.7.0) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.7.0) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.6) lib/puma/configuration.rb:227:in `call'
+puma (3.12.6) lib/puma/server.rb:706:in `handle_request'
+puma (3.12.6) lib/puma/server.rb:476:in `process_client'
+puma (3.12.6) lib/puma/server.rb:334:in `block in run'
+puma (3.12.6) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started GET "/subs/1/posts/new" for ::1 at 2022-04-25 16:33:34 -0700
+Processing by PostsController#new as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  Rendering posts/new.html.erb within layouts/application
+  [1m[36mSub Load (0.3ms)[0m  [1m[34mSELECT "subs".* FROM "subs"[0m
+  Rendered posts/_form.html.erb (2.7ms)
+  Rendered posts/new.html.erb within layouts/application (4.4ms)
+Completed 200 OK in 22ms (Views: 20.6ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/posts" for ::1 at 2022-04-25 16:35:16 -0700
+Processing by PostsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ADJ/prhHvrsn1oUNob6Ek7IVDILdDIesBod8sbXHRPTzSyF0Ii9KaCOFTHJegMbT/KH+1Z+9U5PQbYc9ztw16Q==", "post"=>{"sub_id"=>"1", "sub_ids"=>["", "2", "3"], "title"=>"Cats are Better!", "url"=>"catsarebetterthanratsandbatsawareness.org", "body"=>"Even though they are a little evil, cats are better than both rats and bats. "}, "commit"=>"Create"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+Unpermitted parameter: :sub_id
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.2ms)
+
+
+  
+ActiveModel::UnknownAttributeError (unknown attribute 'sub_ids' for Post.):
+  
+app/controllers/posts_controller.rb:6:in `create'
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" ORDER BY "posts"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" ORDER BY "posts"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" ORDER BY "posts"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Started POST "/posts" for ::1 at 2022-04-25 16:38:31 -0700
+Processing by PostsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ADJ/prhHvrsn1oUNob6Ek7IVDILdDIesBod8sbXHRPTzSyF0Ii9KaCOFTHJegMbT/KH+1Z+9U5PQbYc9ztw16Q==", "post"=>{"sub_id"=>"1", "sub_ids"=>["", "2", "3"], "title"=>"Cats are Better!", "url"=>"catsarebetterthanratsandbatsawareness.org", "body"=>"Even though they are a little evil, cats are better than both rats and bats. "}, "commit"=>"Create"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+Unpermitted parameter: :sub_id
+  [1m[36mSub Load (0.3ms)[0m  [1m[34mSELECT "subs".* FROM "subs" WHERE "subs"."id" IN (2, 3)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mSubPost Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "sub_posts" WHERE "sub_posts"."post_id" IS NULL AND "sub_posts"."sub_id" = $1 LIMIT $2[0m  [["sub_id", 2], ["LIMIT", 1]]
+  [1m[36mSubPost Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "sub_posts" WHERE "sub_posts"."post_id" IS NULL AND "sub_posts"."sub_id" = $1 LIMIT $2[0m  [["sub_id", 3], ["LIMIT", 1]]
+  [1m[36mSub Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "subs" WHERE "subs"."title" = $1 AND ("subs"."id" != $2) LIMIT $3[0m  [["title", "Bats"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mSub Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "subs" WHERE "subs"."title" = $1 AND ("subs"."id" != $2) LIMIT $3[0m  [["title", "Rats"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (2.0ms)[0m  [1m[32mINSERT INTO "posts" ("title", "url", "body", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Cats are Better!"], ["url", "catsarebetterthanratsandbatsawareness.org"], ["body", "Even though they are a little evil, cats are better than both rats and bats. "], ["user_id", 4], ["created_at", "2022-04-25 23:38:31.176521"], ["updated_at", "2022-04-25 23:38:31.176521"]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+Completed 500 Internal Server Error in 60ms (ActiveRecord: 21.3ms)
+
+
+  
+ActiveRecord::NotNullViolation (PG::NotNullViolation: ERROR:  null value in column "sub_id" of relation "posts" violates not-null constraint
+DETAIL:  Failing row contains (2, Cats are Better!, catsarebetterthanratsandbatsawareness.org, Even though they are a little evil, cats are better than both ra..., null, 4, 2022-04-25 23:38:31.176521, 2022-04-25 23:38:31.176521).
+: INSERT INTO "posts" ("title", "url", "body", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"):
+  
+app/controllers/posts_controller.rb:9:in `create'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6711173107426626090)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to RemoveSubIdColForPost (20220425234108)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.7ms)[0m  [1m[35mALTER TABLE "posts" DROP "sub_id"[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220425234108"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(6711173107426626090)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/posts" for ::1 at 2022-04-25 16:41:54 -0700
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PostsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ADJ/prhHvrsn1oUNob6Ek7IVDILdDIesBod8sbXHRPTzSyF0Ii9KaCOFTHJegMbT/KH+1Z+9U5PQbYc9ztw16Q==", "post"=>{"sub_id"=>"1", "sub_ids"=>["", "2", "3"], "title"=>"Cats are Better!", "url"=>"catsarebetterthanratsandbatsawareness.org", "body"=>"Even though they are a little evil, cats are better than both rats and bats. "}, "commit"=>"Create"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+Unpermitted parameter: :sub_id
+  [1m[36mSub Load (0.3ms)[0m  [1m[34mSELECT "subs".* FROM "subs" WHERE "subs"."id" IN (2, 3)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mSubPost Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "sub_posts" WHERE "sub_posts"."post_id" IS NULL AND "sub_posts"."sub_id" = $1 LIMIT $2[0m  [["sub_id", 2], ["LIMIT", 1]]
+  [1m[36mSubPost Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "sub_posts" WHERE "sub_posts"."post_id" IS NULL AND "sub_posts"."sub_id" = $1 LIMIT $2[0m  [["sub_id", 3], ["LIMIT", 1]]
+  [1m[36mSub Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "subs" WHERE "subs"."title" = $1 AND ("subs"."id" != $2) LIMIT $3[0m  [["title", "Bats"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mSub Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "subs" WHERE "subs"."title" = $1 AND ("subs"."id" != $2) LIMIT $3[0m  [["title", "Rats"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "posts" ("title", "url", "body", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Cats are Better!"], ["url", "catsarebetterthanratsandbatsawareness.org"], ["body", "Even though they are a little evil, cats are better than both rats and bats. "], ["user_id", 4], ["created_at", "2022-04-25 23:41:54.195058"], ["updated_at", "2022-04-25 23:41:54.195058"]]
+  [1m[36mSubPost Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "sub_posts" WHERE "sub_posts"."post_id" = $1 AND "sub_posts"."sub_id" = $2 LIMIT $3[0m  [["post_id", 3], ["sub_id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "sub_posts" ("sub_id", "post_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["sub_id", 2], ["post_id", 3], ["created_at", "2022-04-25 23:41:54.196691"], ["updated_at", "2022-04-25 23:41:54.196691"]]
+  [1m[36mSubPost Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "sub_posts" WHERE "sub_posts"."post_id" = $1 AND "sub_posts"."sub_id" = $2 LIMIT $3[0m  [["post_id", 3], ["sub_id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "sub_posts" ("sub_id", "post_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["sub_id", 3], ["post_id", 3], ["created_at", "2022-04-25 23:41:54.198378"], ["updated_at", "2022-04-25 23:41:54.198378"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/posts/3
+Completed 302 Found in 56ms (ActiveRecord: 20.6ms)
+
+
+Started GET "/posts/3" for ::1 at 2022-04-25 16:41:54 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  Rendered posts/post.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 19ms (Views: 17.1ms | ActiveRecord: 0.5ms)
+
+
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" ORDER BY "posts"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mSub Load (1.0ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 1]]
+  [1m[36mSub Load (0.3ms)[0m  [1m[34mSELECT  "subs".* FROM "subs" ORDER BY "subs"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT "posts".* FROM "posts" INNER JOIN "sub_posts" ON "posts"."id" = "sub_posts"."post_id" WHERE "sub_posts"."sub_id" = $1[0m  [["sub_id", 1]]
+  [1m[36mSub Load (0.4ms)[0m  [1m[34mSELECT  "subs".* FROM "subs" ORDER BY "subs"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT "posts".* FROM "posts" INNER JOIN "sub_posts" ON "posts"."id" = "sub_posts"."post_id" WHERE "sub_posts"."sub_id" = $1[0m  [["sub_id", 3]]
+  [1m[36mSub Load (0.4ms)[0m  [1m[34mSELECT  "subs".* FROM "subs" ORDER BY "subs"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "posts"."id", "posts"."title" FROM "posts" INNER JOIN "sub_posts" ON "posts"."id" = "sub_posts"."post_id" WHERE "sub_posts"."sub_id" = $1[0m  [["sub_id", 3]]
+  [1m[36mSub Load (0.4ms)[0m  [1m[34mSELECT  "subs".* FROM "subs" ORDER BY "subs"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT "posts"."id", "posts"."title" FROM "posts" INNER JOIN "sub_posts" ON "posts"."id" = "sub_posts"."post_id" WHERE "sub_posts"."sub_id" = $1[0m  [["sub_id", 3]]
+Started GET "/posts/3" for ::1 at 2022-04-25 16:49:51 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.9ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.4ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  Rendered posts/post.html.erb within layouts/application (5.3ms)
+Completed 200 OK in 58ms (Views: 22.0ms | ActiveRecord: 14.0ms)
+
+
+Started GET "/posts/3/edit" for ::1 at 2022-04-25 16:51:11 -0700
+Processing by PostsController#edit as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE Post Load (0.0ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/edit.html.erb within layouts/application
+  Rendered posts/_form.html.erb (2.4ms)
+  Rendered posts/edit.html.erb within layouts/application (4.0ms)
+Completed 500 Internal Server Error in 11ms (ActiveRecord: 0.4ms)
+
+
+  
+ActionView::Template::Error (undefined method `sub_id' for #<Post:0x00007fbb6b4f9fb0>):
+    11: <% end %>
+    12: 
+    13: <%=  form_with model: post, local: true do |form| %>
+    14:     <%= form.hidden_field :sub_id, value: post.sub_id %>
+    15:     <%= form.collection_check_boxes :sub_ids, subs, :id, :title %>
+    16:     <%= form.label :title %>
+    17:     <%= form.text_field :title %>
+  
+app/views/posts/_form.html.erb:14:in `block in _app_views_posts__form_html_erb___3305305310571186755_70221467964580'
+app/views/posts/_form.html.erb:13:in `_app_views_posts__form_html_erb___3305305310571186755_70221467964580'
+app/views/posts/edit.html.erb:3:in `_app_views_posts_edit_html_erb__955869570702334571_70221467992740'
+app/controllers/posts_controller.rb:49:in `edit'
+Started GET "/posts/3/edit" for ::1 at 2022-04-25 16:56:11 -0700
+Processing by PostsController#edit as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE Post Load (0.0ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/edit.html.erb within layouts/application
+  Rendered posts/_form.html.erb (2.4ms)
+  Rendered posts/edit.html.erb within layouts/application (4.0ms)
+Completed 500 Internal Server Error in 33ms (ActiveRecord: 8.8ms)
+
+
+  
+ActionView::Template::Error (undefined method `sub_id' for #<Post:0x00007fbb3d0d7cd0>):
+    11: <% end %>
+    12: 
+    13: <%=  form_with model: post, local: true do |form| %>
+    14:     <%= form.hidden_field :sub_id, value: post.sub_id %>
+    15:     <%= form.collection_check_boxes :sub_ids, subs, :id, :title %>
+    16:     <%= form.label :title %>
+    17:     <%= form.text_field :title %>
+  
+app/views/posts/_form.html.erb:14:in `block in _app_views_posts__form_html_erb___3305305310571186755_70221722616460'
+app/views/posts/_form.html.erb:13:in `_app_views_posts__form_html_erb___3305305310571186755_70221722616460'
+app/views/posts/edit.html.erb:3:in `_app_views_posts_edit_html_erb__955869570702334571_70221072478280'
+app/controllers/posts_controller.rb:48:in `edit'
+Started GET "/posts/3/edit" for ::1 at 2022-04-25 16:56:26 -0700
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PostsController#edit as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/edit.html.erb within layouts/application
+  Rendered posts/_form.html.erb (3.2ms)
+  Rendered posts/edit.html.erb within layouts/application (5.2ms)
+Completed 500 Internal Server Error in 46ms (ActiveRecord: 11.8ms)
+
+
+  
+ActionView::Template::Error (undefined method `sub_id' for #<Post:0x00007fd62abeff70>):
+    11: <% end %>
+    12: 
+    13: <%=  form_with model: post, local: true do |form| %>
+    14:     <%= form.hidden_field :sub_id, value: post.sub_id %>
+    15:     <%= form.collection_check_boxes :sub_ids, subs, :id, :title %>
+    16:     <%= form.label :title %>
+    17:     <%= form.text_field :title %>
+  
+app/views/posts/_form.html.erb:14:in `block in _app_views_posts__form_html_erb__191653855659451996_70278908567280'
+app/views/posts/_form.html.erb:13:in `_app_views_posts__form_html_erb__191653855659451996_70278908567280'
+app/views/posts/edit.html.erb:3:in `_app_views_posts_edit_html_erb___140450482051642909_70278908534820'
+app/controllers/posts_controller.rb:48:in `edit'
+Started GET "/posts/3/edit" for ::1 at 2022-04-25 16:57:11 -0700
+Processing by PostsController#edit as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.7ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE Post Load (0.0ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/edit.html.erb within layouts/application
+  [1m[36mSub Load (0.8ms)[0m  [1m[34mSELECT "subs".* FROM "subs"[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "subs"."id" FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  Rendered posts/_form.html.erb (123.1ms)
+  Rendered posts/edit.html.erb within layouts/application (125.2ms)
+Completed 200 OK in 289ms (Views: 256.9ms | ActiveRecord: 23.0ms)
+
+
+Started PATCH "/posts/3" for ::1 at 2022-04-25 16:57:31 -0700
+Processing by PostsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"TzPwM0TGR4H6twKFlthsh8SCY1LgcrE1oz9kSgOYXMe8Sq7h3q6zUv7ky/pp5i7HijaRBaLDZQp11Z/GeIMt2g==", "post"=>{"sub_ids"=>[""], "title"=>"Cats are Better!", "url"=>"catsarebetterthanratsandbatsawareness.org", "body"=>"Even though they are a little evil, cats are better than both rats and bats. "}, "commit"=>"Save", "id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE Post Load (0.0ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSub Load (0.2ms)[0m  [1m[34mSELECT "subs".* FROM "subs" WHERE 1=0[0m
+  [1m[36mSub Load (0.4ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "sub_posts" WHERE "sub_posts"."post_id" = $1 AND "sub_posts"."sub_id" IN (2, 3)[0m  [["post_id", 3]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 1.8ms)
+
+
+  
+NoMethodError (undefined method `<<' for nil:NilClass):
+  
+app/models/post.rb:17:in `has_sub_relation'
+app/controllers/posts_controller.rb:36:in `update'
+Started PATCH "/posts/3" for ::1 at 2022-04-25 16:58:58 -0700
+Processing by PostsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"TzPwM0TGR4H6twKFlthsh8SCY1LgcrE1oz9kSgOYXMe8Sq7h3q6zUv7ky/pp5i7HijaRBaLDZQp11Z/GeIMt2g==", "post"=>{"sub_ids"=>[""], "title"=>"Cats are Better!", "url"=>"catsarebetterthanratsandbatsawareness.org", "body"=>"Even though they are a little evil, cats are better than both rats and bats. "}, "commit"=>"Save", "id"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE Post Load (0.0ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSub Load (0.5ms)[0m  [1m[34mSELECT "subs".* FROM "subs" WHERE 1=0[0m
+  [1m[36mSub Load (0.9ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "sub_posts" WHERE "sub_posts"."post_id" = $1 AND "sub_posts"."sub_id" IN (2, 3)[0m  [["post_id", 3]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+Completed 500 Internal Server Error in 32ms (ActiveRecord: 7.0ms)
+
+
+  
+NoMethodError (undefined method `Post must belong to at least 1 Sub.' for #<Post:0x00007fd60ace23a8>):
+  
+app/models/post.rb:17:in `has_sub_relation'
+app/controllers/posts_controller.rb:36:in `update'
+Started GET "/posts/3" for ::1 at 2022-04-25 16:59:12 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.6ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  Rendered posts/post.html.erb within layouts/application (1.9ms)
+Completed 200 OK in 22ms (Views: 17.5ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/posts/3/edit" for ::1 at 2022-04-25 16:59:17 -0700
+Processing by PostsController#edit as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE Post Load (0.0ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/edit.html.erb within layouts/application
+  [1m[36mSub Load (0.3ms)[0m  [1m[34mSELECT "subs".* FROM "subs"[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "subs"."id" FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  Rendered posts/_form.html.erb (3.7ms)
+  Rendered posts/edit.html.erb within layouts/application (5.3ms)
+Completed 200 OK in 24ms (Views: 20.9ms | ActiveRecord: 1.4ms)
+
+
+Started PATCH "/posts/3" for ::1 at 2022-04-25 16:59:23 -0700
+Processing by PostsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"99zz8ws1SpJdWNWZF4Vr+fYiUUBSbX0UlcmMrKo4ooMEpa0hkV2+QVkLHObouym5uJajFxDcqStDI3cg0SPTng==", "post"=>{"sub_ids"=>[""], "title"=>"Cats are Better!", "url"=>"catsarebetterthanratsandbatsawareness.org", "body"=>"Even though they are a little evil, cats are better than both rats and bats. "}, "commit"=>"Save", "id"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE Post Load (0.0ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSub Load (0.2ms)[0m  [1m[34mSELECT "subs".* FROM "subs" WHERE 1=0[0m
+  [1m[36mSub Load (0.4ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "sub_posts" WHERE "sub_posts"."post_id" = $1 AND "sub_posts"."sub_id" IN (2, 3)[0m  [["post_id", 3]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 1.6ms)
+
+
+  
+NoMethodError (undefined method `Post must belong to at least 1 Sub.' for #<Post:0x00007fd5fd4dff50>):
+  
+app/models/post.rb:17:in `has_sub_relation'
+app/controllers/posts_controller.rb:36:in `update'
+Started PATCH "/posts/3" for ::1 at 2022-04-25 17:00:00 -0700
+Processing by PostsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"99zz8ws1SpJdWNWZF4Vr+fYiUUBSbX0UlcmMrKo4ooMEpa0hkV2+QVkLHObouym5uJajFxDcqStDI3cg0SPTng==", "post"=>{"sub_ids"=>[""], "title"=>"Cats are Better!", "url"=>"catsarebetterthanratsandbatsawareness.org", "body"=>"Even though they are a little evil, cats are better than both rats and bats. "}, "commit"=>"Save", "id"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE Post Load (0.0ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSub Load (0.2ms)[0m  [1m[34mSELECT "subs".* FROM "subs" WHERE 1=0[0m
+  [1m[36mSub Load (0.3ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "sub_posts" WHERE "sub_posts"."post_id" = $1 AND "sub_posts"."sub_id" IN (2, 3)[0m  [["post_id", 3]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  Rendering posts/edit.html.erb within layouts/application
+  [1m[36mSub Load (0.2ms)[0m  [1m[34mSELECT "subs".* FROM "subs"[0m
+  Rendered posts/_form.html.erb (2.3ms)
+  Rendered posts/edit.html.erb within layouts/application (3.8ms)
+Completed 200 OK in 68ms (Views: 19.4ms | ActiveRecord: 13.8ms)
+
+
+Started PATCH "/posts/3" for ::1 at 2022-04-25 17:00:32 -0700
+Processing by PostsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"qkzt9wFH5MyMQandEzvCDAtWhltwcrNyVXqFk3YorLJZNbMlmy8QH4gSYKLsBYBMReJ0DDLDZ02DkH4fDTPdrw==", "post"=>{"sub_ids"=>[""], "title"=>"Cats are Better!", "url"=>"catsarebetterthanratsandbatsawareness.org", "body"=>"Even though they are a little evil, cats are better than both rats and bats. "}, "commit"=>"Save", "id"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE Post Load (0.0ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSub Load (0.2ms)[0m  [1m[34mSELECT "subs".* FROM "subs" WHERE 1=0[0m
+  [1m[36mSub Load (0.5ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "sub_posts" WHERE "sub_posts"."post_id" = $1 AND "sub_posts"."sub_id" IN (2, 3)[0m  [["post_id", 3]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  Rendering posts/edit.html.erb within layouts/application
+  [1m[36mSub Load (0.2ms)[0m  [1m[34mSELECT "subs".* FROM "subs"[0m
+  Rendered posts/_form.html.erb (2.2ms)
+  Rendered posts/edit.html.erb within layouts/application (3.7ms)
+Completed 200 OK in 54ms (Views: 24.9ms | ActiveRecord: 2.5ms)
+
+
+Started PATCH "/posts/3" for ::1 at 2022-04-25 17:01:35 -0700
+Processing by PostsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"A8/1cgdhXU6r0N6jJf9JGNjs/vjqVgUOjpRVF/aZNsvwtqugnQmpna+DF9zawQtYllgMr6jn0TFYfq6bjYJH1g==", "post"=>{"sub_ids"=>["", "2", "3"], "title"=>"Cats are Better!", "url"=>"catsarebetterthanratsandbatsawareness.org", "body"=>"Even though they are mostly evil, cats are better than both rats and bats. "}, "commit"=>"Save", "id"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mCACHE Post Load (0.0ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSub Load (0.3ms)[0m  [1m[34mSELECT "subs".* FROM "subs" WHERE "subs"."id" IN (2, 3)[0m
+  [1m[36mSub Load (0.5ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "posts" SET "body" = $1, "updated_at" = $2 WHERE "posts"."id" = $3[0m  [["body", "Even though they are mostly evil, cats are better than both rats and bats. "], ["updated_at", "2022-04-26 00:01:35.964624"], ["id", 3]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/posts/3
+Completed 302 Found in 23ms (ActiveRecord: 2.8ms)
+
+
+Started GET "/posts/3" for ::1 at 2022-04-25 17:01:35 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.4ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  Rendered posts/post.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 20ms (Views: 17.0ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/posts/3" for ::1 at 2022-04-25 17:13:13 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.5ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 3]]
+  Rendered posts/post.html.erb within layouts/application (5.1ms)
+Completed 200 OK in 53ms (Views: 32.7ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/posts/2" for ::1 at 2022-04-25 17:13:15 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.7ms)
+
+
+  
+NoMethodError (undefined method `subs' for nil:NilClass):
+  
+app/controllers/posts_controller.rb:29:in `show'
+Started GET "/posts/1" for ::1 at 2022-04-25 17:13:35 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.4ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 1]]
+  Rendered posts/post.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 22ms (Views: 18.8ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/posts/1/edit" for ::1 at 2022-04-25 17:13:46 -0700
+Processing by PostsController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Post Load (0.0ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering posts/edit.html.erb within layouts/application
+  [1m[36mSub Load (0.3ms)[0m  [1m[34mSELECT "subs".* FROM "subs"[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "subs"."id" FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 1]]
+  Rendered posts/_form.html.erb (4.1ms)
+  Rendered posts/edit.html.erb within layouts/application (5.7ms)
+Completed 200 OK in 25ms (Views: 21.4ms | ActiveRecord: 1.2ms)
+
+
+Started PATCH "/posts/1" for ::1 at 2022-04-25 17:13:51 -0700
+Processing by PostsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"6Ngr/m8QLSj8txneP0V/QuKvOKh4cIK3jCgb5OjEn2cboXUs9XjZ+/jk0KHAez0CrBvK/zrBVohawuBok9/ueg==", "post"=>{"sub_ids"=>["", "1"], "title"=>"What's a cat?", "url"=>"", "body"=>"Keep hearin' about 'em. Seem real nice."}, "commit"=>"Save", "id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Post Load (0.0ms)[0m  [1m[34mSELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSub Load (0.2ms)[0m  [1m[34mSELECT "subs".* FROM "subs" WHERE "subs"."id" = 1[0m
+  [1m[36mSub Load (0.3ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 1]]
+  [1m[36mSubPost Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "sub_posts" WHERE "sub_posts"."post_id" = $1 AND "sub_posts"."sub_id" = $2 LIMIT $3[0m  [["post_id", 1], ["sub_id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "sub_posts" ("sub_id", "post_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["sub_id", 1], ["post_id", 1], ["created_at", "2022-04-26 00:13:51.130713"], ["updated_at", "2022-04-26 00:13:51.130713"]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/posts/1
+Completed 302 Found in 16ms (ActiveRecord: 4.9ms)
+
+
+Started GET "/posts/1" for ::1 at 2022-04-25 17:13:51 -0700
+Processing by PostsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "6o3W-FNIYx5CpwXhDHRIQA"], ["LIMIT", 1]]
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT  posts.*, email FROM "posts" INNER JOIN "users" ON "users"."id" = "posts"."user_id" WHERE "posts"."id" = $1 ORDER BY "posts"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering posts/post.html.erb within layouts/application
+  [1m[36mSub Load (0.4ms)[0m  [1m[34mSELECT "subs".* FROM "subs" INNER JOIN "sub_posts" ON "subs"."id" = "sub_posts"."sub_id" WHERE "sub_posts"."post_id" = $1[0m  [["post_id", 1]]
+  Rendered posts/post.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 20ms (Views: 17.4ms | ActiveRecord: 1.1ms)
+
+

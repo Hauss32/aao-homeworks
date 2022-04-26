@@ -6,5 +6,8 @@ class Sub < ApplicationRecord
         class_name: :User,
         foreign_key: :user_id
 
-    has_many :posts
+    has_many :sub_posts
+        
+    has_many :posts,
+        through: :sub_posts
 end
