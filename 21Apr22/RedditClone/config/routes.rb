@@ -3,11 +3,17 @@ Rails.application.routes.draw do
   root to: 'homepage#index'
 
   resources :users, only: [:new, :create]
-  resources :subs, except: [:destroy] do
+
+  resources :subs, except: [:destroy]
+
+  resources :posts, except: [:index] do
+    member do 
+      resources :comments, only: [:new]
+    end
   end
 
-  resources :posts, except: [:index]
-  
+  resources :comments, only: [:create]
+
   resource :session, only: [:create, :new, :destroy]
 
 end

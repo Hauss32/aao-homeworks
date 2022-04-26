@@ -1,0 +1,14 @@
+<% if flash[:errors] %>
+    <ul class="errors">
+        <% flash[:errors].each do |error| %>
+            <li><%= error %></li>
+        <% end %>
+    </ul>
+<% end %>
+
+<%=  form_with model: @comment, local: true do |form| %>
+    <%= form.hidden_field :post_id, value: @comment.post_id %>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <%= form.submit 'Post Comment' %>
+<% end %>

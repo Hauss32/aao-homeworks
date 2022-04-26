@@ -11,6 +11,8 @@ class Post < ApplicationRecord
     has_many :subs,
         through: :sub_posts
 
+    has_many :comments
+
     private
     def has_sub_relation
         unless self.subs.size > 0
