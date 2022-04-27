@@ -1,5 +1,5 @@
 <% 
-child_comments = all_comments.select { |c| c.parent_comment_id == comment.id }
+child_comments = all_comments[comment.id]
 %>
 
 <% unless child_comments.empty? %>

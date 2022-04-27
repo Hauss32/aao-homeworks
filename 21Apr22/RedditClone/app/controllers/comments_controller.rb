@@ -24,16 +24,12 @@ class CommentsController < ApplicationController
     end
 
     def show
-        # @comment = Comment.find_by_id(params[:id])
         @comment = Comment.where(id: params[:id])
                         .joins(:author)
                         .joins(:post)
                         .select('comments.*, users.email, posts.title')
                         .first
-        # @all_comments = @comment.post.comments.includes(:author)
-        @all_comments = Comment.where(post_id: @comment.post_id)
-                            .joins(:author)
-                            .select('comments.*, users.email')
+        @all_comments = @comment.post.comments_by_parent_id
         render 'comment'
     end
 
