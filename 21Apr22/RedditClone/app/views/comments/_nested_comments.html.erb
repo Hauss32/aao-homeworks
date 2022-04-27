@@ -1,13 +1,13 @@
 <% 
-child_comments = comment.child_comments
+child_comments = all_comments.select { |c| c.parent_comment_id == comment.id }
 %>
 
 <% unless child_comments.empty? %>
     <ul>
         <% child_comments.each do |c| %>           
             <li>
-            <p><%= c.author.email %> says: <%= c.body %> <%= link_to 'Reply', comment_url(c) %></p>
-            <%= render 'nested_comments', comment: c %>
+            <p><%= "(#{time_ago_in_words(@comment.created_at)} ago) " %><%= c.email %> says: <%= c.body %> <%= link_to 'Reply', comment_url(c) %></p>
+            <%= render 'nested_comments', comment: c, all_comments: all_comments %>
             </li>
         <% end %>
     </ul>

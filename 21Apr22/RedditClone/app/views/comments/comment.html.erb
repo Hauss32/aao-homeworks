@@ -1,13 +1,14 @@
-<h1>Comment from <%= link_to @comment.post.title, post_url(@comment.post) %></h1>
+<h1>Comment from <%= link_to @comment.title, post_url(@comment.post_id) %></h1>
 
 <h3>Author:</h3>
-<p><%= @comment.author.email %></p>
+<p><%= @comment.email %></p>
 
 <h3>Comment:</h3>
+<p><%= "(#{time_ago_in_words(@comment.created_at)} ago)" %></p>
 <p><%= @comment.body %></p>
 
 <h3>Replies:</h3>
-<%= render 'nested_comments', comment: @comment %>
+<%= render 'nested_comments', comment: @comment, all_comments: @all_comments %>
 
 <h3>Reply to this comment:</h3>
 <form action="/comments" method="post">

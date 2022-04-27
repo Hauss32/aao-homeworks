@@ -16,7 +16,6 @@ class SessionsController < ApplicationController
     end
 
     def destroy
-        return unless current_user
-        log_out_user(current_user)
+        log_out_user
     end
 end

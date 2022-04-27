@@ -10,7 +10,7 @@ module ApplicationHelper
         if string.length <= length
             return string
         else
-            return "#{string[0...40]}..."
+            return "#{string[0...length]}..."
         end
     end
 end
