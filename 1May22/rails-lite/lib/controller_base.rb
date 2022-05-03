@@ -23,6 +23,7 @@ class ControllerBase
     raise 'Content already rendered.' if already_built_response?
     @res.redirect(url, 302)
     @already_built_response = true
+    @session.store_session(@res)
   end
 
   # Populate the response with content.
@@ -33,6 +34,7 @@ class ControllerBase
     @res['Content-Type'] = content_type
     @res.write(content)
     @already_built_response = true
+    @session.store_session(@res)
   end
 
   # use ERB and binding to evaluate templates
@@ -42,12 +44,12 @@ class ControllerBase
     file_dir = File.dirname(__FILE__)
     path = File.join(file_dir.to_s, 'views', class_name, template_name.to_s+'.html.erb')
     template = ERB.new(File.read(path))
-    # content = template.run(binding)
     render_content(template.result(binding), 'text/html')
   end
 
   # method exposing a `Session` object
   def session
+    @session ||= Session.new(@req)
   end
 
   # use this with the router to call action_name (:index, :show, :create...)
