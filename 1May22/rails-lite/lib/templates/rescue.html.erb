@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+
+<style>
+    h1 {
+        color: red;
+    }
+
+    code {
+        display: block;
+        background-color: #eee;
+        width: 500px;
+        padding: 20px;
+    }
+
+    code span {
+        font-weight: 700;
+        color: red;
+    }
+</style>
+</head>
+<body>
+    <h1>Error: <%= @error.message %></h1>
+
+    <h2>Error Details:</h2>
+    <%= @error_details %>
+    </br>
+    <h2>Stack Trace:</h2>
+    <pre><%= @error.backtrace.join("\n") %></pre>
+
+    <h2>Source Code:</h2>
+    <%= @source_code %>
+</body>
+</html>
