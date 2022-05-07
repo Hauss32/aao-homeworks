@@ -15,6 +15,10 @@ class ControllerBase
     @params = route_params.merge!(req.params)
   end
 
+  def self.protect_from_forgery
+    @@authenticity_token ||= SecureRandom.urlsafe_base64
+  end
+
   # Helper method to alias @already_built_response
   def already_built_response?
     !!@already_built_response
@@ -44,8 +48,6 @@ class ControllerBase
   # use ERB and binding to evaluate templates
   # pass the rendered html to render_content
   def render(template_name)
-    puts flash[:errors]
-    p flash
     class_name = self.class.name.underscore
     file_dir = File.dirname(__FILE__)
     path = File.join(file_dir.to_s, 'views', class_name, template_name.to_s+'.html.erb')
@@ -64,8 +66,25 @@ class ControllerBase
 
   # use this with the router to call action_name (:index, :show, :create...)
   def invoke_action(name)
+    unless req.request_method == 'GET'
+      raise 'Authenticity could not be validated' unless check_authenticity_token
+    end
     self.send(name)
     render(name) unless already_built_response?
+  end
+
+  def form_authenticity_token
+    auth_token = self.class.protect_from_forgery
+    res.set_cookie('_rails_lite_auth_token', { path: '/', value: auth_token })
+    auth_token
+  end
+
+  private
+
+  def check_authenticity_token
+    auth_token = req.cookies['_rails_lite_auth_token']
+    form_auth_token = params['authenticity_token']
+    auth_token == form_auth_token ? true : false
   end
 end
 
