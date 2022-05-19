@@ -175,7 +175,7 @@ console.log(mergeSortTest[0] === 0);
 console.log(mergeSortTest[5] === 5);
 
 let subsetsTest = subsets([1,2,3]);
-console.log(subsetsTest.length === 6);
-console.log(subsetsTest[0].length === 1);
-console.log(subsetsTest[2].length === 3);
-console.log(subsetsTest[5].length === 1);
+console.log(subsetsTest.length === 6); // [ [1],[1,2],[1,2,3],[2],[2,3],[3] ]
+console.log(subsetsTest[0].length === 1); // [1]
+console.log(subsetsTest[2].length === 3); // [1,2,3]
+console.log(subsetsTest[5].length === 1); // [3]
