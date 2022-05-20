@@ -1,1 +1,41 @@
 /* PHASE 0: Sidebar */
+.profile-picture {
+    position: relative;
+    display: block;
+    width: 180px;
+    height: auto;
+    margin: -110px auto 0 auto;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.profile-info h2 {
+    font-weight: 700;
+    font-size: 1.3em;
+    padding: 20px 10px;
+}
+
+.profile-info p {
+    font-size: .9em;
+    padding: 0 10px;
+}
+
+.profile-nav {
+    padding: 10px;
+}
+
+.profile-nav a {
+    display: block;
+    padding: 4px 0;
+    font-size: .8em;
+    font-weight: 700;
+    border-top: 1px solid lightgray;
+}
+
+.profile-nav li:last-of-type > a {
+    border-bottom: 1px solid lightgray;
+}
+
+.profile-nav a:hover {
+    background-color: rgb(233, 233, 233);
+}
