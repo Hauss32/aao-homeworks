@@ -1,1 +1,88 @@
 /* PHASE 3: Forms */
+.content-main {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-main img {
+    width: 50px;
+    height: auto;
+    margin-bottom: 10px;
+    margin-left: 50px;
+}
+
+.content-main form {
+    width: 520px;
+    margin: 0 50px;
+    background-color: rgb(232, 231, 231);
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.content-main label {
+    font-weight: 700;
+    margin-top: 10px;
+    font-size: .8em;
+}
+
+.content-main label, input, textarea {
+    display: block;
+}
+
+.content-main input[type="text"], textarea {
+    width: 100%;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 3px 0;
+    font-weight: 400;
+    font-size: .9em;
+}
+
+.content-main textarea {
+    height: 100px;
+    padding-top: 10px;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.actions > * {
+    margin-right: 8px;
+}
+
+.actions input {
+    padding: 8px 15px;
+    background-color: #0c0;
+    border-bottom: 2px solid #070;
+    border-radius: 5px;
+    color: white;
+    font-weight: 700;
+    font-size: .8em;
+}
+
+.actions input:hover {
+    background-color: rgb(1, 176, 1);
+}
+
+.actions p {
+    font-size: .9em;
+}
+
+.actions a {
+    font-weight: 700;
+    font-size: .9em;
+}
+
+.actions a:hover {
+    color: red;
+}
