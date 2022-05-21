@@ -1,1 +1,47 @@
 /* PHASE 4: Posts */
+.wall-post {
+    width: 520px;
+    margin: 10px 50px;
+    border-top: 1px solid lightgray;
+}
+
+.wall-post img {
+    margin: 15px 0;
+}
+
+.wall-post h2 {
+    font-size: 1.3em;
+    font-weight: 700;
+    padding-bottom: 20px;
+}
+
+.wall-post div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.wall-post ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-metrics {
+    font-size: .7em;
+    color: rgb(173, 173, 173);
+}
+
+.post-metrics li::before {
+    content: "•";
+    padding: 0 4px;
+}
+
+.post-metrics li:first-child:before {
+    content: "";
+    padding: 0;
+}
+
+.post-actions a {
+    margin-left: 8px;
+}
