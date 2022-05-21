@@ -18,6 +18,7 @@
     height: auto;
     border: 1px solid black;
     border-radius: 5px;
+    overflow: hidden;
 }
 
 .thumb:hover::before {
@@ -29,6 +30,7 @@
     font-size: .7em;
     padding: 5px 10px;
     border-radius: 5px;
+    
     top: -28px;
     left: 50%;
     transform: translateX(-50%);
