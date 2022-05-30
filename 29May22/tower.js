@@ -1,3 +1,6 @@
+const piece = require('./piece');
+const Piece = piece.Piece;
+
 class Tower {
     constructor() {
         this.pieces = [];
@@ -14,7 +17,10 @@ class Tower {
 
     add(piece) {
         let lastPiece = this.peek();
-        if (lastPiece === undefined || lastPiece.isBigger(piece)) {
+
+        if (piece === undefined) {
+            return false;
+        } else if (lastPiece === undefined || lastPiece.isBigger(piece)) {
             this.pieces.push(piece);
             return true;
         } else {
@@ -24,7 +30,7 @@ class Tower {
 
     setStartingPieces() {
         this.pieces = [];
-        this._orderedSizes.forEach( size => {
+        this._orderedSizes().forEach( size => {
             let piece = new Piece(size);
             this.add(piece);
         })
@@ -60,6 +66,19 @@ class Tower {
         }
     }
 
+    toPrintableArr() {
+        let printableArr = [];
+        const emptyPieceStr = '       |       ';
+
+        this.pieces.forEach( piece => printableArr.push( piece.toString() ));
+
+        while (printableArr.length < 5) {
+            printableArr.push(emptyPieceStr);
+        }
+
+        return printableArr;
+    }
+
     _orderedSizes() {
         return [5, 4, 3, 2, 1];
     }
@@ -77,3 +96,7 @@ class Tower {
         }
     }
 }
+
+module.exports = {
+    Tower: Tower
+};

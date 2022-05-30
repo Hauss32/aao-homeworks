@@ -14,4 +14,19 @@ class Piece {
     isBigger(other) {
         return (this.size > other.size) ? true : false;
     }
+
+    toString() {
+        const finalStrLen = 15;
+        const leftStr = '='.repeat(this.size);
+        const rightStr = leftStr;
+        const totalStr = `${leftStr}|${rightStr}`;
+        const paddingAmount = (finalStrLen - totalStr.length) / 2;
+        const paddingStr = ' '.repeat(paddingAmount);
+
+        return `${paddingStr}${totalStr}${paddingStr}`;
+    }
 }
+
+module.exports = {
+    Piece: Piece
+};
