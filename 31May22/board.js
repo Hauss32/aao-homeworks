@@ -19,7 +19,20 @@ class Board {
         console.log('');
     }
 
+    _isValidMove(coord) {
+        const [x,y] = coord;
+        if ([0,1,2].includes(x) && [0,1,2].includes(y)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     placeSym(coord, sym) {
+        if ( !this._isValidMove(coord) ) {
+            return false;
+        }
+
         const [x,y] = coord;
         const cell = this.grid[x][y];
 
@@ -34,7 +47,7 @@ class Board {
 
     checkWinner(sym) {
         if (this.freeCells === 0) {
-            return true;
+            return 'draw';
         } else if (this._hasWinner(sym)) {
             return sym;
         }
@@ -112,9 +125,6 @@ class Board {
 
 }
 
-// let b = new Board();
-// b.placeSym([0,0], 'X');
-// b.placeSym([0,1], 'X');
-// b.placeSym([0,2], 'X');
-// b.print();
-// console.log(b.checkWinner('X'));
+module.exports = {
+    Board: Board
+};

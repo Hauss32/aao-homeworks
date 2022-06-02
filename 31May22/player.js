@@ -4,3 +4,7 @@ class Player {
         this.symbol = symbol;
     }
 }
+
+module.exports = {
+    Player: Player
+};
