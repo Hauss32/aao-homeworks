@@ -3,12 +3,11 @@ function MovingObject(options) {
     this.vel = options.vel;
     this.radius = options.radius;
     this.color = options.color;
-    this.ctx = options.ctx;
 }
 
-MovingObject.prototype.draw = function() {
-    this.ctx.beginPath();
-    this.ctx.arc(
+MovingObject.prototype.draw = function(ctx) {
+    ctx.beginPath();
+    ctx.arc(
         this.pos[0],
         this.pos[1],
         this.radius,
@@ -16,8 +15,8 @@ MovingObject.prototype.draw = function() {
         2 * Math.PI
     );
 
-    this.ctx.fillStyle = this.color;
-    this.ctx.fill();
+    ctx.fillStyle = this.color;
+    ctx.fill();
 }
 
 MovingObject.prototype.move = function() {
