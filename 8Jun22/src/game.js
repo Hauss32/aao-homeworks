@@ -1,8 +1,9 @@
 const Asteroid = require("./asteroid");
 const Util = require("./utils");
 
-function Game() {
+function Game(ctx) {
     this.asteroids = [];
+    this.ctx = ctx;
 
     this.addAsteroids();
 }
@@ -24,9 +25,9 @@ Game.prototype.addAsteroids = function () {
 }
 
 Game.prototype.draw = function () {
-    Util.clearCanv();
+    Util.clearCanv(this.ctx);
 
-    this.asteroids.forEach( asteroid => asteroid.draw() );
+    this.asteroids.forEach( asteroid => asteroid.draw(this.ctx) );
 }
 
 Game.prototype.moveObjects = function () {

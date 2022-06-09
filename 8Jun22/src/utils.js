@@ -14,8 +14,8 @@ const Util = {
         return [vec[0] * m, vec[1] * m];
     },
 
-    clearCanv: function clearCanv() {
-        window.ctx.clearRect(0, 0, window.canv.width, window.canv.height);
+    clearCanv: function clearCanv(ctx) {
+        ctx.clearRect(0, 0, window.canv.width, window.canv.height);
     }
 }
 

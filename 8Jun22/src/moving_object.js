@@ -5,8 +5,7 @@ function MovingObject(options) {
     this.color = options.color;
 }
 
-MovingObject.prototype.draw = function() {
-    const ctx = window.ctx;
+MovingObject.prototype.draw = function(ctx) {
     ctx.beginPath();
     ctx.arc(
         this.pos[0],
