@@ -9,17 +9,15 @@ function Game(ctx) {
 }
 
 Game.prototype.randomPos = function () {
-    const width = 800;
-    const height = 500;
-    const randX = Math.floor( Math.random() * width);
-    const randY = Math.floor( Math.random() * height);
+    const randX = Math.floor( Math.random() * Game.DIM_X);
+    const randY = Math.floor( Math.random() * Game.DIM_Y);
 
     return [randX, randY];
 }
 
 Game.prototype.addAsteroids = function () {
     for(let i = 0; i < Game.NUM_ASTEROIDS; i++) {
-        let asteroid = new Asteroid( this.randomPos() );
+        let asteroid = new Asteroid( { pos: this.randomPos(), game: this } );
         this.asteroids.push(asteroid);
     }
 }
@@ -34,8 +32,29 @@ Game.prototype.moveObjects = function () {
     this.asteroids.forEach( asteroid => asteroid.move() );
 }
 
-Game.DIM_X = 0;
-Game.DIM_Y = 0;
+Game.prototype.wrap = function (pos) {
+    const [currX, currY] = pos;
+    const maxX = Game.DIM_X;
+    const maxY = Game.DIM_Y;
+    const newPos = [];
+
+    if(currX < 0 || currX > maxX){
+        (currX < 0) ? newPos.push(currX + maxX) : newPos.push(currX - maxX);
+    } else {
+        newPos.push(currX);
+    }
+
+    if (currY < 0 || currY > maxY) {
+        (currY < 0) ? newPos.push(currY + maxY) : newPos.push(currY - maxY);
+    } else {
+        newPos.push(currY);
+    }
+
+    return newPos;
+}
+
+Game.DIM_X = 800;
+Game.DIM_Y = 500;
 Game.NUM_ASTEROIDS = 20;
 
 
