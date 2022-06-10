@@ -15,7 +15,7 @@ function Asteroid(options) {
 }
 
 Asteroid.RADIUS = 20;
-Asteroid.COLOR = 'rgba(95, 74, 61, .95)';
+Asteroid.COLOR = '#5F4A3D';
 
 Util.inherits(Asteroid, MovingObject);
 

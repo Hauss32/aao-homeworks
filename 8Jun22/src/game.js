@@ -9,11 +9,13 @@ function Game(ctx) {
     this.ctx = ctx;
 
     this.addAsteroids();
+    this.addImg();
 }
 
 Game.DIM_X = 800;
 Game.DIM_Y = 500;
 Game.NUM_ASTEROIDS = 5;
+Game.BG_IMG_SRC = "../dist/space.png";
 
 Game.prototype.randomPos = function () {
     const randX = Math.floor( Math.random() * Game.DIM_X);
@@ -35,9 +37,21 @@ Game.prototype.allObjects = function () {
                 .concat(this.bullets);
 }
 
+Game.prototype.addImg = function () {
+    const img = new Image();
+    img.src = Game.BG_IMG_SRC;
+    this.bgImg = img;
+}
+
+Game.prototype.drawImg = function () {
+    this.bgImg.onload = () => {
+        this.ctx.drawImage(this.bgImg, 0, 0);
+    };
+}
+
 Game.prototype.draw = function () {
     Util.clearCanv(this.ctx);
-
+    this.ctx.drawImage(this.bgImg, 0, 0, Game.DIM_X, Game.DIM_X);
     this.allObjects().forEach( obj => obj.draw(this.ctx) );
 }
 
