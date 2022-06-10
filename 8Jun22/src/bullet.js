@@ -44,6 +44,8 @@ Bullet.prototype.draw = function (ctx) {
     ctx.fill();
 }
 
+Bullet.prototype.isWrappable = false;
+
 Bullet.prototype.calcVel = function (vel) {
     const [ velX, velY ] = vel;
     const speedFactor = 4;

@@ -6,6 +6,8 @@ function MovingObject(options) {
     this.game = options.game;
 }
 
+MovingObject.prototype.isWrappable = true;
+
 MovingObject.prototype.draw = function(ctx) {
     ctx.beginPath();
     ctx.arc(
@@ -24,7 +26,13 @@ MovingObject.prototype.move = function() {
     const newX = this.pos[0] + this.vel[0];
     const newY = this.pos[1] + this.vel[1];
 
-    this.pos = this.game.wrap([ newX, newY ]);
+    if ( this.isWrappable ) {
+        this.pos = this.game.wrap([ newX, newY ]);
+    } else if ( this.game.isOutOfBounds(this.pos) ) {
+        this.game.remove(this);
+    } else {
+        this.pos = [ newX, newY ];
+    }
 }
 
 MovingObject.prototype.isCollidedWith = function (otherObject) {

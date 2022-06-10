@@ -103,5 +103,13 @@ Game.prototype.remove = function (obj) {
     arrToDeleteFrom.splice(objIdx, 1);
 }
 
+Game.prototype.isOutOfBounds = function (pos) {
+    const [ currX, currY ] = pos;
+    const invalidX = (currX < 0 || currX > Game.DIM_X) ? true : false;
+    const invalidY = (currY < 0 || currY > Game.DIM_Y) ? true : false;
+
+    return invalidX || invalidY;
+}
+
 
 module.exports = Game;
