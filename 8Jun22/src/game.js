@@ -1,8 +1,10 @@
 const Asteroid = require("./asteroid");
+const Ship = require("./ship");
 const Util = require("./utils");
 
 function Game(ctx) {
     this.asteroids = [];
+    this.ship = new Ship( { game: this, pos: this.randomPos() } );
     this.ctx = ctx;
 
     this.addAsteroids();
@@ -26,14 +28,18 @@ Game.prototype.addAsteroids = function () {
     }
 }
 
+Game.prototype.allObjects = function () {
+    return this.asteroids.concat(this.ship);
+}
+
 Game.prototype.draw = function () {
     Util.clearCanv(this.ctx);
 
-    this.asteroids.forEach( asteroid => asteroid.draw(this.ctx) );
+    this.allObjects().forEach( obj => obj.draw(this.ctx) );
 }
 
 Game.prototype.moveObjects = function () {
-    this.asteroids.forEach( asteroid => asteroid.move() );
+    this.allObjects().forEach( obj => obj.move() );
 }
 
 Game.prototype.wrap = function (pos) {
@@ -58,17 +64,18 @@ Game.prototype.wrap = function (pos) {
 }
 
 Game.prototype.checkCollisions = function () {
-    for (let i = 0; i < this.asteroids.length; i++) {
-        const asteroid = this.asteroids[i];
+    const allObjects = this.allObjects();
+    for (let i = 0; i < allObjects.length; i++) {
+        const obj = allObjects[i];
 
-        for (let j = 0; j < this.asteroids.length; j++) {
-            const otherAsteroid = this.asteroids[j];
+        for (let j = 0; j < allObjects.length; j++) {
+            const otherObj = allObjects[j];
 
-            if (asteroid === otherAsteroid) {
+            if (obj === otherObj) {
                 continue;
             } else {
-                if ( asteroid.isCollidedWith(otherAsteroid) ) {
-                    asteroid.collideWith(otherAsteroid);
+                if ( obj.isCollidedWith(otherObj) ) {
+                    obj.collideWith(otherObj);
                 }
             }
         }
@@ -80,7 +87,7 @@ Game.prototype.step = function () {
     this.checkCollisions();
 }
 
-Game.prototype.remove = function (asteroid) {
+Game.prototype.remove = function (obj) {
     const astIdx = this.asteroids.findIndex( ele => ele === asteroid );
     this.asteroids.splice(astIdx, 1);
 }

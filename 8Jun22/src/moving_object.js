@@ -36,9 +36,8 @@ MovingObject.prototype.isCollidedWith = function (otherObject) {
     return (dist < sumRadii) ? true : false;
 }
 
-MovingObject.prototype.collideWith = function (otherAsteroid) {
-    this.game.remove(this);
-    this.game.remove(otherAsteroid);
+MovingObject.prototype.collideWith = function (otherObj) {
+    //by default, do nothing
 }
 
 module.exports = MovingObject;
