@@ -4,6 +4,7 @@ const Util = require("./utils");
 
 function Game(ctx) {
     this.asteroids = [];
+    this.bullets = [];
     this.ship = new Ship( { game: this, pos: this.randomPos() } );
     this.ctx = ctx;
 
@@ -29,7 +30,9 @@ Game.prototype.addAsteroids = function () {
 }
 
 Game.prototype.allObjects = function () {
-    return this.asteroids.concat(this.ship);
+    return this.asteroids
+                .concat(this.ship)
+                .concat(this.bullets);
 }
 
 Game.prototype.draw = function () {
@@ -88,8 +91,16 @@ Game.prototype.step = function () {
 }
 
 Game.prototype.remove = function (obj) {
-    const astIdx = this.asteroids.findIndex( ele => ele === asteroid );
-    this.asteroids.splice(astIdx, 1);
+    let arrToDeleteFrom;
+
+    if (obj instanceof Asteroid) {
+        arrToDeleteFrom = this.asteroids;
+    } else {
+        arrToDeleteFrom = this.bullets;
+    }
+
+    const objIdx = arrToDeleteFrom.findIndex( ele => ele === obj );
+    arrToDeleteFrom.splice(objIdx, 1);
 }
 
 

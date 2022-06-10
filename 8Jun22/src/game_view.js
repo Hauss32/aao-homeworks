@@ -22,6 +22,10 @@ GameView.prototype.bindKeyHandlers = function () {
     key('right, d', () => {
         this.game.ship.power([1, 0]);
     });
+
+    key('space', () => {
+        this.game.ship.fireBullet();
+    });
 }
 
 GameView.prototype.start = function () {

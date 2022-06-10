@@ -1,5 +1,6 @@
 const Util = require("./utils");
 const MovingObject = require("./moving_object");
+const Bullet = require("./bullet");
 
 function Ship(options) {
     MovingObject.call(this, {
@@ -25,6 +26,16 @@ Ship.prototype.power = function (impulse) {
     const [ addVelX, addVelY] = impulse;
     this.vel[0] += addVelX;
     this.vel[1] += addVelY;
+}
+
+Ship.prototype.fireBullet = function () {
+    const bullet = new Bullet( {
+        pos: this.pos,
+        vel: this.vel,
+        game: this.game
+    });
+
+    this.game.bullets.push(bullet);
 }
 
 
