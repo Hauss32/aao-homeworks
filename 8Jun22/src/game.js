@@ -8,6 +8,10 @@ function Game(ctx) {
     this.addAsteroids();
 }
 
+Game.DIM_X = 800;
+Game.DIM_Y = 500;
+Game.NUM_ASTEROIDS = 5;
+
 Game.prototype.randomPos = function () {
     const randX = Math.floor( Math.random() * Game.DIM_X);
     const randY = Math.floor( Math.random() * Game.DIM_Y);
@@ -53,9 +57,33 @@ Game.prototype.wrap = function (pos) {
     return newPos;
 }
 
-Game.DIM_X = 800;
-Game.DIM_Y = 500;
-Game.NUM_ASTEROIDS = 20;
+Game.prototype.checkCollisions = function () {
+    for (let i = 0; i < this.asteroids.length; i++) {
+        const asteroid = this.asteroids[i];
+
+        for (let j = 0; j < this.asteroids.length; j++) {
+            const otherAsteroid = this.asteroids[j];
+
+            if (asteroid === otherAsteroid) {
+                continue;
+            } else {
+                if ( asteroid.isCollidedWith(otherAsteroid) ) {
+                    asteroid.collideWith(otherAsteroid);
+                }
+            }
+        }
+    }
+}
+
+Game.prototype.step = function () {
+    this.moveObjects();
+    this.checkCollisions();
+}
+
+Game.prototype.remove = function (asteroid) {
+    const astIdx = this.asteroids.findIndex( ele => ele === asteroid );
+    this.asteroids.splice(astIdx, 1);
+}
 
 
 module.exports = Game;

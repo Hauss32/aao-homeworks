@@ -27,4 +27,18 @@ MovingObject.prototype.move = function() {
     this.pos = this.game.wrap([ newX, newY ]);
 }
 
+MovingObject.prototype.isCollidedWith = function (otherObject) {
+    const diffX = (this.pos[0] - otherObject.pos[0]);
+    const diffY = (this.pos[1] - otherObject.pos[1]);
+    const dist = Math.sqrt(diffX ** 2 + diffY ** 2);
+    const sumRadii = this.radius + otherObject.radius;
+
+    return (dist < sumRadii) ? true : false;
+}
+
+MovingObject.prototype.collideWith = function (otherAsteroid) {
+    this.game.remove(this);
+    this.game.remove(otherAsteroid);
+}
+
 module.exports = MovingObject;
