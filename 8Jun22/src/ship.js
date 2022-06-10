@@ -21,6 +21,12 @@ Ship.prototype.relocate = function () {
     this.pos = this.game.randomPos();
 };
 
+Ship.prototype.power = function (impulse) {
+    const [ addVelX, addVelY] = impulse;
+    this.vel[0] += addVelX;
+    this.vel[1] += addVelY;
+}
+
 
 
 module.exports = Ship;
