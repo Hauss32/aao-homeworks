@@ -3,6 +3,7 @@ const Game = require("./game");
 function GameView(ctx) {
     this.game = new Game(ctx);
     this.ctx = ctx;
+    this.lastTime = 0;
 }
 
 GameView.prototype.bindKeyHandlers = function () {
@@ -28,12 +29,18 @@ GameView.prototype.bindKeyHandlers = function () {
     });
 }
 
+GameView.prototype.animate = function (currTime) {
+    let timeDelta = currTime - this.lastTime;
+    this.game.step(timeDelta);
+    this.game.draw();
+    this.lastTime = currTime;
+    
+    requestAnimationFrame( this.animate.bind(this) );
+}
+
 GameView.prototype.start = function () {
     this.bindKeyHandlers();
-    setInterval( () => {
-        this.game.draw(this.ctx);
-        this.game.step();
-    }, 20);
+    requestAnimationFrame( this.animate.bind(this) );
 }
 
 

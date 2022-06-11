@@ -1,4 +1,11 @@
-canvas {
+* {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(223, 223, 189);
+    text-align: center;
+}
+
+canvas, h1 {
     display: block;
-    margin: 50px auto;
+    margin: 50px auto 0 auto;
 }

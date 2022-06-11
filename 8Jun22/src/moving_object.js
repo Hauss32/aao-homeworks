@@ -22,9 +22,12 @@ MovingObject.prototype.draw = function(ctx) {
     ctx.fill();
 }
 
-MovingObject.prototype.move = function() {
-    const newX = this.pos[0] + this.vel[0];
-    const newY = this.pos[1] + this.vel[1];
+MovingObject.prototype.move = function (timeDelta) {
+    const millisecPerFrame = 1000 / 60;
+    const scaleMagnitude = timeDelta / millisecPerFrame;
+
+    const newX = this.pos[0] + (this.vel[0] * scaleMagnitude);
+    const newY = this.pos[1] + (this.vel[1] * scaleMagnitude);
 
     if ( this.isWrappable ) {
         this.pos = this.game.wrap([ newX, newY ]);
