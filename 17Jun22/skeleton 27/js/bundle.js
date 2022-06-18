@@ -30,28 +30,36 @@ View.prototype.exercise0 = function () {
 View.prototype.exercise1 = function () {
   //Challenge: Give every square the class 'orange'
   //Result: Every square should turn orange (we already have a CSS rule)
-
+  let $squares = $('#easel li')
+  $squares.addClass('orange');
   //your code here!
 };
 
 View.prototype.exercise2 = function () {
   //Challenge: Remove every square
   //Result: Every square vanishes
-
+  let $squares = $('#easel li')
+  $squares.remove();
   //your code here!
 };
 
 View.prototype.exercise3 = function () {
   //Challenge: Add an <h1> with the text 'i love jquery' under the grid.
   //Result: An <h1> with the text 'i love jquery' appears under the grid.
-
+  let $myH1 = $('<h1>').html('i love jquery');
+  $('#easel').append($myH1);
   //your code here!
 };
 
 View.prototype.exercise4 = function () {
   //Challenge: Write your first name in every other square.
   //Result: Your name appears in every other square.
-
+  let $squares = $('#easel li');
+  $squares.each(function (idx) {
+    if (idx % 2 === 0) {
+      $(this).html('C');
+    }
+  });
   //your code here!
 };
 
@@ -62,7 +70,11 @@ View.prototype.exercise5 = function () {
 
   //hint: checkout the addRow function at the bottom of the file: we set the
   //  'data-pos' of every square
-
+  $('#easel').on('click', 'li', event => {
+    let $target = $(event.currentTarget);
+    let data = $target.data('pos');
+    alert(`Row,Col: ${data}`);
+  })
   //your code here!
 };
 
@@ -72,17 +84,24 @@ View.prototype.exercise6 = function () {
   //should become a beautiful rainbow of colors.
 
   //hint: use window._randomColorString() (defined at top) to get a random color!
-
+  let $squares = $('#easel li');
+  $squares.each(function () {
+    $(this).css('background-color', _randomColorString());
+  })
   //your code here!
 };
 
-View.prototype.exercise7 = function(){
+View.prototype.exercise7 = function () {
   //Challenge: When your mouse goes over a square, console log its color.
   //Result: When the mouse goes over a square its color should appear in the
   //console. The color won't be the color's name, but its rbg value.
   //You should push the button for exercise 6 first to try it on the
   //rainbow.
-
+  $('#easel').on('mouseover', 'li', event => {
+    let $target = $(event.currentTarget);
+    let color = $target.css('background-color');
+    console.log(color);
+  })
   //your code here!
 };
 
