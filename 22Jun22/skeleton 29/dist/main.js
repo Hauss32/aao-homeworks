@@ -25,7 +25,7 @@ eval("class Game {\n  constructor() {\n    this.towers = [[3, 2, 1], [], []];\n 
   \***************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const Game = __webpack_require__(/*! ./game */ \"./src/game.js\");\n\nclass View {\n    constructor(game, $el) {\n        this.game = game;\n        this.$el = $el;\n    }\n}\n\nmodule.exports = View;\n\n//# sourceURL=webpack:///./src/hanoi-view.js?");
+eval("const Game = __webpack_require__(/*! ./game */ \"./src/game.js\");\n\nclass View {\n    constructor(game, $el) {\n        this.game = game;\n        this.$el = $el;\n\n        this.setupTowers();\n        this.bindEvents();\n    }\n\n    setupTowers() {\n        const numTowers = 3;\n        const towerHeight = 3;\n        let $firstTower;\n\n        for (let i = 0; i < numTowers; i++) {\n            const $tower = $( '<ul></ul>' );\n            $tower.data( 'towerNum', i );\n            $tower.addClass( 'unclicked' )\n            this.$el.append( $tower );\n            if ( i === 0 ) {\n                $firstTower = $tower;\n            }\n        }\n\n        for (let j = 1; j <= towerHeight; j++) {\n            const $piece = $( '<li></li>' );\n            $piece.addClass( `size-${j}` );\n            $firstTower.append( $piece );\n        }\n    }\n\n    bindEvents() {\n        const $lists = this.$el.children('ul');\n        this.$el.on( 'click', 'ul', function () {\n            $lists.removeClass( 'clicked' );\n            $lists.addClass( 'unclicked' );\n            $( this ).addClass( 'clicked' );\n            $( this ).removeClass( 'unclicked' );\n        } );\n    }\n}\n\nmodule.exports = View;\n\n//# sourceURL=webpack:///./src/hanoi-view.js?");
 
 /***/ }),
 
