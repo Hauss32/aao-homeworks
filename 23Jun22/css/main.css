@@ -1,0 +1,30 @@
+h1 {
+    font-size: 30px;
+    width: 420px;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.snake {
+    width: 420px;
+    height: 420px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border: 3px solid black;
+    margin: 0 auto;
+}
+
+.snake ul {
+    display: flex;
+    background-color: antiquewhite;
+}
+
+.snake ul > li {
+    height: 20px;
+    width: 20px;
+}
+
+.segment {
+    background-color: cadetblue;
+}

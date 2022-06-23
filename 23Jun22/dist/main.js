@@ -15,7 +15,7 @@
   \**********************/
 /***/ ((module) => {
 
-eval("class Board {\n    constructor(snake, $el) {\n        this.snake = snake;\n        this.$el = $el;\n    }\n}\n\nBoard.NUM_CELLS_WIDE = 21;\n\nmodule.exports = Board;\n\n//# sourceURL=webpack:///./src/board.js?");
+eval("class Board {\n    constructor(snake) {\n        this.snake = snake;\n    }\n}\n\nBoard.NUM_CELLS_WIDE = 21;\n\nmodule.exports = Board;\n\n//# sourceURL=webpack:///./src/board.js?");
 
 /***/ }),
 
@@ -25,7 +25,7 @@ eval("class Board {\n    constructor(snake, $el) {\n        this.snake = snake;\
   \*********************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("//require some stuff\nconst Snake = __webpack_require__(/*! ./snake */ \"./src/snake.js\");\nconst Board = __webpack_require__(/*! ./board */ \"./src/board.js\");\n\n$( () => {\n    const $el = $( '.snake' );\n    const snake = new Snake();\n    const board = new Board(snake, $el);\n})\n\n//# sourceURL=webpack:///./src/main.js?");
+eval("//require some stuff\nconst Snake = __webpack_require__(/*! ./snake */ \"./src/snake.js\");\nconst Board = __webpack_require__(/*! ./board */ \"./src/board.js\");\nconst SnakeView = __webpack_require__(/*! ./snake_view */ \"./src/snake_view.js\")\n\n$( () => {\n    const $el = $( '.snake' );\n    const snake = new Snake();\n    const board = new Board(snake); \n    const view = new SnakeView(board, $el);\n})\n\n//# sourceURL=webpack:///./src/main.js?");
 
 /***/ }),
 
@@ -35,7 +35,17 @@ eval("//require some stuff\nconst Snake = __webpack_require__(/*! ./snake */ \".
   \**********************/
 /***/ ((module) => {
 
-eval("class Snake {\n    constructor() {\n        this.direction = [ 0, 0 ];\n        this.segments = [ [ 10, 10 ] ];\n    }\n\n    turn(dir) {\n        this.direction = dir;\n        this.move();\n    }\n\n    move() {\n        const headLoc = this.segments[0];\n\n        this.segments.forEach( seg => {\n            this.moveSegment(seg);\n        })\n    }\n\n    moveSegment(currLoc) {\n        const [ xPos, yPos ] = currLoc;\n        const [ xMove, yMove ] = this.direction;\n        const xNewPos = xPos + xMove;\n        const yNewPos = yPos + yMove;\n        return [ xNewPos, yNewPos ];\n    }\n}\n\nSnake.DIRECTIONS = {\n    'U': [0, 1], \n    'D': [0, -1],\n    'L': [-1, 0],\n    'R': [1, 0]\n};\n\nmodule.exports = Snake;\n\n//# sourceURL=webpack:///./src/snake.js?");
+eval("class Snake {\n    constructor() {\n        this.direction = [ 0, 0 ];\n        this.segments = [ [ 10, 10 ] ];\n    }\n\n    turn(dir) {\n        this.direction = dir;\n        this.move();\n    }\n\n    move() {\n        const headLoc = this.segments[0];\n\n        this.segments.forEach( seg => {\n            this.moveSegment(seg);\n        })\n    }\n\n    moveSegment(currLoc) {\n        const [ xPos, yPos ] = currLoc;\n        const [ xMove, yMove ] = this.direction;\n        const xNewPos = xPos + xMove;\n        const yNewPos = yPos + yMove;\n        return [ xNewPos, yNewPos ];\n    }\n\n    segmentsIncludes(arr) {\n        for (let i = 0; i < this.segments.length; i++) {\n            const segmentArr = this.segments[i];\n            if ( this.equals(segmentArr, arr) ) {\n                return true;\n            }\n        }\n\n        return false;\n    }\n\n    equals(arr1, arr2) {\n        if (arr1.length != arr2.length) {\n            return false;\n        } else {\n            for (let i = 0; i < arr1.length; i++) {\n                if (arr1[i] != arr2[i]) {\n                    return false;\n                }\n            }\n        }\n\n        return true;\n    }\n}\n\nSnake.DIRECTIONS = {\n    'U': [0, 1], \n    'D': [0, -1],\n    'L': [-1, 0],\n    'R': [1, 0]\n};\n\nmodule.exports = Snake;\n\n//# sourceURL=webpack:///./src/snake.js?");
+
+/***/ }),
+
+/***/ "./src/snake_view.js":
+/*!***************************!*\
+  !*** ./src/snake_view.js ***!
+  \***************************/
+/***/ ((module) => {
+
+eval("class View {\n    constructor(board, $el) {\n        this.board = board;\n        this.$el = $el;\n        this.setupBoard();\n        this.draw();\n    }\n\n    setupBoard() {\n        for (let i = 0; i < View.BOARD_WIDTH; i++) {\n            const $ul = $( '<ul></ul>' );\n            this.$el.append( $ul );\n\n            for (let j = 0; j < View.BOARD_WIDTH; j++) {\n                const $li = $( '<li></li>' );\n                $li.data( 'pos', [ j, i ] );\n                $ul.append( $li );\n            }\n        }\n    }\n\n    draw() {\n        const $snakeCells = this.getSnakeCells();\n\n        $('.snake li.segment').removeClass( 'segment' );\n\n        $snakeCells.each( function() {\n            $( this ).addClass( 'segment' );\n        })\n    }\n\n    getSnakeCells() {\n        const snake = this.board.snake;\n        const $cells = $( '.snake li' );\n        const $snakeCells = $cells.filter( function() {\n            const $cell = $( this );\n            const cellPos = $cell.data( 'pos' );\n            return snake.segmentsIncludes( cellPos );\n        });\n        return $snakeCells;\n    }\n}\n\nView.BOARD_WIDTH = 21;\n\nmodule.exports = View;\n\n//# sourceURL=webpack:///./src/snake_view.js?");
 
 /***/ })
 

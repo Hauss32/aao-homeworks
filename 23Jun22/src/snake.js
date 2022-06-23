@@ -24,6 +24,31 @@ class Snake {
         const yNewPos = yPos + yMove;
         return [ xNewPos, yNewPos ];
     }
+
+    segmentsIncludes(arr) {
+        for (let i = 0; i < this.segments.length; i++) {
+            const segmentArr = this.segments[i];
+            if ( this.equals(segmentArr, arr) ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    equals(arr1, arr2) {
+        if (arr1.length != arr2.length) {
+            return false;
+        } else {
+            for (let i = 0; i < arr1.length; i++) {
+                if (arr1[i] != arr2[i]) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }
 
 Snake.DIRECTIONS = {

@@ -1,7 +1,6 @@
 class Board {
-    constructor(snake, $el) {
+    constructor(snake) {
         this.snake = snake;
-        this.$el = $el;
     }
 }
 
