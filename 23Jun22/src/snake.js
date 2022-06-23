@@ -5,24 +5,21 @@ class Snake {
     }
 
     turn(dir) {
-        this.direction = dir;
-        this.move();
+        this.direction = Snake.DIRECTIONS[dir];
     }
 
     move() {
-        const headLoc = this.segments[0];
-
-        this.segments.forEach( seg => {
-            this.moveSegment(seg);
+        this.segments.forEach( (seg, idx) => {
+            this.moveSegment(seg, idx);
         })
     }
 
-    moveSegment(currLoc) {
+    moveSegment(currLoc, idx) {
         const [ xPos, yPos ] = currLoc;
         const [ xMove, yMove ] = this.direction;
         const xNewPos = xPos + xMove;
         const yNewPos = yPos + yMove;
-        return [ xNewPos, yNewPos ];
+        this.segments[idx] = [ xNewPos, yNewPos ];
     }
 
     segmentsIncludes(arr) {
@@ -52,8 +49,8 @@ class Snake {
 }
 
 Snake.DIRECTIONS = {
-    'U': [0, 1], 
-    'D': [0, -1],
+    'U': [0, -1], 
+    'D': [0, 1],
     'L': [-1, 0],
     'R': [1, 0]
 };

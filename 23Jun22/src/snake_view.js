@@ -3,7 +3,10 @@ class View {
         this.board = board;
         this.$el = $el;
         this.setupBoard();
-        this.draw();
+        this.bindKeydown();
+        this.interval = setInterval( () => {
+            this.step();
+        }, 500);
     }
 
     setupBoard() {
@@ -17,6 +20,11 @@ class View {
                 $ul.append( $li );
             }
         }
+    }
+
+    step() {
+        this.board.snake.move();
+        this.draw();
     }
 
     draw() {
@@ -39,8 +47,23 @@ class View {
         });
         return $snakeCells;
     }
+
+    bindKeydown() {
+        $('body').on( 'keydown', event => {
+            const direction = View.KEYMAP[event.keyCode];
+            if ( direction ) {
+                this.board.snake.turn(direction);
+            }
+        });
+    }
 }
 
 View.BOARD_WIDTH = 21;
+View.KEYMAP = {
+    37: 'L',
+    38: 'U',
+    39: 'R',
+    40: 'D'
+}
 
 module.exports = View;
