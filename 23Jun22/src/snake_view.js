@@ -24,7 +24,7 @@ class View {
 
     step() {
         this.board.snake.move();
-        if ( this.board.snake.isOver() ) {
+        if ( this.board.isOver() ) {
             this.endGame();
         } else {
             this.draw();

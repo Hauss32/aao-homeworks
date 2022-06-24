@@ -47,19 +47,6 @@ class Snake {
         return true;
     }
 
-    isOver() {
-        return this.isInvalid() || this.isCollided();
-    }
-
-    isInvalid() {
-        const [ xPos, yPos ] = this.segments[0];
-        if ( xPos >= 21 || xPos < 0 || yPos >= 21 || yPos < 0 ) {
-            return true;
-        }
-
-        return false;
-    }
-
     isCollided() {
         if ( this.segments.length === 1 ) {
             return false;
