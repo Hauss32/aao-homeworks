@@ -46,6 +46,36 @@ class Snake {
 
         return true;
     }
+
+    isOver() {
+        return this.isInvalid() || this.isCollided();
+    }
+
+    isInvalid() {
+        const [ xPos, yPos ] = this.segments[0];
+        if ( xPos >= 21 || xPos < 0 || yPos >= 21 || yPos < 0 ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    isCollided() {
+        if ( this.segments.length === 1 ) {
+            return false;
+        }
+
+        const snakeHead = this.segments[0];
+        const snakeBody = this.segments.slice( 1, this.segments.length -1 );
+
+        for (let i = 0; i < snakeBody.length; i++) {
+            if ( this.equals(snakeHead, snakeBody[i]) ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
 
 Snake.DIRECTIONS = {

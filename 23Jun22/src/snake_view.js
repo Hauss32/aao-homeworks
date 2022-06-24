@@ -24,7 +24,21 @@ class View {
 
     step() {
         this.board.snake.move();
-        this.draw();
+        if ( this.board.snake.isOver() ) {
+            this.endGame();
+        } else {
+            this.draw();
+        }
+    }
+
+    endGame() {
+        const $gameOver = $( '<h1>GAME OVER!</h1>' );
+        $gameOver.addClass( 'game-over' );
+
+        $( 'body' ).off( 'keydown' );
+        this.$el.empty();
+        this.$el.append( $gameOver );
+        clearInterval( this.interval );
     }
 
     draw() {
