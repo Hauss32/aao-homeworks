@@ -28,17 +28,24 @@ class View {
         this.board.snake.move();
         if ( this.board.isOver() ) {
             this.endGame();
-        } else {
-            this.draw();
+            return;
+        } else if ( this.didEatFood() ) {
+            const $foodCell = this.findFoodCell();
+            $foodCell.removeClass( 'food' );
+            console.log('Ate food!');
+            // TODO: grow snake
+            this.board.addFoodPos();
         }
+
+        this.draw();
     }
 
     didEatFood() {
         const snakeHead = this.board.snake.segments[0];
         if ( this.board.snake.equals(snakeHead, this.board.foodPos) ) {
-            // TODO: grow snake
-            this.board.addFood();
-            this.drawFood();
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -68,13 +75,21 @@ class View {
     }
 
     drawFood() {
-        const board = this.board;
-        const $cells = $('.snake li');
-        const $foodCells = $cells.filter( function() {
-            const cellPos = $( this ).data('pos');
-            return board.snake.equals( cellPos, board.foodPos );
-        });
-        $foodCells.first().addClass( 'food' );
+        const $foodCell = this.findFoodCell();
+        $foodCell.addClass( 'food' );
+    }
+
+    findFoodCell() {
+        if (this.board.foodPos) {
+            const board = this.board;
+            const $cells = $('.snake li');
+            const $foodCell = $cells.filter(function () {
+                const cellPos = $(this).data('pos');
+                return board.snake.equals(cellPos, board.foodPos);
+            });
+
+            return $foodCell.first();
+        }
     }
 
     getSnakeCells() {
