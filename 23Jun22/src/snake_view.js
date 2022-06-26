@@ -20,6 +20,8 @@ class View {
                 $ul.append( $li );
             }
         }
+
+        this.board.addFoodPos();
     }
 
     step() {
@@ -28,6 +30,15 @@ class View {
             this.endGame();
         } else {
             this.draw();
+        }
+    }
+
+    didEatFood() {
+        const snakeHead = this.board.snake.segments[0];
+        if ( this.board.snake.equals(snakeHead, this.board.foodPos) ) {
+            // TODO: grow snake
+            this.board.addFood();
+            this.drawFood();
         }
     }
 
@@ -42,6 +53,11 @@ class View {
     }
 
     draw() {
+        this.drawSnake();
+        this.drawFood();
+    }
+
+    drawSnake() {
         const $snakeCells = this.getSnakeCells();
 
         $('.snake li.segment').removeClass( 'segment' );
@@ -49,6 +65,16 @@ class View {
         $snakeCells.each( function() {
             $( this ).addClass( 'segment' );
         })
+    }
+
+    drawFood() {
+        const board = this.board;
+        const $cells = $('.snake li');
+        const $foodCells = $cells.filter( function() {
+            const cellPos = $( this ).data('pos');
+            return board.snake.equals( cellPos, board.foodPos );
+        });
+        $foodCells.first().addClass( 'food' );
     }
 
     getSnakeCells() {

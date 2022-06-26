@@ -33,3 +33,7 @@ h1 {
     color: salmon;
     margin: auto;
 }
+
+.food {
+    background-color: tomato;
+}

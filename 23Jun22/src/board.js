@@ -1,6 +1,9 @@
 class Board {
     constructor(snake) {
         this.snake = snake;
+        this.foodPos;
+
+        this.addFoodPos();
     }
 
     isOver() {
@@ -15,6 +18,30 @@ class Board {
 
         return false;
     }
+
+    addFoodPos() {
+        const randX = Math.floor( (Math.random() * Board.NUM_CELLS_WIDE) );
+        const randY = Math.floor( (Math.random() * Board.NUM_CELLS_WIDE) );
+        const foodPos = [ randX, randY ];
+
+        if ( this.isEmpty(foodPos) ) {
+            this.foodPos = foodPos;
+        } else {
+            this.addFoodPos();
+        }
+    }
+
+    isEmpty(pos) {
+        for (let i = 0; i < this.snake.segments.length; i++) {
+            if ( this.snake.equals(pos, this.snake.segments[i]) ) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
 }
 
 Board.NUM_CELLS_WIDE = 21;
