@@ -11,7 +11,7 @@ class Board {
     }
 
     isInvalid() {
-        const [xPos, yPos] = this.snake.segments[0];
+        const [xPos, yPos] = this.snake.snakeHeadPos();
         if (xPos >= Board.NUM_CELLS_WIDE || xPos < 0 || yPos >= Board.NUM_CELLS_WIDE || yPos < 0) {
             return true;
         }
@@ -33,15 +33,14 @@ class Board {
 
     isEmpty(pos) {
         for (let i = 0; i < this.snake.segments.length; i++) {
-            if ( this.snake.equals(pos, this.snake.segments[i]) ) {
+            const segment = this.snake.segments[i];
+            if ( this.snake.equals( pos, segment.position ) ) {
                 return false;
             }
         }
 
         return true;
     }
-
-
 }
 
 Board.NUM_CELLS_WIDE = 21;

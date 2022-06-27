@@ -6,7 +6,7 @@ class View {
         this.bindKeydown();
         this.interval = setInterval( () => {
             this.step();
-        }, 500);
+        }, 150);
     }
 
     setupBoard() {
@@ -32,8 +32,7 @@ class View {
         } else if ( this.didEatFood() ) {
             const $foodCell = this.findFoodCell();
             $foodCell.removeClass( 'food' );
-            console.log('Ate food!');
-            // TODO: grow snake
+            this.board.snake.addSegment();
             this.board.addFoodPos();
         }
 
@@ -41,7 +40,7 @@ class View {
     }
 
     didEatFood() {
-        const snakeHead = this.board.snake.segments[0];
+        const snakeHead = this.board.snake.snakeHeadPos();
         if ( this.board.snake.equals(snakeHead, this.board.foodPos) ) {
             return true;
         } else {
