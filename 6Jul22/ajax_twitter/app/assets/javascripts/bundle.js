@@ -22,6 +22,17 @@ const APIUtil = {
             type: 'DELETE',
             dataType: 'json'
         });
+    },
+
+    searchUsers: queryStr => {
+        return $.ajax({
+            url: `/users/search`,
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                query: queryStr
+            }
+        });
     }
 };
 
@@ -80,6 +91,58 @@ class FollowToggle {
 
 module.exports = FollowToggle;
 
+/***/ }),
+
+/***/ "./frontend/users_search.js":
+/*!**********************************!*\
+  !*** ./frontend/users_search.js ***!
+  \**********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const APIUtil = __webpack_require__(/*! ./api_util */ "./frontend/api_util.js");
+
+class UsersSearch {
+    constructor(el) {
+        this.$el = $( el );
+        this.$input = this.$el.find( 'input' );
+        this.$ul = this.$el.find('ul.users');
+
+        this.handleInput();
+    }
+
+    render(users) {
+        this.$ul.empty();
+
+        users.forEach( user => {
+            const $listItem = $( '<li></li>');
+            const $listLink = $( '<a></a>' );
+            const linkURL = `/users/${user.id}`;
+
+            $listLink.attr("href", linkURL);
+            $listLink.text( user.username );
+
+            $listItem.append( $listLink );
+
+            this.$ul.append( $listItem );
+        });
+    }
+
+    handleInput() {
+        const search = this;
+
+        search.$input.on( 'input', function() {
+            const searchStr = search.$input.val();
+
+            APIUtil.searchUsers( searchStr )
+                .then( users => {
+                    search.render( users );
+                })
+        } );
+    }
+}
+
+module.exports = UsersSearch;
+
 /***/ })
 
 /******/ 	});
@@ -116,11 +179,17 @@ var __webpack_exports__ = {};
   !*** ./frontend/twitter.js ***!
   \*****************************/
 const FollowToggle = __webpack_require__( /*! ./follow_toggle */ "./frontend/follow_toggle.js");
+const UsersSearch = __webpack_require__( /*! ./users_search */ "./frontend/users_search.js");
 
 $( () => {
     const $followBtns = $( 'button.follow-toggle' );
     $followBtns.each( function() {
-        const followToggle = new FollowToggle( this );
+        new FollowToggle( this );
+    })
+
+    const $userSearches = $( 'nav.users-search' );
+    $userSearches.each(function () {
+        new UsersSearch(this);
     })
 })
 })();
