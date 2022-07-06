@@ -1,11 +1,41 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./frontend/api_util.js":
+/*!******************************!*\
+  !*** ./frontend/api_util.js ***!
+  \******************************/
+/***/ ((module) => {
+
+const APIUtil = {
+    followUser: id => {
+        return $.ajax({
+            url: `/users/${id}/follow`,
+            type: 'POST',
+            dataType: 'json'
+        });
+    },
+
+    unfollowUser: id => {
+        return $.ajax({
+            url: `/users/${id}/follow`,
+            type: 'DELETE',
+            dataType: 'json'
+        });
+    }
+};
+
+module.exports = APIUtil;
+
+/***/ }),
+
 /***/ "./frontend/follow_toggle.js":
 /*!***********************************!*\
   !*** ./frontend/follow_toggle.js ***!
   \***********************************/
-/***/ ((module) => {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const APIUtil = __webpack_require__( /*! ./api_util */ "./frontend/api_util.js" );
 
 class FollowToggle {
     constructor(el) {
@@ -29,20 +59,21 @@ class FollowToggle {
 
             this.$el.prop( "disabled", true );
 
-            const url = `/users/${this.userId}/follow`;
-            const type = ( this.followState === 'followed' ) ? 'DELETE' : 'POST';
-            const toggleState = () => {
-                const newState = (this.followState === 'followed' ) ? 'unfollowed' : 'followed';
-                this.followState = newState;
-                this.render();
+            if( this.followState === 'followed' ) {
+                APIUtil.unfollowUser
+                    .call( this, this.userId )
+                    .then( () => {
+                        this.followState = 'unfollowed';
+                        this.render();
+                } );
+            } else {
+                APIUtil.followUser
+                    .call( this, this.userId )
+                    .then( () => {
+                        this.followState = 'followed' 
+                        this.render();
+                } );
             }
-
-            $.ajax( {
-                url: url,
-                type: type,
-                dataType: 'json',
-                success: toggleState
-            } );
         })
     }
 }
