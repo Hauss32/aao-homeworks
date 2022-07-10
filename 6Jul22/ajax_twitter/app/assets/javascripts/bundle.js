@@ -115,6 +115,7 @@ class TweetCompose {
         this.$form = $( '.tweet-compose' ).first();
 
         this.handleSubmit();
+        this.handleCharLimit();
     }
 
     handleSubmit() {
@@ -156,6 +157,24 @@ class TweetCompose {
 
                 } )
         });
+    }
+
+    handleCharLimit() {
+        const $messageInput = this.$form.find('textarea').first();
+        const $charCounter = this.$form.find( '.chars-left' ).first();
+        const CHAR_LIMIT = 140;
+        
+        $messageInput.on( 'input', function() {
+            const tweetStr = $messageInput.val();
+            const charsRemaining = CHAR_LIMIT - Math.min(CHAR_LIMIT, tweetStr.length);
+            const charsRemainingStr = `${charsRemaining} chars remain`;
+
+            $charCounter.html( charsRemainingStr );
+
+            if ( charsRemaining === 0 ) {
+                $messageInput.val( tweetStr.slice(0, CHAR_LIMIT) );
+            }
+        })
     }
 }
 
