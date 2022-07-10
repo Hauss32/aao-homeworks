@@ -22,6 +22,8 @@ class UsersSearch {
                 followState: ( user.followed ) ? 'followed' : 'unfollowed'
             })
 
+            followBtn.$el.addClass( 'follow-toggle' );
+
             $listLink.attr("href", linkURL);
             $listLink.text( user.username );
 
