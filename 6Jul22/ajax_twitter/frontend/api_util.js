@@ -24,6 +24,15 @@ const APIUtil = {
                 query: queryStr
             }
         });
+    },
+
+    composeTweet: (json) => {
+        return $.ajax({
+            url: `/tweets`,
+            type: 'POST',
+            dataType: 'json',
+            data: json
+        });
     }
 };
 

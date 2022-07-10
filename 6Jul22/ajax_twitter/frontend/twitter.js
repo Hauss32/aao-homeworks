@@ -1,4 +1,5 @@
 const FollowToggle = require( './follow_toggle');
+const TweetCompose = require('./tweet_compose');
 const UsersSearch = require( './users_search');
 
 $( () => {
@@ -11,4 +12,6 @@ $( () => {
     $userSearches.each(function () {
         new UsersSearch(this);
     })
+
+    new TweetCompose();
 })

@@ -33,6 +33,15 @@ const APIUtil = {
                 query: queryStr
             }
         });
+    },
+
+    composeTweet: (json) => {
+        return $.ajax({
+            url: `/tweets`,
+            type: 'POST',
+            dataType: 'json',
+            data: json
+        });
     }
 };
 
@@ -90,6 +99,67 @@ class FollowToggle {
 }
 
 module.exports = FollowToggle;
+
+/***/ }),
+
+/***/ "./frontend/tweet_compose.js":
+/*!***********************************!*\
+  !*** ./frontend/tweet_compose.js ***!
+  \***********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const APIUtil = __webpack_require__(/*! ./api_util */ "./frontend/api_util.js");
+
+class TweetCompose {
+    constructor() {
+        this.$form = $( '.tweet-compose' ).first();
+
+        this.handleSubmit();
+    }
+
+    handleSubmit() {
+        const $form = this.$form;
+
+        $form.on( 'submit', event => {
+            const $inputs = $form.find( ':input' );
+            const jsonData = $form.serializeJSON();
+            event.preventDefault();
+
+            $inputs.each(function () {
+                $( this ).prop( 'disabled', true );
+            });
+
+            APIUtil.composeTweet( jsonData )
+                .then( (data) => {
+                    $inputs.each(function () {
+                        $( this ).prop( 'disabled', false );
+                    });
+
+                    const $fields = $inputs.filter( 'select, textarea' );
+                    $fields.each(function () {
+                        $( this ).val('');
+                    });
+
+                    const $newTweet = $( '<li></li>' );
+                    $newTweet.html( `${data.content} -- ` );
+
+                    const $newTweetLink = $('<a></a>');
+                    const userUrl = `/users/${data.user_id}`
+                    $newTweetLink.html( data.user.username );
+                    $newTweetLink.attr( "href", userUrl );
+
+                    $newTweet.append( $newTweetLink );
+                    $newTweet.append( ` -- ${data.created_at}` );
+
+                    const $feed = $('#feed');
+                    $feed.prepend( $newTweet );
+
+                } )
+        });
+    }
+}
+
+module.exports = TweetCompose;
 
 /***/ }),
 
@@ -188,6 +258,7 @@ var __webpack_exports__ = {};
   !*** ./frontend/twitter.js ***!
   \*****************************/
 const FollowToggle = __webpack_require__( /*! ./follow_toggle */ "./frontend/follow_toggle.js");
+const TweetCompose = __webpack_require__(/*! ./tweet_compose */ "./frontend/tweet_compose.js");
 const UsersSearch = __webpack_require__( /*! ./users_search */ "./frontend/users_search.js");
 
 $( () => {
@@ -200,6 +271,8 @@ $( () => {
     $userSearches.each(function () {
         new UsersSearch(this);
     })
+
+    new TweetCompose();
 })
 })();
 
