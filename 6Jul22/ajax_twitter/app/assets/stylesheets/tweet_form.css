@@ -1,0 +1,67 @@
+.tweet-compose {
+    border: 2px solid rgb(195, 97, 61);
+    background-color: coral;
+    border-radius: 5px;
+    padding: 20px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 500px;
+    margin: 0 0 20px 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+}
+
+.tweet-compose h2 {
+    font-size: 1.7em;
+    color: white;
+    text-shadow: -2px 1px rgb(195, 97, 61);
+    padding: 20px 0;
+}
+
+.tweet-compose label {
+    font-size: 0;
+}
+
+.tweet-compose textarea {
+    height: 200px;
+    width: 400px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border-color: rgb(195, 97, 61);
+}
+
+.tweet-compose select {
+    width: 200px;
+    height: 30px;
+    padding: 5px 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+    border-color: rgb(195, 97, 61);
+}
+
+.tweet-compose textarea:focus-visible, .tweet-compose select:focus-visible {
+    outline: 1px solid rgb(195, 97, 61);
+}
+
+.tweet-compose input[type=submit] {
+    display: block;
+    margin-top: 20px;
+    padding: 2px 5px;
+    border-radius: 5px;
+    border-color: rgb(195, 97, 61);
+    background-color: white;
+}
+
+.tweet-compose input[type=submit]:hover {
+    background-color: rgb(252, 216, 203);
+}
+
+.chars-left {
+    display: inline-block;
+    font-size: 14px;
+    color: white;
+    padding-top: 3px;
+}

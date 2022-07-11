@@ -1,11 +1,22 @@
-h1 {
-    font-size: 1.8em;
-    padding: 20px;
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, nav, li, b, input, textarea, option {
     font-family: 'Kanit', sans-serif;
 }
 
+h1 {
+    font-size: 1.8em;
+    padding: 20px;
+}
+
+h2 {
+    font-size: 1.5em;
+    padding: 20px;
+}
+
 nav {
-    font-family: 'Kanit', sans-serif;
     padding: 20px;
 }
 
@@ -14,13 +25,11 @@ ul {
 }
 
 li {
-    font-family: 'Kanit', sans-serif;
     margin: 20px;
 }
 
 b {
     font-weight: 700;
-    font-family: 'Kanit', sans-serif;
     padding-left: 20px;
     font-size: 1.2em;
 }
@@ -37,4 +46,8 @@ b {
 .follow-toggle:hover {
     color: white;
     background-color: rgb(195, 97, 61);
+}
+
+.disabled {
+    color: red;
 }
