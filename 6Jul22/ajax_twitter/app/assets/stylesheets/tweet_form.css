@@ -65,3 +65,9 @@
     color: white;
     padding-top: 3px;
 }
+
+.add-mention {
+    font-size: 16px;
+    color: white;
+    text-decoration: underline;
+}

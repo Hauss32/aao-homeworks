@@ -3,9 +3,12 @@ const APIUtil = require("./api_util");
 class TweetCompose {
     constructor() {
         this.$form = $( '.tweet-compose' ).first();
+        this.$allMentions = $( '.all-mentions' ).first();
 
         this.handleSubmit();
         this.handleCharLimit();
+        this.handleAddMention();
+        this.handleRemoveMention();
     }
 
     handleSubmit() {
@@ -30,6 +33,8 @@ class TweetCompose {
                     $fields.each(function () {
                         $( this ).val('');
                     });
+
+                    this.$allMentions.empty();
 
                     const $newTweet = $( '<li></li>' );
                     $newTweet.html( `${data.content} -- ` );
@@ -65,6 +70,43 @@ class TweetCompose {
                 $messageInput.val( tweetStr.slice(0, CHAR_LIMIT) );
             }
         })
+    }
+
+    handleAddMention() {
+        const $addMentionBtn = $( '.add-mention' ).first();
+
+        $addMentionBtn.on( 'click', () => {
+            const $mentionSelect = this.newUserSelect();
+            this.$allMentions.append( $mentionSelect );
+        })
+    }
+
+    handleRemoveMention() {
+        this.$form.on( 'click', 'a.remove-mentioned-user', function(event) {
+            event.preventDefault();
+            $(this).parent().remove();
+        })
+    }
+
+    newUserSelect() {
+        const $mentionContainer = $( '<div class="mention-container"></div>');
+        const $mentionSelect = $( '<select name="tweet[mentioned_user_ids][]"></select>' );
+        const $placeholderOption = $( '<option selected disabled>Select a User...</option>');
+        const $mentionDelete = $( '<a href="#" class="remove-mentioned-user">🗑️</a>' );
+
+        $mentionContainer.append( $mentionSelect );
+        $mentionSelect.append( $placeholderOption );
+        $mentionContainer.append( $mentionDelete );
+
+        window.users.forEach( user => {
+            const $option = $( '<option></option>' );
+            $option.val( user.id );
+            $option.html( user.username );
+
+            $mentionSelect.append( $option );
+        })
+
+        return $mentionContainer;
     }
 }
 

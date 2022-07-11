@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <script>
+      window.users = <%= render('users/users.json.jbuilder', users: User.all).html_safe %>;
+    </script>
   </head>
 
   <body>
