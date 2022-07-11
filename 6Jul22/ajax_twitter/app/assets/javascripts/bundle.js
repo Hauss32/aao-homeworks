@@ -42,7 +42,19 @@ const APIUtil = {
             dataType: 'json',
             data: json
         });
+    },
+
+    fetchTweets: createdAtFilter => {
+        return $.ajax({
+            url: `/feed`,
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                max_created_at: createdAtFilter
+            }
+        });
     }
+
 };
 
 module.exports = APIUtil;
@@ -99,6 +111,62 @@ class FollowToggle {
 }
 
 module.exports = FollowToggle;
+
+/***/ }),
+
+/***/ "./frontend/infinite_tweets.js":
+/*!*************************************!*\
+  !*** ./frontend/infinite_tweets.js ***!
+  \*************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const APIUtil = __webpack_require__(/*! ./api_util */ "./frontend/api_util.js");
+
+class InfiniteTweets {
+    constructor() {
+        this.$feedContainer = $( '.infinite-tweets' ).first();
+        this.$fetchMoreBtn = $( '.fetch-more' ).first();
+        this.minCreatedAt;
+
+        this.handleFetchMore();
+    }
+
+    handleFetchMore() {
+        this.$fetchMoreBtn.on( 'click', event => {
+            event.preventDefault();
+            const $tweetsContainer = $( '#feed' );
+            const LIMIT = 20;
+
+            this.$fetchMoreBtn.prop( 'disabled', true);
+
+            APIUtil.fetchTweets(this.minCreatedAt)
+                .then( tweets => {
+                    this.$fetchMoreBtn.prop( 'disabled', false );
+
+                    tweets.forEach( (tweet, idx) => {
+                        const $tweet = $( '<li></li>');
+                        $tweet.html( this.createTweetElem(tweet) );
+                        $tweetsContainer.append( $tweet );
+
+                        if( idx === tweets.length - 1) {
+                            this.minCreatedAt = tweet.created_at;
+                        }
+
+                    })
+
+                    if( tweets.length < LIMIT ) {
+                        this.$fetchMoreBtn.remove();
+                    }
+                })
+        })
+    }
+
+    createTweetElem(data) {
+        return JSON.stringify(data);
+    }
+}
+
+module.exports = InfiniteTweets;
 
 /***/ }),
 
@@ -319,6 +387,7 @@ var __webpack_exports__ = {};
   !*** ./frontend/twitter.js ***!
   \*****************************/
 const FollowToggle = __webpack_require__( /*! ./follow_toggle */ "./frontend/follow_toggle.js");
+const InfiniteTweets = __webpack_require__(/*! ./infinite_tweets */ "./frontend/infinite_tweets.js");
 const TweetCompose = __webpack_require__(/*! ./tweet_compose */ "./frontend/tweet_compose.js");
 const UsersSearch = __webpack_require__( /*! ./users_search */ "./frontend/users_search.js");
 
@@ -334,6 +403,7 @@ $( () => {
     })
 
     new TweetCompose();
+    new InfiniteTweets();
 })
 })();
 

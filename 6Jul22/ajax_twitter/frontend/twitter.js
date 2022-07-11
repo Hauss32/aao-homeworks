@@ -1,4 +1,5 @@
 const FollowToggle = require( './follow_toggle');
+const InfiniteTweets = require('./infinite_tweets');
 const TweetCompose = require('./tweet_compose');
 const UsersSearch = require( './users_search');
 
@@ -14,4 +15,5 @@ $( () => {
     })
 
     new TweetCompose();
+    new InfiniteTweets();
 })

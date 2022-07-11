@@ -33,7 +33,19 @@ const APIUtil = {
             dataType: 'json',
             data: json
         });
+    },
+
+    fetchTweets: createdAtFilter => {
+        return $.ajax({
+            url: `/feed`,
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                max_created_at: createdAtFilter
+            }
+        });
     }
+
 };
 
 module.exports = APIUtil;
