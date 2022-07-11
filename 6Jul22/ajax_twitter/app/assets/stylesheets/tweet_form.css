@@ -37,7 +37,7 @@
     width: 200px;
     height: 30px;
     padding: 5px 10px;
-    margin-top: 20px;
+    margin-top: 10px;
     border-radius: 5px;
     border-color: rgb(195, 97, 61);
 }
@@ -57,6 +57,7 @@
 
 .tweet-compose input[type=submit]:hover {
     background-color: rgb(252, 216, 203);
+    cursor: pointer;
 }
 
 .chars-left {
@@ -67,7 +68,29 @@
 }
 
 .add-mention {
-    font-size: 16px;
+    font-size: 20px;
     color: white;
+    text-decoration: none;
+    font-weight: 700;
+    text-shadow: -1px 1px rgb(195, 97, 61);
+}
+
+.add-mention:hover {
+    cursor: pointer;
     text-decoration: underline;
+}
+
+.remove-mentioned-user {
+    box-sizing: border-box;
+    height: 30px;
+    font-size: 16px;
+    padding: 5px;
+    background-color: rgb(252, 216, 203);
+    border-radius: 5px;
+    border: 1px solid rgb(195, 97, 61);
+    margin-left: 5px;
+}
+
+.remove-mentioned-user:hover {
+    background-color: rgb(252, 166, 166);
 }
