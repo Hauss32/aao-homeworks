@@ -36,20 +36,9 @@ class TweetCompose {
 
                     this.$allMentions.empty();
 
-                    const $newTweet = $( '<li></li>' );
-                    $newTweet.html( `${data.content} -- ` );
-
-                    const $newTweetLink = $('<a></a>');
-                    const userUrl = `/users/${data.user_id}`
-                    $newTweetLink.html( data.user.username );
-                    $newTweetLink.attr( "href", userUrl );
-
-                    $newTweet.append( $newTweetLink );
-                    $newTweet.append( ` -- ${data.created_at}` );
 
                     const $feed = $('#feed');
-                    $feed.prepend( $newTweet );
-
+                    const $tweetElem = $feed.trigger( 'insert-tweet', [data] );
                 } )
         });
     }

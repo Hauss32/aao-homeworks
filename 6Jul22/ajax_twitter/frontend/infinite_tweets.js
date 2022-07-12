@@ -3,17 +3,18 @@ const APIUtil = require("./api_util");
 class InfiniteTweets {
     constructor() {
         this.$feedContainer = $( '.infinite-tweets' ).first();
+        this.$feedList = $('#feed');
         this.$fetchMoreBtn = $( '.fetch-more' ).first();
         this.minCreatedAt;
 
         this.handleFetchMore();
+        this.handleInsertTweet();
         this.$fetchMoreBtn.trigger( 'click' );
     }
 
     handleFetchMore() {
         this.$fetchMoreBtn.on( 'click', event => {
             event.preventDefault();
-            const $tweetsContainer = $( '#feed' );
             const LIMIT = 20;
 
             this.$fetchMoreBtn.prop( 'disabled', true);
@@ -25,7 +26,7 @@ class InfiniteTweets {
                     tweets.forEach( (tweet, idx) => {
                         
                         const $tweet = this.createTweetElem( tweet );
-                        $tweetsContainer.append( $tweet );
+                        this.$feedList.append( $tweet );
 
                         if( idx === tweets.length - 1) {
                             this.minCreatedAt = tweet.created_at;
@@ -37,6 +38,14 @@ class InfiniteTweets {
                         this.$fetchMoreBtn.remove();
                     }
                 })
+        })
+    }
+
+    handleInsertTweet() {
+        this.$feedContainer.on( 'insert-tweet', (event, data) => {
+            const $tweet = this.createTweetElem(data);
+
+            this.$feedList.prepend( $tweet );
         })
     }
 

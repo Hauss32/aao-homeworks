@@ -125,17 +125,18 @@ const APIUtil = __webpack_require__(/*! ./api_util */ "./frontend/api_util.js");
 class InfiniteTweets {
     constructor() {
         this.$feedContainer = $( '.infinite-tweets' ).first();
+        this.$feedList = $('#feed');
         this.$fetchMoreBtn = $( '.fetch-more' ).first();
         this.minCreatedAt;
 
         this.handleFetchMore();
+        this.handleInsertTweet();
         this.$fetchMoreBtn.trigger( 'click' );
     }
 
     handleFetchMore() {
         this.$fetchMoreBtn.on( 'click', event => {
             event.preventDefault();
-            const $tweetsContainer = $( '#feed' );
             const LIMIT = 20;
 
             this.$fetchMoreBtn.prop( 'disabled', true);
@@ -147,7 +148,7 @@ class InfiniteTweets {
                     tweets.forEach( (tweet, idx) => {
                         
                         const $tweet = this.createTweetElem( tweet );
-                        $tweetsContainer.append( $tweet );
+                        this.$feedList.append( $tweet );
 
                         if( idx === tweets.length - 1) {
                             this.minCreatedAt = tweet.created_at;
@@ -159,6 +160,14 @@ class InfiniteTweets {
                         this.$fetchMoreBtn.remove();
                     }
                 })
+        })
+    }
+
+    handleInsertTweet() {
+        this.$feedContainer.on( 'insert-tweet', (event, data) => {
+            const $tweet = this.createTweetElem(data);
+
+            this.$feedList.prepend( $tweet );
         })
     }
 
@@ -251,20 +260,9 @@ class TweetCompose {
 
                     this.$allMentions.empty();
 
-                    const $newTweet = $( '<li></li>' );
-                    $newTweet.html( `${data.content} -- ` );
-
-                    const $newTweetLink = $('<a></a>');
-                    const userUrl = `/users/${data.user_id}`
-                    $newTweetLink.html( data.user.username );
-                    $newTweetLink.attr( "href", userUrl );
-
-                    $newTweet.append( $newTweetLink );
-                    $newTweet.append( ` -- ${data.created_at}` );
 
                     const $feed = $('#feed');
-                    $feed.prepend( $newTweet );
-
+                    const $tweetElem = $feed.trigger( 'insert-tweet', [data] );
                 } )
         });
     }
