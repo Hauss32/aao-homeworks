@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-h1, h2, nav, li, b, input, textarea, option {
+h1, h2, nav, li, b, input, textarea, option, button {
     font-family: 'Kanit', sans-serif;
 }
 
