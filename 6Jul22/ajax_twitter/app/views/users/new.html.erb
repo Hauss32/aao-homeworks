@@ -6,7 +6,7 @@
   <% end %>
 </ul>
 
-<form action="/users" method="POST">
+<form action="/users" method="POST" class="user-form">
   <input
     type="hidden"
     name="authenticity_token"
@@ -24,7 +24,7 @@
   <input type="password" name="user[password]" id="user_password">
   <br>
 
-  <input type="submit" value="Create User!">
+  <input type="submit" value="Create User!" class="sub-btn">
 </form>
 
-<a href="<%= new_session_url %>">Already have an account? Log In</a>
+<a href="<%= new_session_url %>" class="auth-link">Already have an account? Log In</a>
