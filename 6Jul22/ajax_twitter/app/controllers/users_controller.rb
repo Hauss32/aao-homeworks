@@ -29,7 +29,11 @@ class UsersController < ApplicationController
     end
 
     @user = User.includes(tweets: :mentioned_users).find(params[:id])
-    render :show
+
+    respond_to do |format| 
+      format.html { render :show }
+      format.json { render :show }
+    end
   end
 
   def search
