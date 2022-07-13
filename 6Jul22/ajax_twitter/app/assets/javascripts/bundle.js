@@ -121,6 +121,7 @@ module.exports = FollowToggle;
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const APIUtil = __webpack_require__(/*! ./api_util */ "./frontend/api_util.js");
+const SharedUtil = __webpack_require__(/*! ./shared */ "./frontend/shared.js");
 
 class InfiniteTweets {
     constructor() {
@@ -147,7 +148,7 @@ class InfiniteTweets {
 
                     tweets.forEach( (tweet, idx) => {
                         
-                        const $tweet = this.createTweetElem( tweet );
+                        const $tweet = SharedUtil.createTweetElem( tweet );
                         this.$feedList.append( $tweet );
 
                         if( idx === tweets.length - 1) {
@@ -165,54 +166,66 @@ class InfiniteTweets {
 
     handleInsertTweet() {
         this.$feedContainer.on( 'insert-tweet', (event, data) => {
-            const $tweet = this.createTweetElem(data);
+            const $tweet = SharedUtil.createTweetElem(data);
 
             this.$feedList.prepend( $tweet );
         })
     }
+}
 
-    createTweetElem(data) {
+module.exports = InfiniteTweets;
+
+/***/ }),
+
+/***/ "./frontend/shared.js":
+/*!****************************!*\
+  !*** ./frontend/shared.js ***!
+  \****************************/
+/***/ ((module) => {
+
+const SharedUtil = {
+    createTweetElem: (data) => {
         const $tweet = $('<li></li>');
 
-        const $content = $( '<p class="content"></p>' );
-        $content.html( data.content );
+        const $content = $('<p class="content"></p>');
+        $content.html(data.content);
 
-        const $mentions = this.createMentionsElem( data.mentions );
+        const $mentions = SharedUtil.createMentionsElem(data.mentions);
 
-        const $user = $( '<a class="created-by"></a>');
-        $user.attr( 'href', `/users/${data.user.id}`);
-        $user.html( data.user.username );
+        const $user = $('<a class="created-by"></a>');
+        $user.attr('href', `/users/${data.user.id}`);
+        $user.html(data.user.username);
 
-        const $createdTime = $( '<time></time>' );
-        $createdTime.html( data.created_at );
-        $createdTime.attr( 'datetime', data.created_at );
+        const $createdTime = $('<time></time>');
+        $createdTime.html(data.created_at);
+        $createdTime.attr('datetime', data.created_at);
 
-        $tweet.append( $content );
-        $tweet.append( $mentions );
-        $tweet.append( $user );
-        $tweet.append( $createdTime );
+        $tweet.append($content);
+        $tweet.append($mentions);
+        $tweet.append($user);
+        $tweet.append($createdTime);
 
         return $tweet;
-    }
+    },
 
-    createMentionsElem(mentionsJSON) {
-        const $mentions = $( '<ul class="mentions"></ul>' );
+    createMentionsElem: (mentionsJSON) => {
+        const $mentions = $('<ul class="mentions"></ul>');
 
-        mentionsJSON.forEach( mention => {
-            const $mention = $( '<li></li>' );
-            const $link = $( '<a></a>');
-            $link.html( mention.user.username );
-            $link.attr( 'href', `users/${mention.user.id}` );
+        mentionsJSON.forEach(mention => {
+            const $mention = $('<li></li>');
+            const $link = $('<a></a>');
+            $link.html(mention.user.username);
+            $link.attr('href', `users/${mention.user.id}`);
 
-            $mention.append( $link );
-            $mentions.append( $mention );
+            $mention.append($link);
+            $mentions.append($mention);
         })
 
         return $mentions;
     }
 }
 
-module.exports = InfiniteTweets;
+module.exports = SharedUtil;
 
 /***/ }),
 
