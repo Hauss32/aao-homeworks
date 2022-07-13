@@ -4,7 +4,7 @@
 
 <b>Tweets</b>
 <!-- TODO: Align this feed with own feed -->
-<ul>
+<ul class="user-feed">
   <% @user.tweets.each do |tweet| %>
     <li><%= render 'tweets/tweet', tweet: tweet %></li>
   <% end %>
