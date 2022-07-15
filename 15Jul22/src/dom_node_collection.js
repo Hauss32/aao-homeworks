@@ -102,12 +102,13 @@ class DomNodeCollection {
     on(eventName, callback) {
         this.collection.forEach( elem => {
             elem.addEventListener(eventName, callback);
+            elem.callback = callback;
         })
     }
 
-    off(eventName, listener) {
+    off(eventName) {
         this.collection.forEach( elem => {
-            elem.removeEventListener(eventName, listener);
+            elem.removeEventListener(eventName, elem.callback);
         } )
     }
 }
