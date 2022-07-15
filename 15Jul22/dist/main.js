@@ -15,7 +15,7 @@
   \************************************/
 /***/ ((module) => {
 
-eval("class DomNodeCollection {\n    constructor(collection) {\n        this.collection = collection;\n    }\n}\n\nmodule.exports = DomNodeCollection;\n\n//# sourceURL=webpack:///./src/dom_node_collection.js?");
+eval("class DomNodeCollection {\n    constructor(collection) {\n        this.collection = collection;\n    }\n\n    html(str) {\n        if (str) {\n            this.collection.forEach( elem => {\n                elem.innerHTML = str;\n            })\n        } else {\n            return this.collection[0].innerHTML;\n        }\n    }\n}\n\nmodule.exports = DomNodeCollection;\n\n//# sourceURL=webpack:///./src/dom_node_collection.js?");
 
 /***/ }),
 
