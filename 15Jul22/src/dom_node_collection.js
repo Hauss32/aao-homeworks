@@ -90,8 +90,13 @@ class DomNodeCollection {
             matches = matches.concat( matchArr );
         })
 
-
         return new DomNodeCollection( matches );
+    }
+
+    remove() {
+        this.collection.forEach( elem => {
+            elem.remove();
+        })
     }
 }
 
