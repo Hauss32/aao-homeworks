@@ -28,6 +28,28 @@ $l.extend = (...objs) => {
     return finalObj;
 }
 
+$l.ajax = (options) => {
+    const defaults = {
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        method: 'GET',
+        async: true
+    }
+
+    const reqOptions = $l.extend( defaults, options );
+    const req = new XMLHttpRequest();
+
+    req.onload = function () {
+        if (req.status === 200 && reqOptions.success) {
+            reqOptions.success( JSON.parse(response) );
+        } else if (reqOptions.error){
+            reqOptions.error( JSON.parse(response) );
+        }
+    }
+    req.open(reqOptions.method, reqOptions.url, reqOptions.async);
+    req.send(reqOptions.data);
+}
+
 window.addEventListener('DOMContentLoaded', (event) => {
     for( let i = 0; i < window.functionQueue.length; i++ ) {
         functionQueue[i]();
