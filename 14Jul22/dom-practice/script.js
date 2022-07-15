@@ -41,7 +41,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // adding new photos
 
-  // --- your code here!
+  const photoShowBtn = document.getElementsByClassName('photo-show-button')[0];
+  const photoForm = document.getElementsByClassName('photo-form-container')[0];
+
+  photoShowBtn.addEventListener( 'click', () => {
+    photoForm.classList.toggle('hidden');
+  })
+
+  const photoUrlInput = document.getElementsByClassName("photo-url-input")[0];
+  const photoUrlSubmit = document.getElementsByClassName("photo-url-submit")[0];
+
+  photoUrlSubmit.addEventListener('click', event => {
+    event.preventDefault();
+
+    const inputValue = photoUrlInput.value;
+
+    if (inputValue) {
+      const photosUl = document.getElementsByClassName('dog-photos')[0];
+      const newLi = document.createElement('li');
+      const newImg = document.createElement('img');
+      newImg.setAttribute( 'src', inputValue );
+
+      newLi.append(newImg);
+      photosUl.append(newLi);
+
+      photoUrlInput.value = '';
+    }
+  })
 
 
 
