@@ -38,6 +38,12 @@ class DomNodeCollection {
             })   
         }
     }
+
+    attr(name, value) {
+        this.collection.forEach( elem => {
+            elem.setAttribute(name, value);
+        })
+    }
 }
 
 module.exports = DomNodeCollection;
