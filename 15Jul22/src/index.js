@@ -36,18 +36,22 @@ $l.ajax = (options) => {
         async: true
     }
 
-    const reqOptions = $l.extend( defaults, options );
-    const req = new XMLHttpRequest();
+    const promise = new Promise( (resolve, reject) => {
+        const reqOptions = $l.extend(defaults, options);
+        const req = new XMLHttpRequest();
 
-    req.onload = function () {
-        if (req.status === 200 && reqOptions.success) {
-            reqOptions.success( JSON.parse(response) );
-        } else if (reqOptions.error){
-            reqOptions.error( JSON.parse(response) );
+        req.onload = function () {
+            if (req.status === 200) {
+                resolve(JSON.parse(req.response));
+            } else {
+                reject( Error(req.status) );
+            }
         }
-    }
-    req.open(reqOptions.method, reqOptions.url, reqOptions.async);
-    req.send(reqOptions.data);
+        req.open(reqOptions.method, reqOptions.url, reqOptions.async);
+        req.send(reqOptions.data);
+    });
+
+    return promise;
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {
