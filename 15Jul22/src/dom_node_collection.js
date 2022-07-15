@@ -12,6 +12,12 @@ class DomNodeCollection {
             return this.collection[0].innerHTML;
         }
     }
+
+    empty() {
+        this.collection.forEach( elem => {
+            elem.innerHTML = '';
+        })
+    }
 }
 
 module.exports = DomNodeCollection;
