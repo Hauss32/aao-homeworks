@@ -73,13 +73,25 @@ class DomNodeCollection {
 
         this.collection.forEach( elem => {
             const parent = elem.parentElement;
-            
+
             if ( !parents.includes( parent ) ) {
                 parents.push( elem.parentElement );
             }
         })
 
         return new DomNodeCollection(parents);
+    }
+
+    find(selector) {
+        let matches = [];
+        
+        this.collection.forEach( elem => {
+            const matchArr = Array.from( elem.querySelectorAll(selector))
+            matches = matches.concat( matchArr );
+        })
+
+
+        return new DomNodeCollection( matches );
     }
 }
 
