@@ -17,6 +17,17 @@ window.$l = function(selector) {
     }
 }
 
+$l.extend = (...objs) => {
+    const finalObj = objs[0];
+    objs.forEach( obj => {
+        for ( const key in obj) {
+            finalObj[key] = obj[key];
+        }
+    })
+
+    return finalObj;
+}
+
 window.addEventListener('DOMContentLoaded', (event) => {
     for( let i = 0; i < window.functionQueue.length; i++ ) {
         functionQueue[i]();
