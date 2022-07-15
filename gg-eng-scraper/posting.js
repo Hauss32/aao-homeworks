@@ -1,35 +1,61 @@
 class Posting {
     constructor(postingData) {
+        this.data = postingData;
         this.attributes = {};
+
+        this.parseData();
     }
 
-    parseData(data) {
-
+    parseData() {
+        this.parseCategories();
+        this.parseCreatedAt();
+        this.parseDesc();
+        this.parseId();
+        this.parseLists();
+        this.parseTitle();
     }
 
-    parseCategories(data) {
-        this.attributes.commitment = data.categories.commitment
-        this.attributes.department = data.categories.department
-        this.attributes.location = data.categories.location
-        this.attributes.team = data.categories.team
+    parseCategories() {
+        this.attributes.commitment = this.data.categories.commitment
+        this.attributes.department = this.data.categories.department
+        this.attributes.location = this.data.categories.location
+        this.attributes.team = this.data.categories.team
     }
 
-    parseCreatedAt(data) {
-        const createdAtRaw = data.createdAt;
+    parseCreatedAt() {
+        const createdAtRaw = this.data.createdAt;
         const createdDateUTC = new Date(createdAtRaw);
 
-        this.createdAt = createdDateUTC;
+        this.attributes.createdAt = createdDateUTC;
     }
 
-    parseDesc(data) {
-        this.description = data.descriptionPlain;
+    parseDesc() {
+        this.attributes.description = this.data.descriptionPlain;
     }
 
-    parseId(data) {
-        this.job_id = data.id;
+    parseId() {
+        this.attributes.job_id = this.data.id;
     }
 
-    parseLists(data) {
+    parseLists() {
         // array of job specifics (responsibilities, requirements, etc.)
+        const jobSpecifics = this.data.lists;
+
+        jobSpecifics.forEach( jobItem => {
+            this.attributes.jobSpecifics ||= '';
+
+            const heading = jobItem.text;
+            const contentRaw = jobItem.content; //html raw
+            const contentStr = contentRaw.replace(/<[^>]*>?/gm, '');
+            const contentFormatted = contentStr.replace(/\s{2,}/gm, ' ');
+
+            this.attributes.jobSpecifics += `${heading}: ${contentFormatted} \n`;
+        })
+    }
+
+    parseTitle() {
+        this.attributes.title = this.data.text;
     }
 }
+
+module.exports = Posting;
