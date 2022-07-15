@@ -56,6 +56,17 @@ class DomNodeCollection {
             elem.classList.remove(className);
         })
     }
+
+    children() {
+        let children = [];
+
+        this.collection.forEach( (elem, idx) => {
+            const childrenArr = Array.from( elem.children );
+            children = children.concat( childrenArr );
+        })
+
+        return new DomNodeCollection( children );
+    }
 }
 
 module.exports = DomNodeCollection;
