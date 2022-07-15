@@ -60,12 +60,26 @@ class DomNodeCollection {
     children() {
         let children = [];
 
-        this.collection.forEach( (elem, idx) => {
+        this.collection.forEach( elem => {
             const childrenArr = Array.from( elem.children );
             children = children.concat( childrenArr );
         })
 
         return new DomNodeCollection( children );
+    }
+
+    parent() {
+        const parents = [];
+
+        this.collection.forEach( elem => {
+            const parent = elem.parentElement;
+            
+            if ( !parents.includes( parent ) ) {
+                parents.push( elem.parentElement );
+            }
+        })
+
+        return new DomNodeCollection(parents);
     }
 }
 
