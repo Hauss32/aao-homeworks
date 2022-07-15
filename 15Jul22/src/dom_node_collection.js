@@ -98,6 +98,18 @@ class DomNodeCollection {
             elem.remove();
         })
     }
+
+    on(eventName, callback) {
+        this.collection.forEach( elem => {
+            elem.addEventListener(eventName, callback);
+        })
+    }
+
+    off(eventName, listener) {
+        this.collection.forEach( elem => {
+            elem.removeEventListener(eventName, listener);
+        } )
+    }
 }
 
 module.exports = DomNodeCollection;
