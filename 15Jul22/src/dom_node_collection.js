@@ -44,6 +44,18 @@ class DomNodeCollection {
             elem.setAttribute(name, value);
         })
     }
+
+    addClass(className) {
+        this.collection.forEach( elem => {
+            elem.classList.add(className);
+        })
+    }
+
+    removeClass(className) {
+        this.collection.forEach(elem => {
+            elem.classList.remove(className);
+        })
+    }
 }
 
 module.exports = DomNodeCollection;
