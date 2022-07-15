@@ -18,7 +18,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // adding SF places as list items
 
-  // --- your code here!
+  const newPlaceInput = document.getElementsByClassName( "favorite-input" )[0];
+  const newPlaceSubmit = document.getElementsByClassName("favorite-submit")[0];
+
+  newPlaceSubmit.addEventListener( 'click', event => {
+    event.preventDefault();
+
+    const inputValue = newPlaceInput.value;
+
+    if( inputValue ) {
+      const placesUl = document.getElementById('sf-places');
+      const newLi = document.createElement('li');
+      newLi.innerHTML = inputValue;
+
+      placesUl.append(newLi);
+
+      newPlaceInput.value = '';
+    }
+  })
 
 
 
