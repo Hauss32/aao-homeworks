@@ -1,4 +1,4 @@
-let messages = {
+const messages = {
     sent: [
         {
             to: "friend@mail.com",
@@ -22,6 +22,15 @@ let messages = {
     ]
 };
 
+const messageDraft = new Message();
+
+function Message(from, to, subject, body) {
+    this.from = from;
+    this.to = to;
+    this.subject = subject;
+    this.body = body;
+}
+
 const MessageStore = {
     getInboxMessages: function() {
         return messages.inbox;
@@ -29,6 +38,15 @@ const MessageStore = {
 
     getSentMessages: function() {
         return messages.sent;
+    },
+
+    updateDraftField: function(field, val) {
+        messageDraft[field] = val;
+    },
+
+    sendDraft: function() {
+        messages.sent.push( messageDraft );
+        messageDraft = new Message();
     }
 }
 
