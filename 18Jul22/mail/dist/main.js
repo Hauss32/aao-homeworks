@@ -25,7 +25,7 @@ eval("const MessageStore = __webpack_require__(/*! ./message_store */ \"./src/me
   \**********************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const Inbox = __webpack_require__(/*! ./inbox */ \"./src/inbox.js\");\nconst Router = __webpack_require__(/*! ./router */ \"./src/router.js\");\n\nconst routes = {\n    inbox: Inbox\n}\n\ndocument.addEventListener( 'DOMContentLoaded', function() {\n    const sidebarItemsCollection = document.querySelectorAll( '.sidebar-nav li' );\n    const contentContainer = document.querySelector( '.content' );\n    const sidebarItemsArr = Array.from(sidebarItemsCollection);\n\n    sidebarItemsArr.forEach( item => {\n        item.addEventListener('click', event => {\n            const link = event.target;\n            const text = link.innerText.toLowerCase();\n            window.location.hash = text;\n        });\n    });\n\n    const router = new Router( contentContainer, routes );\n    router.start();\n    window.location.hash = '#inbox';\n})\n\n//# sourceURL=webpack://mail/./src/index.js?");
+eval("const Inbox = __webpack_require__(/*! ./inbox */ \"./src/inbox.js\");\nconst Router = __webpack_require__(/*! ./router */ \"./src/router.js\");\nconst Sent = __webpack_require__(/*! ./sent */ \"./src/sent.js\");\n\nconst routes = {\n    inbox: Inbox,\n    sent: Sent\n}\n\ndocument.addEventListener( 'DOMContentLoaded', function() {\n    const sidebarItemsCollection = document.querySelectorAll( '.sidebar-nav li' );\n    const contentContainer = document.querySelector( '.content' );\n    const sidebarItemsArr = Array.from(sidebarItemsCollection);\n\n    sidebarItemsArr.forEach( item => {\n        item.addEventListener('click', event => {\n            const link = event.target;\n            const text = link.innerText.toLowerCase();\n            window.location.hash = text;\n        });\n    });\n\n    const router = new Router( contentContainer, routes );\n    router.start();\n    window.location.hash = '#inbox';\n})\n\n//# sourceURL=webpack://mail/./src/index.js?");
 
 /***/ }),
 
@@ -46,6 +46,16 @@ eval("let messages = {\n    sent: [\n        {\n            to: \"friend@mail.co
 /***/ ((module) => {
 
 eval("class Router {\n    constructor(node, routes) {\n        this.node = node;\n        this.routes = routes;\n    }\n\n    start() {\n        window.addEventListener( 'hashchange', () => {\n            this.render();\n        })\n\n        this.render();\n    }\n\n    activeRoute() {\n        let route = window.location.hash;\n        route = route.replace( '#', ''); //remove '#' prefix in route\n\n        return this.routes[route];\n    }\n\n    render() {\n        const component = this.activeRoute();\n        this.node.innerHTML = \"\";\n\n        if ( component ) {\n            const messagesElem = component.render();\n            this.node.appendChild( messagesElem );\n        }\n    }\n}\n\nmodule.exports = Router;\n\n//# sourceURL=webpack://mail/./src/router.js?");
+
+/***/ }),
+
+/***/ "./src/sent.js":
+/*!*********************!*\
+  !*** ./src/sent.js ***!
+  \*********************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const MessageStore = __webpack_require__(/*! ./message_store */ \"./src/message_store.js\");\n\nconst Sent = {\n    render: () => {\n        const messages = MessageStore.getSentMessages();\n        const messageContainer = document.createElement('ul');\n        messageContainer.className = 'messages';\n\n        messages.forEach(message => {\n            const msgElem = Sent.renderMessage(message);\n            messageContainer.appendChild(msgElem);\n        })\n\n        return messageContainer;\n    },\n\n    renderMessage: (message) => {\n        const msgElem = document.createElement('li');\n        msgElem.className = 'message';\n\n        msgElem.innerHTML = `\n            <span class='from'>${message.to}</span>\n            <span class=\"subject\">${message.subject}</span> -\n            <span class=\"body\">${message.body}</span>\n            `\n        return msgElem;\n    }\n}\n\nmodule.exports = Sent;\n\n//# sourceURL=webpack://mail/./src/sent.js?");
 
 /***/ })
 
