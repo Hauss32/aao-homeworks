@@ -7,6 +7,13 @@ const Compose = {
         container.className = 'new-message';
         container.innerHTML = Compose.renderForm();
 
+        container.addEventListener( 'change', (event) => {
+            const draftField = event.target.name;
+            const value = event.target.value;
+            
+            MessageStore.updateDraftField( draftField, value );
+        })
+
         return container;
     },
 
@@ -32,7 +39,7 @@ const Compose = {
             </form>
             `
 
-            return htmlStr;
+        return htmlStr;
     }
 }
 
