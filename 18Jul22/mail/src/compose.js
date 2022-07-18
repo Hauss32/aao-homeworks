@@ -14,6 +14,13 @@ const Compose = {
             MessageStore.updateDraftField( draftField, value );
         })
 
+        container.addEventListener( 'submit', (event) => {
+            event.preventDefault();
+
+            MessageStore.sendDraft();
+            window.location.hash = '#inbox';
+        })
+
         return container;
     },
 

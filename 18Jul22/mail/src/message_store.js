@@ -22,7 +22,7 @@ const messages = {
     ]
 };
 
-const messageDraft = new Message();
+let messageDraft = new Message();
 
 function Message(from='', to='', subject='', body='') {
     this.from = from;
