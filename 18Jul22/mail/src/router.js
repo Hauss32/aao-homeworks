@@ -1,6 +1,7 @@
 class Router {
-    constructor(node) {
+    constructor(node, routes) {
         this.node = node;
+        this.routes = routes;
     }
 
     start() {
