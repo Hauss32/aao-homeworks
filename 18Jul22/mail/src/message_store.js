@@ -24,7 +24,7 @@ const messages = {
 
 const messageDraft = new Message();
 
-function Message(from, to, subject, body) {
+function Message(from='', to='', subject='', body='') {
     this.from = from;
     this.to = to;
     this.subject = subject;
@@ -38,6 +38,10 @@ const MessageStore = {
 
     getSentMessages: function() {
         return messages.sent;
+    },
+
+    getMessageDraft: function() {
+        return messageDraft;
     },
 
     updateDraftField: function(field, val) {
