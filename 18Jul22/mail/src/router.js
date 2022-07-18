@@ -16,6 +16,13 @@ class Router {
     }
 
     render() {
+        const currRoute = this.activeRoute();
+        const routeElem = document.createElement( 'p' );
+
+        routeElem.innerHTML = currRoute;
+        this.node.innderHTML = "";
+        this.node.appendChild( routeElem );
+
 
     }
 }
