@@ -4,7 +4,7 @@ class Router {
     }
 
     start() {
-        document.addEventListener( 'hashchange', () => {
+        window.addEventListener( 'hashchange', () => {
             this.render();
         })
 
@@ -21,8 +21,10 @@ class Router {
         const currRoute = this.activeRoute();
         const routeElem = document.createElement( 'p' );
 
+        this.node.innerHTML = "";
         routeElem.innerHTML = currRoute;
-        this.node.innderHTML = "";
         this.node.appendChild( routeElem );
     }
 }
+
+module.exports = Router;
