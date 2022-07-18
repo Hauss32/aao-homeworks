@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("console.log('Testing.');\n\n//# sourceURL=webpack://mail/./src/index.js?");
+eval("document.addEventListener( 'DOMContentLoaded', function() {\n    const sidebarItemsCollection = document.querySelectorAll( '.sidebar-nav li' );\n    const sidebarItemsArr = Array.from(sidebarItemsCollection);\n\n    sidebarItemsArr.forEach( item => {\n        item.addEventListener('click', event => {\n            const link = event.target;\n            const text = link.innerText.toLowerCase();\n            window.location.hash = text;\n        });\n    });\n})\n\n//# sourceURL=webpack://mail/./src/index.js?");
 
 /***/ })
 
