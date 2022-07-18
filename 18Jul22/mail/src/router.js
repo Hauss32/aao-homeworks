@@ -13,18 +13,20 @@ class Router {
     }
 
     activeRoute() {
-        const route = window.location.hash;
+        let route = window.location.hash;
+        route = route.replace( '#', ''); //remove '#' prefix in route
 
-        return route.replace( '#', ''); //remove '#' prefix in route
+        return this.routes[route];
     }
 
     render() {
-        const currRoute = this.activeRoute();
-        const routeElem = document.createElement( 'p' );
-
+        const component = this.activeRoute();
         this.node.innerHTML = "";
-        routeElem.innerHTML = currRoute;
-        this.node.appendChild( routeElem );
+
+        if ( component ) {
+            const messagesElem = component.render();
+            this.node.appendChild( messagesElem );
+        }
     }
 }
 

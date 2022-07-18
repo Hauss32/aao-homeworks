@@ -35,7 +35,7 @@ eval("const Inbox = __webpack_require__(/*! ./inbox */ \"./src/inbox.js\");\ncon
   \***********************/
 /***/ ((module) => {
 
-eval("class Router {\n    constructor(node, routes) {\n        this.node = node;\n        this.routes = routes;\n    }\n\n    start() {\n        window.addEventListener( 'hashchange', () => {\n            this.render();\n        })\n\n        this.render();\n    }\n\n    activeRoute() {\n        const route = window.location.hash;\n\n        return route.replace( '#', ''); //remove '#' prefix in route\n    }\n\n    render() {\n        const currRoute = this.activeRoute();\n        const routeElem = document.createElement( 'p' );\n\n        this.node.innerHTML = \"\";\n        routeElem.innerHTML = currRoute;\n        this.node.appendChild( routeElem );\n    }\n}\n\nmodule.exports = Router;\n\n//# sourceURL=webpack://mail/./src/router.js?");
+eval("class Router {\n    constructor(node, routes) {\n        this.node = node;\n        this.routes = routes;\n    }\n\n    start() {\n        window.addEventListener( 'hashchange', () => {\n            this.render();\n        })\n\n        this.render();\n    }\n\n    activeRoute() {\n        let route = window.location.hash;\n        route = route.replace( '#', ''); //remove '#' prefix in route\n\n        return this.routes[route];\n    }\n\n    render() {\n        const component = this.activeRoute();\n        this.node.innerHTML = \"\";\n\n        if ( component ) {\n            const messagesElem = component.render();\n            this.node.appendChild( messagesElem );\n        }\n    }\n}\n\nmodule.exports = Router;\n\n//# sourceURL=webpack://mail/./src/router.js?");
 
 /***/ })
 
