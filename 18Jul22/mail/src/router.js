@@ -12,7 +12,9 @@ class Router {
     }
 
     activeRoute() {
+        const route = window.location.hash;
 
+        return route.replace( '#', ''); //remove '#' prefix in route
     }
 
     render() {
@@ -22,7 +24,5 @@ class Router {
         routeElem.innerHTML = currRoute;
         this.node.innderHTML = "";
         this.node.appendChild( routeElem );
-
-
     }
 }
