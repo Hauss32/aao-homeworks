@@ -1,5 +1,16 @@
 {
   "dependencies": {
-    "curl": "^0.1.4"
-  }
+    "curl": "^0.1.4",
+    "pg": "^8.7.3"
+  },
+  "name": "gg-eng-scraper",
+  "version": "1.0.0",
+  "main": "posting.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

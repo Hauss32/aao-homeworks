@@ -26,7 +26,7 @@ class Posting {
         const createdAtRaw = this.data.createdAt;
         const createdDateUTC = new Date(createdAtRaw);
 
-        this.attributes.createdAt = createdDateUTC;
+        this.attributes.posted_at = createdDateUTC;
     }
 
     parseDesc() {
@@ -39,22 +39,42 @@ class Posting {
 
     parseLists() {
         // array of job specifics (responsibilities, requirements, etc.)
-        const jobSpecifics = this.data.lists;
+        const jobDetails = this.data.lists;
 
-        jobSpecifics.forEach( jobItem => {
-            this.attributes.jobSpecifics ||= '';
+        jobDetails.forEach( jobItem => {
+            this.attributes.job_details ||= '';
 
             const heading = jobItem.text;
             const contentRaw = jobItem.content; //html raw
             const contentStr = contentRaw.replace(/<[^>]*>?/gm, '');
             const contentFormatted = contentStr.replace(/\s{2,}/gm, ' ');
 
-            this.attributes.jobSpecifics += `${heading}: ${contentFormatted} \n`;
+            this.attributes.job_details += `${heading}: ${contentFormatted} \n`;
         })
     }
 
     parseTitle() {
         this.attributes.title = this.data.text;
+    }
+
+    async save(connection) {
+        const colArr = Object.keys( this.attributes );
+        const values = Object.values(this.attributes);
+        const valuesParamArr = values.map( (val, idx) => `$${idx + 1}`);
+        const queryStr = `
+            INSERT INTO postings(${colArr.join()}) VALUES(${valuesParamArr.join()})
+        `;
+
+        const query = {
+            text: queryStr,
+            values: values
+        }
+
+        try {
+            return connection.query(query);
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 
