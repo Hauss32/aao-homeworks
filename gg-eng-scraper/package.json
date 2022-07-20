@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "curl": "^0.1.4",
-    "pg": "^8.7.3"
+    "pg": "^8.7.3",
+    "xhr-request": "^1.1.0"
   },
   "name": "gg-eng-scraper",
   "version": "1.0.0",
