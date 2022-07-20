@@ -58,6 +58,8 @@ class Posting {
     }
 
     async save(connection) {
+        this.attributes.created_at = new Date(); //record posting insertion time
+
         const colArr = Object.keys( this.attributes );
         const values = Object.values(this.attributes);
         const valuesParamArr = values.map( (val, idx) => `$${idx + 1}`);
