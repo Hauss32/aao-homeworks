@@ -37,7 +37,7 @@ async function fetchAndDiffRecords() {
     await getAndSavePostings(connection);
     const newAndRemovedJobs = await findNewAndRemovedPostings();
 
-    if (newAndRemovedJobs.newJobs.length == 0 && newAndRemovedJobs.removedJobs.length) {
+    if (newAndRemovedJobs.newJobs.length == 0 && newAndRemovedJobs.removedJobs.length == 0) {
         console.log('No new or removed jobs today!');
         return;
     } else {

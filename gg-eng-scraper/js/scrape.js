@@ -32,12 +32,7 @@ async function parseData(json, connection) {
         })
     })
 
-    if ( insertionPromises.length === 0 ) {
-        console.log('No new or removed jobs.');
-        return;
-    } else {
-        await Promise.all( insertionPromises );
-    }
+    await Promise.all( insertionPromises );
 }
 
 module.exports = getAndSavePostings;
