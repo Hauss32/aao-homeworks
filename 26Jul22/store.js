@@ -1,6 +1,6 @@
 class Store {
-    constructor(rootReudcer) {
-        this.rootReudcer = rootReudcer;
+    constructor(rootReducer) {
+        this.rootReducer = rootReducer;
         this.state = {};
     }
 
@@ -8,8 +8,8 @@ class Store {
         return structuredClone(this.state);
     }
 
-    dispatch(actions) {
-
+    dispatch(action) {
+        this.state = this.rootReducer( this.state, action );
     }
 }
 
@@ -26,4 +26,3 @@ function combineReducers(reducerMapping) {
         return newState;
     }
 }
-
