@@ -7,18 +7,18 @@ class Store {
     getState() {
         return structuredClone(this.state);
     }
+}
 
-    combineReducers( reducerMapping ) {
+function combineReducers(reducerMapping) {
+    return (prevState, action) => {
         const newState = {};
 
-        return ( prevState, action ) => {
-            Object.keys( prevState ).forEach( key => {
-                const prevVal = prevState[key];
-                const reducer = reducerMapping[key];
-                const result = reducer( prevVal, action );
-                newState[key] = result;
-            })
-            return newState;
-        }
+        Object.keys(prevState).forEach(key => {
+            const prevVal = prevState[key];
+            const reducer = reducerMapping[key];
+            const result = reducer(prevVal, action);
+            newState[key] = result;
+        })
+        return newState;
     }
 }
