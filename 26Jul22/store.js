@@ -1,7 +1,7 @@
 class Store {
     constructor(rootReducer) {
         this.rootReducer = rootReducer;
-        this.state = {};
+        this.state = rootReducer( {}, { type: 'initializeState' } );
     }
 
     getState() {
