@@ -77,7 +77,8 @@ const reduxLogger = store => next => action => {
     console.log('\nAction: '); 
     console.log(action); 
 
-    let nextState = next(action); //next state is calculated here in redux cycle
+    //when this middle fires last, "next(action)" is rootReducer
+    let nextState = next(action);
 
     console.log('\nNext State: ');
     console.log(nextState);
