@@ -15,8 +15,9 @@ class Store {
     }
 
     dispatch(action) {
-        this.appliedMiddleware(this, this.rootReducer)(action);
-        this.state = this.rootReducer( this.state, action, this.subscriptions );
+        const newState = this.appliedMiddleware(this, this.rootReducer)(action);
+        this.state = newState;
+        return newState;
     }
 
     subscribe(callback) {
@@ -67,3 +68,18 @@ const applyMiddleware = (...middlewares) => (store, rootReducer) => action => {
     return invokeNextMiddleware( action );
 }
 
+//this middleare needs to fire last
+const reduxLogger = store => next => action => {
+    console.log('\n----------------------');
+    console.log('Previous State:');
+    console.log(store.state);
+
+    console.log('\nAction: '); 
+    console.log(action); 
+
+    let nextState = next(action); //next state is calculated here in redux cycle
+
+    console.log('\nNext State: ');
+    console.log(nextState);
+    console.log('----------------------\n');
+}
