@@ -1,0 +1,16 @@
+.widget {
+    width: 500px;
+    padding: 30px;
+    border-radius: 3px;
+    margin: 50px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.widget h1 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.widget p {
+    font-size: 1.2em;
+}

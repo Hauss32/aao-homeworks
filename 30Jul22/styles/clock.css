@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Hairline&display=swap');
+
+.clock {
+    font-family: 'Bungee Hairline', cursive;
+    background-color: rgb(46, 52, 60);
+    color: white;
+    background-image: url('../assets/egg-shell.png');
+}
