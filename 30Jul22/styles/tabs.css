@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
+.tabs {
+    background-color: rgb(39, 46, 39);
+    background-image: url('../assets/black-mamba.png');
+    color: antiquewhite;
+    font-family: 'Cinzel', serif;
+}
+
+.tabs ul {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: scroll;
+}
+
+.tabs li {
+    margin-right: 20px;
+}
+
+.tabs h1 {
+    white-space: nowrap;
+    font-size: 1.5em;
+}
+
+.tabs article {
+    padding: 20px 10px;
+    border-top: 2px solid rgb(62, 73, 62);
+}
+
+.selected h1 {
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid antiquewhite;
+}
