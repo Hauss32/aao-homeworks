@@ -2,6 +2,7 @@
 
 .autocomplete {
     background-color: rgb(47, 36, 31);
+    background-image: url('../assets/black-linen.png');
     color: tan;
     min-height: 500px;
     font-family: 'Marcellus SC', serif;
