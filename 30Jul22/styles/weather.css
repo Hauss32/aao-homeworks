@@ -21,14 +21,14 @@
 }
 
 .weather-details li {
-    font-size: 1.3em;
+    font-size: 1.5em;
     margin-bottom: 10px;
 }
 
 .weather-details li:first-of-type {
     text-transform: capitalize;
     text-decoration: underline;
-    font-size: 1.7em;
+    font-size: 1.9em;
     margin-bottom: 20px;
 }
 
