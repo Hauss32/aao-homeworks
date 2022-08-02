@@ -17,6 +17,11 @@
     margin-right: 20px;
 }
 
+.tabs li:hover {
+    cursor: pointer;
+    color: rgb(248, 216, 173);
+}
+
 .tabs h1 {
     white-space: nowrap;
     font-size: 1.5em;
@@ -32,4 +37,5 @@
     margin-bottom: 20px;
     padding-bottom: 5px;
     border-bottom: 2px solid antiquewhite;
+    color: rgb(248, 216, 173);
 }
