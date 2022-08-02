@@ -93,7 +93,7 @@ class Weather extends React.Component {
         } );
     }
 
-    //TODO: this can be extracted to it's own component
+    //TODO: this can be extracted to its own component
     createWeatherElements() {
         return (
             <div className='weather-details'>

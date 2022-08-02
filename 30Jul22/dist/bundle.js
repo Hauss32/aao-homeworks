@@ -313,7 +313,7 @@ var Weather = /*#__PURE__*/function (_React$Component) {
         minTemp: minTemp,
         maxTemp: maxTemp
       });
-    } //TODO: this can be extracted to it's own component
+    } //TODO: this can be extracted to its own component
 
   }, {
     key: "createWeatherElements",
