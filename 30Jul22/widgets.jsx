@@ -1,5 +1,6 @@
 const React = require( 'react' );
 const { createRoot } = require( 'react-dom/client' );
+const Autocomplete = require('./components/autocomplete');
 const Clock = require( './components/clock' );
 const Tabs = require( './components/tabs' );
 const Weather = require( './components/weather' );
@@ -25,6 +26,8 @@ document.addEventListener( 'DOMContentLoaded', () => {
             content: 'Last but not least!'
         }
     ];
+    const names = [ 'Huey', 'Louie', 'Dewey', 'Alvin', 'Simon', 'Theodore', 
+        'Brittany', 'Jeanette', 'Eleanor', 'Chuck', 'Clyde' ];
     
-    root.render( <div><Clock /><Tabs tabs={tabData} /><Weather/></div> );
+    root.render( <div><Clock /><Tabs tabs={tabData} /><Weather/><Autocomplete namesList={ names }/></div> );
 })
