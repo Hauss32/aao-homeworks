@@ -1,4 +1,7 @@
 const React = require( 'react' );
+const ReactTransitionGroup = require('react-transition-group');
+const CSSTransition = ReactTransitionGroup.CSSTransition;
+const TransitionGroup = ReactTransitionGroup.TransitionGroup;
 
 class Autocomplete extends React.Component {
     constructor(props) {
@@ -14,6 +17,18 @@ class Autocomplete extends React.Component {
     }
 
     render() {
+        const nameItems = this.state.names.map( name => {
+            return ( 
+                <CSSTransition
+                    key={ name }
+                    classNames='fade'
+                    timeout={ { enter: 400, exit: 200 } }
+                >
+                    <li>{ name }</li>
+                </CSSTransition >  
+            );
+        } );
+
         return (
             <div className='widget autocomplete'>
                     <input 
@@ -23,9 +38,9 @@ class Autocomplete extends React.Component {
                         onChange={ this.filterAndSetState }
                     />
                 <ul onClick={this.completeFilterAndSetState} >
-                    {
-                        this.state.names.map( name => <li key={ name }>{ name }</li> )
-                    }
+                    <TransitionGroup>
+                        { nameItems }
+                    </TransitionGroup>
                 </ul>
             </div>
         )
