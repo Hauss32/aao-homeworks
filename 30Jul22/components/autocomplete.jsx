@@ -33,7 +33,10 @@ class Autocomplete extends React.Component {
 
     filterAndSetState(event) {
         const newFilterValue = event.currentTarget.value;
-        const filteredNames = this.props.namesList.filter( name => name.startsWith( newFilterValue ) );
+        const filterValueTest = newFilterValue.toLowerCase();
+        const filteredNames = this.props.namesList.filter( name => {
+            return name.toLowerCase().startsWith( filterValueTest );
+        } );
 
         this.setState( { filter: newFilterValue, names: filteredNames } );
     }

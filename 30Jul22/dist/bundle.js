@@ -73,8 +73,9 @@ var Autocomplete = /*#__PURE__*/function (_React$Component) {
     key: "filterAndSetState",
     value: function filterAndSetState(event) {
       var newFilterValue = event.currentTarget.value;
+      var filterValueTest = newFilterValue.toLowerCase();
       var filteredNames = this.props.namesList.filter(function (name) {
-        return name.startsWith(newFilterValue);
+        return name.toLowerCase().startsWith(filterValueTest);
       });
       this.setState({
         filter: newFilterValue,
