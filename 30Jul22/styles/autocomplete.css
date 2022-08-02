@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap');
+
+.autocomplete {
+    background-color: rgb(47, 36, 31);
+    color: tan;
+    min-height: 500px;
+    font-family: 'Marcellus SC', serif;
+}
+
+.autocomplete input {
+    font-size: 1.3em;
+    padding: 5px 10px;
+    background-color: rgb(220, 211, 198);
+    display: block;
+    margin-bottom: 30px;
+    font-family: 'Marcellus SC', serif;
+    border-radius: 3px;
+}
+
+.autocomplete input:focus::placeholder {
+    color: transparent;
+}
+
+.autocomplete input:focus-visible {
+    outline: 1px solid tan;
+}
+
+
+
+.autocomplete ul {
+    display: block;
+}
+
+.autocomplete li {
+    font-size: 1.4em;
+    margin: 10px 5px;
+}
+
+.autocomplete li:hover {
+    cursor: pointer;
+    color: rgb(160, 136, 105);
+    text-decoration: underline;
+}

@@ -16,12 +16,12 @@ class Autocomplete extends React.Component {
     render() {
         return (
             <div className='widget autocomplete'>
-                <input 
-                    type="text" 
-                    placeholder='Type to Filter List' 
-                    value={ this.state.filter }
-                    onChange={ this.filterAndSetState }
-                />
+                    <input 
+                        type="text" 
+                        placeholder='🔎 Type to Filter List' 
+                        value={ this.state.filter }
+                        onChange={ this.filterAndSetState }
+                    />
                 <ul onClick={this.completeFilterAndSetState} >
                     {
                         this.state.names.map( name => <li key={ name }>{ name }</li> )

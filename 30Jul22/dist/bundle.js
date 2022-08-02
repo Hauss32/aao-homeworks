@@ -58,7 +58,7 @@ var Autocomplete = /*#__PURE__*/function (_React$Component) {
         className: "widget autocomplete"
       }, /*#__PURE__*/React.createElement("input", {
         type: "text",
-        placeholder: "Type to Filter List",
+        placeholder: "\uD83D\uDD0E Type to Filter List",
         value: this.state.filter,
         onChange: this.filterAndSetState
       }), /*#__PURE__*/React.createElement("ul", {
