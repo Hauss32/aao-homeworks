@@ -2,6 +2,7 @@ const React = require( 'react' );
 const { createRoot } = require( 'react-dom/client' );
 const Clock = require( './components/clock' );
 const Tabs = require( './components/tabs' );
+const Weather = require( './components/weather' );
 
 document.addEventListener( 'DOMContentLoaded', () => {
     const container = document.getElementById( 'root' );
@@ -25,5 +26,5 @@ document.addEventListener( 'DOMContentLoaded', () => {
         }
     ];
     
-    root.render( <div><Clock /><Tabs tabs={tabData} /></div> );
+    root.render( <div><Clock /><Tabs tabs={tabData} /><Weather/></div> );
 })
