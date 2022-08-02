@@ -11,7 +11,8 @@ class Weather extends React.Component {
             temp: '',
             feelsLike: '',
             minTemp: '',
-            maxTemp: ''
+            maxTemp: '',
+            location: ''
         }
     }
 
@@ -67,7 +68,7 @@ class Weather extends React.Component {
     };
 
     makeIconURL(iconCode) {
-        return `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+        return `http://openweathermap.org/img/wn/${iconCode}@4x.png`
     }
 
     convertTempF(tempKelvin) {
@@ -82,6 +83,7 @@ class Weather extends React.Component {
         const feelsLike = this.convertTempF( weatherJSON.main.feels_like );
         const minTemp = this.convertTempF( weatherJSON.main.temp_min );
         const maxTemp = this.convertTempF( weatherJSON.main.temp_max );
+        const location = weatherJSON.name;
 
         this.setState( {
             description,
@@ -89,7 +91,8 @@ class Weather extends React.Component {
             temp,
             feelsLike,
             minTemp,
-            maxTemp
+            maxTemp,
+            location
         } );
     }
 
@@ -105,6 +108,7 @@ class Weather extends React.Component {
                     <li>Today's Low: {this.state.minTemp}°F</li>
                 </ul>
                 <img src={ this.state.iconURL } alt={ this.state.iconURL + ' icon' } />
+                <p>Detected Location: { this.state.location }</p>
             </div>
         )
     }

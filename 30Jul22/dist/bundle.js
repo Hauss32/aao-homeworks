@@ -225,7 +225,8 @@ var Weather = /*#__PURE__*/function (_React$Component) {
       temp: '',
       feelsLike: '',
       minTemp: '',
-      maxTemp: ''
+      maxTemp: '',
+      location: ''
     };
     return _this;
   }
@@ -288,7 +289,7 @@ var Weather = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "makeIconURL",
     value: function makeIconURL(iconCode) {
-      return "http://openweathermap.org/img/wn/".concat(iconCode, "@2x.png");
+      return "http://openweathermap.org/img/wn/".concat(iconCode, "@4x.png");
     }
   }, {
     key: "convertTempF",
@@ -305,13 +306,15 @@ var Weather = /*#__PURE__*/function (_React$Component) {
       var feelsLike = this.convertTempF(weatherJSON.main.feels_like);
       var minTemp = this.convertTempF(weatherJSON.main.temp_min);
       var maxTemp = this.convertTempF(weatherJSON.main.temp_max);
+      var location = weatherJSON.name;
       this.setState({
         description: description,
         iconURL: iconURL,
         temp: temp,
         feelsLike: feelsLike,
         minTemp: minTemp,
-        maxTemp: maxTemp
+        maxTemp: maxTemp,
+        location: location
       });
     } //TODO: this can be extracted to its own component
 
@@ -323,7 +326,7 @@ var Weather = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, this.state.description), /*#__PURE__*/React.createElement("li", null, "Temperature: ", this.state.temp, "\xB0F"), /*#__PURE__*/React.createElement("li", null, "Feels Like: ", this.state.feelsLike, "\xB0F"), /*#__PURE__*/React.createElement("li", null, "Today's High: ", this.state.maxTemp, "\xB0F"), /*#__PURE__*/React.createElement("li", null, "Today's Low: ", this.state.minTemp, "\xB0F")), /*#__PURE__*/React.createElement("img", {
         src: this.state.iconURL,
         alt: this.state.iconURL + ' icon'
-      }));
+      }), /*#__PURE__*/React.createElement("p", null, "Detected Location: ", this.state.location));
     }
   }]);
 

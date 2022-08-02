@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch&display=swap');
 
 .weather {
+    position: relative;
     background-color: rgb(42, 34, 48);
     background-image: url('../assets/dark-matter.png');
     color: #e8e7d9;
@@ -33,6 +34,14 @@
 
 .weather-details img {
     margin-left: 30px;
-    width: 150px;
-    height: auto;
+    /* width: 150px;
+    height: auto; */
+}
+
+.weather-details p {
+    position: absolute;
+    font-size: .7em;
+    bottom: 10px;
+    right: 10px;
+    color: rgb(132, 122, 139);
 }
