@@ -5,18 +5,23 @@ class Weather extends React.Component {
         super( props );
 
         this.state = {
-            status: null,
-            latitude: null,
-            longitude: null
+            status: 'Finding weather data...',
+            description: '',
+            iconURL: '',
+            temp: '',
+            feelsLike: '',
+            minTemp: '',
+            maxTemp: ''
         }
     }
 
     render() {
-        const weatherText = this.weatherStatusHelper();
+        const weatherDetails = ( this.state.temp ) ? 
+            this.createWeatherElements() : <h1>{ this.state.status }</h1>;
 
         return (
             <div className='widget weather'>
-                <h1>{ weatherText }</h1>
+                { weatherDetails }
             </div>
         )
     }
@@ -30,24 +35,12 @@ class Weather extends React.Component {
         });
 
         weatherPromise.then( position => {
-            this.getWeather(position);
-
+            this.getWeather( position );
         } ).catch( error => {
             console.error( error );
 
-            this.setState( { status: 'error' } );
+            this.setState({ status: 'Unable to get current weather.' } );
         } );
-    }
-
-    weatherStatusHelper() {
-        switch (this.state.status) {
-            case null:
-                return "Searching for current weather...";
-            case 'found':
-                return "Current Weather:";
-            default:
-                return "Unable to get current weather"
-        }
     }
 
     getWeather(position) {
@@ -62,7 +55,8 @@ class Weather extends React.Component {
 
         req.onload = () => {
             if (req.status == 200) {
-                console.log(req.response);
+                const weatherJSON = JSON.parse( req.response );
+                this.parseAndSetWeatherState( weatherJSON );
             } else {
                 console.log('Request Failed');
                 console.log(req.response);
@@ -76,8 +70,43 @@ class Weather extends React.Component {
         return `http://openweathermap.org/img/wn/${iconCode}@2x.png`
     }
 
-    parseAndSetWeatherData(data) {
-        
+    convertTempF(tempKelvin) {
+        const tempInF = ((tempKelvin - 273.15) * 9 / 5 + 32);
+        return tempInF.toFixed(1);
+    }
+
+    parseAndSetWeatherState(weatherJSON) {
+        const description = weatherJSON.weather[0].description;
+        const iconURL = this.makeIconURL( weatherJSON.weather[0].icon );
+        const temp = this.convertTempF( weatherJSON.main.temp );
+        const feelsLike = this.convertTempF( weatherJSON.main.feels_like );
+        const minTemp = this.convertTempF( weatherJSON.main.temp_min );
+        const maxTemp = this.convertTempF( weatherJSON.main.temp_max );
+
+        this.setState( {
+            description,
+            iconURL,
+            temp,
+            feelsLike,
+            minTemp,
+            maxTemp
+        } );
+    }
+
+    //TODO: this can be extracted to it's own component
+    createWeatherElements() {
+        return (
+            <div className='weather-details'>
+                <ul>
+                    <li>{ this.state.description }</li>
+                    <li>Temperature: { this.state.temp }°F</li>
+                    <li>Feels Like: {this.state.feelsLike}°F</li>
+                    <li>Today's High: {this.state.maxTemp}°F</li>
+                    <li>Today's Low: {this.state.minTemp}°F</li>
+                </ul>
+                <img src={ this.state.iconURL } alt={ this.state.iconURL + ' icon' } />
+            </div>
+        )
     }
 }
 

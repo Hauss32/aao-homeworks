@@ -219,9 +219,13 @@ var Weather = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      status: null,
-      latitude: null,
-      longitude: null
+      status: 'Finding weather data...',
+      description: '',
+      iconURL: '',
+      temp: '',
+      feelsLike: '',
+      minTemp: '',
+      maxTemp: ''
     };
     return _this;
   }
@@ -229,10 +233,10 @@ var Weather = /*#__PURE__*/function (_React$Component) {
   _createClass(Weather, [{
     key: "render",
     value: function render() {
-      var weatherText = this.weatherStatusHelper();
+      var weatherDetails = this.state.temp ? this.createWeatherElements() : /*#__PURE__*/React.createElement("h1", null, this.state.status);
       return /*#__PURE__*/React.createElement("div", {
         className: "widget weather"
-      }, /*#__PURE__*/React.createElement("h1", null, weatherText));
+      }, weatherDetails);
     }
   }, {
     key: "componentDidMount",
@@ -252,27 +256,15 @@ var Weather = /*#__PURE__*/function (_React$Component) {
         console.error(error);
 
         _this2.setState({
-          status: 'error'
+          status: 'Unable to get current weather.'
         });
       });
     }
   }, {
-    key: "weatherStatusHelper",
-    value: function weatherStatusHelper() {
-      switch (this.state.status) {
-        case null:
-          return "Searching for current weather...";
-
-        case 'found':
-          return "Current Weather:";
-
-        default:
-          return "Unable to get current weather";
-      }
-    }
-  }, {
     key: "getWeather",
     value: function getWeather(position) {
+      var _this3 = this;
+
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
       var apiKey = '40a8d266457e2303ada1c217dda0ffd5';
@@ -282,7 +274,9 @@ var Weather = /*#__PURE__*/function (_React$Component) {
 
       req.onload = function () {
         if (req.status == 200) {
-          console.log(req.response);
+          var weatherJSON = JSON.parse(req.response);
+
+          _this3.parseAndSetWeatherState(weatherJSON);
         } else {
           console.log('Request Failed');
           console.log(req.response);
@@ -297,8 +291,40 @@ var Weather = /*#__PURE__*/function (_React$Component) {
       return "http://openweathermap.org/img/wn/".concat(iconCode, "@2x.png");
     }
   }, {
-    key: "parseAndSetWeatherData",
-    value: function parseAndSetWeatherData(data) {}
+    key: "convertTempF",
+    value: function convertTempF(tempKelvin) {
+      var tempInF = (tempKelvin - 273.15) * 9 / 5 + 32;
+      return tempInF.toFixed(1);
+    }
+  }, {
+    key: "parseAndSetWeatherState",
+    value: function parseAndSetWeatherState(weatherJSON) {
+      var description = weatherJSON.weather[0].description;
+      var iconURL = this.makeIconURL(weatherJSON.weather[0].icon);
+      var temp = this.convertTempF(weatherJSON.main.temp);
+      var feelsLike = this.convertTempF(weatherJSON.main.feels_like);
+      var minTemp = this.convertTempF(weatherJSON.main.temp_min);
+      var maxTemp = this.convertTempF(weatherJSON.main.temp_max);
+      this.setState({
+        description: description,
+        iconURL: iconURL,
+        temp: temp,
+        feelsLike: feelsLike,
+        minTemp: minTemp,
+        maxTemp: maxTemp
+      });
+    } //TODO: this can be extracted to it's own component
+
+  }, {
+    key: "createWeatherElements",
+    value: function createWeatherElements() {
+      return /*#__PURE__*/React.createElement("div", {
+        className: "weather-details"
+      }, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, this.state.description), /*#__PURE__*/React.createElement("li", null, "Temperature: ", this.state.temp, "\xB0F"), /*#__PURE__*/React.createElement("li", null, "Feels Like: ", this.state.feelsLike, "\xB0F"), /*#__PURE__*/React.createElement("li", null, "Today's High: ", this.state.maxTemp, "\xB0F"), /*#__PURE__*/React.createElement("li", null, "Today's Low: ", this.state.minTemp, "\xB0F")), /*#__PURE__*/React.createElement("img", {
+        src: this.state.iconURL,
+        alt: this.state.iconURL + ' icon'
+      }));
+    }
   }]);
 
   return Weather;
