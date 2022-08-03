@@ -163,6 +163,7 @@ var Game = /*#__PURE__*/function (_React$Component) {
       board: new _minesweeper__WEBPACK_IMPORTED_MODULE_1__.Board(10, 10)
     };
     _this.updateGame = _this.updateGame.bind(_assertThisInitialized(_this));
+    _this.resetGame = _this.resetGame.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -179,17 +180,50 @@ var Game = /*#__PURE__*/function (_React$Component) {
 
       this.setState({
         board: this.state.board
+      }, function () {});
+    }
+  }, {
+    key: "resetGame",
+    value: function resetGame(event) {
+      event.preventDefault();
+      this.setState({
+        board: new _minesweeper__WEBPACK_IMPORTED_MODULE_1__.Board(10, 10)
       });
+    }
+  }, {
+    key: "gameOverHelper",
+    value: function gameOverHelper() {
+      var isWon = this.state.board.won();
+      var isLost = this.state.board.lost();
+      var modalText = '';
+
+      if (!isWon && !isLost) {
+        return null;
+      } else if (isWon) {
+        modalText = "YOU'VE WON!! Way to not blow yourself up.";
+      } else {
+        modalText = "Bad news...💣💥🤕";
+      }
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "modal-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "modal"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, modalText), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+        className: "game-reset",
+        onClick: this.resetGame
+      }, "New Game")));
     }
   }, {
     key: "render",
     value: function render() {
+      var modal = this.gameOverHelper();
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "board"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_board__WEBPACK_IMPORTED_MODULE_2__["default"], {
         board: this.state.board,
         updateGame: this.updateGame
-      }));
+      }), modal);
     }
   }]);
 
