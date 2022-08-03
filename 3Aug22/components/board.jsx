@@ -1,4 +1,5 @@
 import React from "react";
+import Tile from "./tile";
 
 class Board extends React.Component {
     constructor(props) {
@@ -10,8 +11,12 @@ class Board extends React.Component {
     }
 
     render() {
+        const coordsArr = this.state.board.grid.flat().map( tile => tile.pos );
+        
         return (
-            <h1>Hello, World!</h1>
+            <div>
+                { coordsArr.map( coord => <Tile board={ this.state.board } pos={ coord } key={ coord } /> ) }
+            </div>
         )
     }
 }
