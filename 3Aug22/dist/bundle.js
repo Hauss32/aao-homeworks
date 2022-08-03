@@ -60,16 +60,11 @@ var Board = /*#__PURE__*/function (_React$Component) {
   _createClass(Board, [{
     key: "render",
     value: function render() {
-      var _this2 = this;
-
-      var coordsArr = this.state.board.grid.flat().map(function (tile) {
-        return tile.pos;
-      });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, coordsArr.map(function (coord) {
+      var tilesArr = this.state.board.grid.flat();
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, tilesArr.map(function (tile) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_tile__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          board: _this2.state.board,
-          pos: coord,
-          key: coord
+          tile: tile,
+          key: tile.pos
         });
       }));
     }
@@ -207,17 +202,33 @@ var Tile = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, Tile);
 
     _this = _super.call(this, props);
-    _this.state = {
-      board: _this.props.board,
-      pos: _this.props.pos
-    };
+    _this.board = _this.props.board;
+    _this.tile = _this.props.tile;
+    _this.icon = _this.findIcon();
+    _this["class"] = _this.tile.explored ? 'explored' : 'secret';
     return _this;
   }
 
   _createClass(Tile, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, this.state.pos);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+        className: this["class"]
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, this.icon));
+    }
+  }, {
+    key: "findIcon",
+    value: function findIcon() {
+      var bombed = this.tile.bombed;
+      var flagged = this.tile.flagged;
+
+      if (!bombed && !flagged) {
+        return '';
+      } else if (bombed) {
+        return '💣';
+      } else {
+        return '🚩';
+      }
     }
   }]);
 

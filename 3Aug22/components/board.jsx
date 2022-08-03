@@ -11,12 +11,12 @@ class Board extends React.Component {
     }
 
     render() {
-        const coordsArr = this.state.board.grid.flat().map( tile => tile.pos );
+        const tilesArr = this.state.board.grid.flat();
         
         return (
-            <div>
-                { coordsArr.map( coord => <Tile board={ this.state.board } pos={ coord } key={ coord } /> ) }
-            </div>
+            <ul>
+                { tilesArr.map( tile => <Tile tile={tile} key={tile.pos} /> ) }
+            </ul>
         )
     }
 }
