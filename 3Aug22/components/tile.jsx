@@ -6,15 +6,15 @@ class Tile extends React.Component {
 
         this.board = this.props.board;
         this.tile = this.props.tile;
-        this.icon = this.findIcon();
-        this.class = ( this.tile.explored ) ? 'explored' : 'secret';
     }
 
     render() {
+        const icon = this.findIcon();
+        const cssClass = (this.tile.explored) ? 'explored' : 'secret';
 
         return (
-            <li className={ this.class }>
-                <div>{ this.icon }</div>
+            <li className={ cssClass } pos={ this.tile.pos }>
+                <div>{ icon }</div>
             </li>
         )
     }
@@ -22,13 +22,17 @@ class Tile extends React.Component {
     findIcon() {
         const bombed = this.tile.bombed;
         const flagged = this.tile.flagged;
+        const explored = this.tile.explored;
 
-        if ( !bombed && !flagged ) {
+        if ( !bombed && !flagged && !explored ) {
             return '';
         } else if ( bombed ) {
             return '💣';
-        } else {
+        } else if ( flagged ) {
             return '🚩';
+        } else {
+            const numBombs = this.tile.adjacentBombCount();
+            return ( numBombs === 0 ) ? '' : numBombs;
         }
     }
 }

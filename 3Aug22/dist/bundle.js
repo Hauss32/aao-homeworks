@@ -51,22 +51,42 @@ var Board = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, Board);
 
     _this = _super.call(this, props);
-    _this.state = {
-      board: _this.props.board
-    };
+    _this.updateGame = _this.props.updateGame;
+    _this.board = _this.props.board;
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Board, [{
     key: "render",
     value: function render() {
-      var tilesArr = this.state.board.grid.flat();
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, tilesArr.map(function (tile) {
+      var tilesArr = this.board.grid.flat();
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
+        onClick: this.handleClick
+      }, tilesArr.map(function (tile) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_tile__WEBPACK_IMPORTED_MODULE_1__["default"], {
           tile: tile,
           key: tile.pos
         });
       }));
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(event) {
+      if (event.target.tagName === 'LI') {
+        var tilePos = event.target.getAttribute('pos');
+        var wasAltPressed = event.altKey;
+        var tile = this.findTile(tilePos.split(','));
+        this.updateGame(tile, wasAltPressed);
+      }
+    }
+  }, {
+    key: "findTile",
+    value: function findTile(pos) {
+      var matchedTile = this.board.grid.flat().find(function (tile) {
+        return tile.pos[0] == pos[0] && tile.pos[1] == pos[1];
+      });
+      return matchedTile;
     }
   }]);
 
@@ -137,13 +157,25 @@ var Game = /*#__PURE__*/function (_React$Component) {
 
   _createClass(Game, [{
     key: "updateGame",
-    value: function updateGame() {}
+    value: function updateGame(tile, flagged) {
+      if (flagged) {
+        tile.toggleFlag();
+      } else {
+        console.log("".concat(tile.pos, " Explored!"));
+        tile.explore();
+        console.log(tile);
+      }
+
+      this.setState({
+        board: this.state.board
+      });
+    }
   }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_board__WEBPACK_IMPORTED_MODULE_2__["default"], {
         board: this.state.board,
-        update: this.updateGame
+        updateGame: this.updateGame
       });
     }
   }]);
@@ -204,30 +236,35 @@ var Tile = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.board = _this.props.board;
     _this.tile = _this.props.tile;
-    _this.icon = _this.findIcon();
-    _this["class"] = _this.tile.explored ? 'explored' : 'secret';
     return _this;
   }
 
   _createClass(Tile, [{
     key: "render",
     value: function render() {
+      var icon = this.findIcon();
+      var cssClass = this.tile.explored ? 'explored' : 'secret';
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
-        className: this["class"]
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, this.icon));
+        className: cssClass,
+        pos: this.tile.pos
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, icon));
     }
   }, {
     key: "findIcon",
     value: function findIcon() {
       var bombed = this.tile.bombed;
       var flagged = this.tile.flagged;
+      var explored = this.tile.explored;
 
-      if (!bombed && !flagged) {
+      if (!bombed && !flagged && !explored) {
         return '';
       } else if (bombed) {
         return '💣';
-      } else {
+      } else if (flagged) {
         return '🚩';
+      } else {
+        var numBombs = this.tile.adjacentBombCount();
+        return numBombs === 0 ? '' : numBombs;
       }
     }
   }]);
