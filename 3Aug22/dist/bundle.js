@@ -73,10 +73,21 @@ var Board = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleClick",
     value: function handleClick(event) {
+      //allow flagged icon to still allow click event from LI
+      if (event.target.tagName === 'DIV') {
+        event.target = event.target.parentElement;
+      }
+
       if (event.target.tagName === 'LI') {
         var tilePos = event.target.getAttribute('pos');
         var wasAltPressed = event.altKey;
         var tile = this.findTile(tilePos.split(','));
+
+        if (tile.flagged && !wasAltPressed) {
+          return;
+        } //"lock" flagged cells from being revealed
+
+
         this.updateGame(tile, wasAltPressed);
       }
     }
@@ -245,7 +256,7 @@ var Tile = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var icon = this.findIcon();
-      var cssClass = this.tile.explored ? 'explored' : 'secret';
+      var cssClass = this.findClass();
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
         className: cssClass,
         pos: this.tile.pos
@@ -260,13 +271,26 @@ var Tile = /*#__PURE__*/function (_React$Component) {
 
       if (!bombed && !flagged && !explored) {
         return '';
-      } else if (bombed) {
-        return '💣';
       } else if (flagged) {
         return '🚩';
+      } else if (bombed) {
+        return '💣';
       } else {
         var numBombs = this.tile.adjacentBombCount();
         return numBombs === 0 ? '' : numBombs;
+      }
+    }
+  }, {
+    key: "findClass",
+    value: function findClass() {
+      this.tile.explored ? 'explored' : 'secret';
+
+      if (this.tile.flagged) {
+        return 'flagged';
+      } else if (this.tile.explored) {
+        return 'explored';
+      } else {
+        return 'secret';
       }
     }
   }]);

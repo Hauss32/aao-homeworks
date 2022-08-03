@@ -21,8 +21,16 @@
     font-size: 1.6em;
 }
 
+.board li:hover {
+    cursor: pointer;
+}
+
 li.secret {
     border-style: outset;
+}
+
+li.secret:hover {
+    background-color: rgb(226, 226, 226);
 }
 
 .secret div {
@@ -32,4 +40,9 @@ li.secret {
 li.explored {
     border-style: inset;
     background-color: rgb(226, 226, 226);
+}
+
+li.flagged {
+    border-style: outset;
+    background-color: rgb(251, 251, 200);
 }

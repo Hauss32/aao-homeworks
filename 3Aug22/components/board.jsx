@@ -22,10 +22,17 @@ class Board extends React.Component {
     }
 
     handleClick(event) {
+        //allow flagged icon to still allow click event from LI
+        if( event.target.tagName === 'DIV' ) {
+            event.target = event.target.parentElement;
+        }
+
         if ( event.target.tagName === 'LI' ) {
             const tilePos = event.target.getAttribute( 'pos' );
             const wasAltPressed = event.altKey;
             const tile = this.findTile( tilePos.split(',') );
+            
+            if ( tile.flagged && !wasAltPressed ) { return; } //"lock" flagged cells from being revealed
 
             this.updateGame( tile, wasAltPressed );
         }
