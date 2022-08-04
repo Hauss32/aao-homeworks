@@ -5,20 +5,7 @@ class Board extends React.Component {
     constructor(props) {
         super(props);
 
-        this.updateGame = this.props.updateGame;
-        this.board = this.props.board;
-
         this.handleClick = this.handleClick.bind(this);
-    }
-
-    render() {
-        const tilesArr = this.board.grid.flat();
-
-        return (
-            <ul onClick={ this.handleClick }>
-                { tilesArr.map( tile => <Tile tile={tile} key={tile.pos} /> ) }
-            </ul>
-        )
     }
 
     handleClick(event) {
@@ -34,16 +21,26 @@ class Board extends React.Component {
             
             if ( tile.flagged && !wasAltPressed ) { return; } //"lock" flagged cells from being revealed
 
-            this.updateGame( tile, wasAltPressed );
+            this.props.updateGame( tile, wasAltPressed );
         }
     }
 
     findTile(pos) {
-        const matchedTile = this.board.grid.flat().find( tile => {
+        const matchedTile = this.props.board.grid.flat().find( tile => {
             return tile.pos[0] == pos[0] && tile.pos[1] == pos[1];
         } );
 
         return matchedTile;
+    }
+
+    render() {
+        const tilesArr = this.props.board.grid.flat();
+
+        return (
+            <ul onClick={this.handleClick}>
+                { tilesArr.map(tile => <Tile tile={tile} key={tile.pos} />) }
+            </ul>
+        )
     }
 }
 

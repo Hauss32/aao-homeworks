@@ -51,26 +51,11 @@ var Board = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, Board);
 
     _this = _super.call(this, props);
-    _this.updateGame = _this.props.updateGame;
-    _this.board = _this.props.board;
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Board, [{
-    key: "render",
-    value: function render() {
-      var tilesArr = this.board.grid.flat();
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
-        onClick: this.handleClick
-      }, tilesArr.map(function (tile) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_tile__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          tile: tile,
-          key: tile.pos
-        });
-      }));
-    }
-  }, {
     key: "handleClick",
     value: function handleClick(event) {
       //allow flagged icon to still allow click event from LI
@@ -88,16 +73,29 @@ var Board = /*#__PURE__*/function (_React$Component) {
         } //"lock" flagged cells from being revealed
 
 
-        this.updateGame(tile, wasAltPressed);
+        this.props.updateGame(tile, wasAltPressed);
       }
     }
   }, {
     key: "findTile",
     value: function findTile(pos) {
-      var matchedTile = this.board.grid.flat().find(function (tile) {
+      var matchedTile = this.props.board.grid.flat().find(function (tile) {
         return tile.pos[0] == pos[0] && tile.pos[1] == pos[1];
       });
       return matchedTile;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var tilesArr = this.props.board.grid.flat();
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
+        onClick: this.handleClick
+      }, tilesArr.map(function (tile) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_tile__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          tile: tile,
+          key: tile.pos
+        });
+      }));
     }
   }]);
 
@@ -173,9 +171,7 @@ var Game = /*#__PURE__*/function (_React$Component) {
       if (flagged) {
         tile.toggleFlag();
       } else {
-        console.log("".concat(tile.pos, " Explored!"));
         tile.explore();
-        console.log(tile);
       }
 
       this.setState({
@@ -186,8 +182,9 @@ var Game = /*#__PURE__*/function (_React$Component) {
     key: "resetGame",
     value: function resetGame(event) {
       event.preventDefault();
+      var newBoard = new _minesweeper__WEBPACK_IMPORTED_MODULE_1__.Board(10, 10);
       this.setState({
-        board: new _minesweeper__WEBPACK_IMPORTED_MODULE_1__.Board(10, 10)
+        board: newBoard
       });
     }
   }, {
@@ -202,7 +199,7 @@ var Game = /*#__PURE__*/function (_React$Component) {
       } else if (isWon) {
         modalText = "YOU'VE WON!! Way to not blow yourself up.";
       } else {
-        modalText = "Bad news...💣💥🤕";
+        modalText = "Bad news... 💣💥🤕";
       }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -276,14 +273,9 @@ var Tile = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(Tile);
 
   function Tile(props) {
-    var _this;
-
     _classCallCheck(this, Tile);
 
-    _this = _super.call(this, props);
-    _this.board = _this.props.board;
-    _this.tile = _this.props.tile;
-    return _this;
+    return _super.call(this, props);
   }
 
   _createClass(Tile, [{
@@ -293,15 +285,16 @@ var Tile = /*#__PURE__*/function (_React$Component) {
       var cssClass = this.findClass();
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
         className: cssClass,
-        pos: this.tile.pos
+        pos: this.props.tile.pos
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, icon));
     }
   }, {
     key: "findIcon",
     value: function findIcon() {
-      var bombed = this.tile.bombed;
-      var flagged = this.tile.flagged;
-      var explored = this.tile.explored;
+      var tile = this.props.tile;
+      var bombed = tile.bombed;
+      var flagged = tile.flagged;
+      var explored = tile.explored;
 
       if (!bombed && !flagged && !explored) {
         return '';
@@ -310,18 +303,18 @@ var Tile = /*#__PURE__*/function (_React$Component) {
       } else if (bombed) {
         return '💣';
       } else {
-        var numBombs = this.tile.adjacentBombCount();
+        var numBombs = tile.adjacentBombCount();
         return numBombs === 0 ? '' : numBombs;
       }
     }
   }, {
     key: "findClass",
     value: function findClass() {
-      this.tile.explored ? 'explored' : 'secret';
+      var tile = this.props.tile;
 
-      if (this.tile.flagged) {
+      if (tile.flagged) {
         return 'flagged';
-      } else if (this.tile.explored) {
+      } else if (tile.explored) {
         return 'explored';
       } else {
         return 'secret';

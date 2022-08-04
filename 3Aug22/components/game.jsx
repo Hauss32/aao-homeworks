@@ -18,9 +18,7 @@ class Game extends React.Component {
         if ( flagged ) {
             tile.toggleFlag();
         } else {
-            console.log(`${tile.pos} Explored!`);
             tile.explore();
-            console.log(tile);
         }
 
         this.setState( { board: this.state.board }, () => {
@@ -31,7 +29,9 @@ class Game extends React.Component {
     resetGame(event) {
         event.preventDefault();
 
-        this.setState( { board: new Minesweeper.Board(10, 10) } );
+        const newBoard = new Minesweeper.Board(10, 10);
+
+        this.setState( { board: newBoard } );
     }
 
     gameOverHelper() {
@@ -44,7 +44,7 @@ class Game extends React.Component {
         } else if ( isWon ) {
             modalText = "YOU'VE WON!! Way to not blow yourself up.";
         } else {
-            modalText = "Bad news...💣💥🤕";
+            modalText = "Bad news... 💣💥🤕";
         }
 
         return (
@@ -62,7 +62,7 @@ class Game extends React.Component {
 
         return (
             <div className="board">
-                <Board board={this.state.board} updateGame={this.updateGame} />
+                <Board board={ this.state.board } updateGame={ this.updateGame } />
                 { modal }
             </div>
         )

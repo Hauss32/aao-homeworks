@@ -3,9 +3,6 @@ import React from "react";
 class Tile extends React.Component {
     constructor(props) {
         super(props);
-
-        this.board = this.props.board;
-        this.tile = this.props.tile;
     }
 
     render() {
@@ -13,16 +10,17 @@ class Tile extends React.Component {
         const cssClass = this.findClass();
 
         return (
-            <li className={ cssClass } pos={ this.tile.pos }>
+            <li className={ cssClass } pos={ this.props.tile.pos }>
                 <div>{ icon }</div>
             </li>
         )
     }
 
     findIcon() {
-        const bombed = this.tile.bombed;
-        const flagged = this.tile.flagged;
-        const explored = this.tile.explored;
+        const tile = this.props.tile;
+        const bombed = tile.bombed;
+        const flagged = tile.flagged;
+        const explored = tile.explored;
 
         if ( !bombed && !flagged && !explored ) {
             return '';
@@ -31,16 +29,17 @@ class Tile extends React.Component {
         } else if ( bombed ) {
             return '💣';
         } else {
-            const numBombs = this.tile.adjacentBombCount();
+            const numBombs = tile.adjacentBombCount();
             return ( numBombs === 0 ) ? '' : numBombs;
         }
     }
 
     findClass() {
-        (this.tile.explored) ? 'explored' : 'secret';
-        if ( this.tile.flagged ) {
+        const tile = this.props.tile;
+
+        if ( tile.flagged ) {
             return 'flagged';
-        } else if ( this.tile.explored ) {
+        } else if ( tile.explored ) {
             return 'explored';
         } else {
             return 'secret';

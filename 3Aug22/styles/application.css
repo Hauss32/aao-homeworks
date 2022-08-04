@@ -46,3 +46,47 @@ li.flagged {
     border-style: outset;
     background-color: rgb(251, 251, 200);
 }
+
+.modal-container {
+    background-color: rgba(0, 0, 0, 0.85);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.modal {
+    box-sizing: border-box;
+    font-size: 2.0em;
+    width: 400px;
+    padding: 40px;
+    background-color: white;
+    border-radius: 10px;
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    margin-left: -200px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-reset {
+    font-size: .7em;
+    background-color: green;
+    margin-top: 40px;
+    color: white;
+    padding: 7px;
+    border-radius: 5px;
+    border: 3px outset green;
+    display: block;
+}
+
+.game-reset:hover {
+    /* background-color: rgb(48, 147, 48); */
+    cursor: pointer;
+    border-style: inset;
+}
