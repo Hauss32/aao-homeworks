@@ -192,21 +192,24 @@ var Game = /*#__PURE__*/function (_React$Component) {
     value: function gameOverHelper() {
       var isWon = this.state.board.won();
       var isLost = this.state.board.lost();
-      var modalText = '';
+      var modalTextFirst = '';
+      var modalTextSecond = '';
 
       if (!isWon && !isLost) {
         return null;
       } else if (isWon) {
-        modalText = "YOU'VE WON!! Way to not blow yourself up.";
+        modalTextFirst = "💯 YOU'VE WON!! 💯";
+        modalTextSecond = "Way to not blow yourself up.";
       } else {
-        modalText = "Bad news... 💣💥🤕";
+        modalTextFirst = "Bad news...";
+        modalTextSecond = "💣💥🤕";
       }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "modal-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "modal"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, modalText), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, modalTextFirst), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, modalTextSecond)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
         className: "game-reset",
         onClick: this.resetGame
       }, "New Game")));

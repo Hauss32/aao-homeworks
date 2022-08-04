@@ -1,6 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+
+html {
+    font-family: 'Black Ops One', cursive;
+}
+
+.info {
+    width: 500px;
+    margin: 20px auto 0 auto;
+    text-align: center;
+    color: rgb(60, 60, 60);
+}
+
+.info h1 {
+    font-size: 3em;
+}
+
+.info p {
+    font-size: 1.3em;
+    margin-top: 10px;
+}
+
 .board {
     width: 500px;
-    margin: 200px auto;
+    margin: 100px auto;
 }
 
 .board ul {
@@ -72,6 +94,12 @@ li.flagged {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    text-align: center;
+}
+
+.modal span {
+    display: block;
+    margin-top: 20px;
 }
 
 .game-reset {
@@ -83,6 +111,7 @@ li.flagged {
     border-radius: 5px;
     border: 3px outset green;
     display: block;
+    font-family: 'Black Ops One', cursive;
 }
 
 .game-reset:hover {

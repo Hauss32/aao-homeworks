@@ -37,20 +37,26 @@ class Game extends React.Component {
     gameOverHelper() {
         const isWon = this.state.board.won();
         const isLost = this.state.board.lost();
-        let modalText = '';
+        let modalTextFirst = '';
+        let modalTextSecond = '';
 
         if ( !isWon && !isLost ) {
             return null;
         } else if ( isWon ) {
-            modalText = "YOU'VE WON!! Way to not blow yourself up.";
+            modalTextFirst = "💯 YOU'VE WON!! 💯";
+            modalTextSecond = "Way to not blow yourself up.";
         } else {
-            modalText = "Bad news... 💣💥🤕";
+            modalTextFirst = "Bad news...";
+            modalTextSecond = "💣💥🤕";
         }
 
         return (
             <div className='modal-container'>
                 <div className='modal'>
-                    <h1>{ modalText }</h1>
+                    <h1>
+                        <span>{ modalTextFirst }</span>
+                        <span>{ modalTextSecond}</span>
+                    </h1>
                     <button className='game-reset' onClick={ this.resetGame }>New Game</button>
                 </div>
             </div>
