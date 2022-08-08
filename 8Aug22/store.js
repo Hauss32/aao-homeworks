@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-//import reducers
+import postingsReducer from './features/postings/postingsSlice';
 
 export default configureStore( {
     reducer: {
-        //add reducer key/val map
+        postings: postingsReducer
     }
 } );
