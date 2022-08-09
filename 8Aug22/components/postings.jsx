@@ -11,8 +11,6 @@ export function Postings() {
     const jobsCount = jobs.length;
     let allLocations = ["New York", "San Francisco", "Los Angeles"];
 
-    allLocations = [...new Set(allLocations)].sort(); //get sorted unique locations
-
     return (
         <div>
             <h1>Location: { location }</h1>
