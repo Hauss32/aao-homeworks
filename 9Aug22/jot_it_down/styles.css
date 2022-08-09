@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+
+html {
+    background-image: url('./splash.jpg');
+    font-family: 'Amatic SC', cursive;
+}
+
+body {
+    background-color: rgba(125, 120, 116, 0.8);
+    width: 100vw;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+}
+
+header, footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, .6);
+}
+
+header {
+    height: 80px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+h1, h2 {
+    color: white;
+    text-shadow: -1px -1px black, 1px 1px black, -1px 1px black, 1px -1px black;
+    text-align: center;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 5em;
+    margin: 130px auto 0 auto;
+}
+
+h2 {
+    font-size: 3.5em;
+    margin: 20px auto;
+}
+
+li {
+    padding: 0 20px;
+    font-size: 2em;
+    text-shadow: -1px -1px black, 1px 1px black;
+}
+
+a {
+    color: antiquewhite;
+}
+
+a:hover {
+    font-weight: 700;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 5px auto;
+    font-family: 'Amatic SC', cursive;
+    font-weight: 700;
+}
+
+footer {
+    position: absolute;
+    height: 60px;
+    bottom: 0;
+    left: 0;
+    justify-content: flex-end;
+    font-size: .7em;
+}
+
+footer ul {
+    margin-right: 30px;
+}
+
+.cta {
+    background-color: antiquewhite;
+    font-size: 2em;
+    display: block;
+    border-width: 5px;
+    border-color:rgb(177, 165, 154);
+}
+
+.cta:hover {
+    border-style: inset;
+    background-color: rgb(244, 229, 210);
+    cursor: pointer;
+    font-size: 1.9em;
+}
+
+.user-info {
+    color: white;
+    margin-left: 30px;
+}
+
+.actions {
+    margin-right: 30px;
+}
+
+.actions li {
+    width: 130px;
+    box-sizing: border-box;
+}
