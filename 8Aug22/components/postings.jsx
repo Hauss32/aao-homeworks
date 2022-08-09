@@ -1,15 +1,15 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Job from "./job";
-import { findJobs } from "../features/postings/postingsSlice";
+import getJobs from "../features/postings/jobs_callout";
 
 export function Postings() {
     const state = useSelector( state => state );
     const postings = state.postings;
     const dispatch = useDispatch();
-    const { location, jobs, filteredJobs } = postings;
-    const jobsCount = filteredJobs.length;
-    let allLocations = jobs.map( job => job.location );
+    const { location, jobs } = postings;
+    const jobsCount = jobs.length;
+    let allLocations = ["New York", "San Francisco", "Los Angeles"];
 
     allLocations = [...new Set(allLocations)].sort(); //get sorted unique locations
 
@@ -24,7 +24,17 @@ export function Postings() {
                             aria-label={ `Filter jobs to ${location}` }
                             onClick={ (event) => {
                                 event.preventDefault();
-                                return dispatch( { type: "postings/findJobs", payload: event.currentTarget.textContent } );
+
+                                const city = event.currentTarget.textContent;
+                                const jobsPromise = getJobs(city);
+
+                                jobsPromise.then( data => {
+                                    const jobs = JSON.parse(data);
+                                    const location = city;
+
+                                    dispatch({ type: "postings/findJobs", location, jobs });
+                                })
+                                
                         } }>
                             { location }
                         </button>
@@ -33,7 +43,7 @@ export function Postings() {
             <h2>Jobs Count: { jobsCount }</h2>
             <ul>
                 {
-                    filteredJobs.map( job => <Job job={job} key={job.id}></Job>)
+                    jobs.map( job => <Job job={job} key={job.id}></Job>)
                 }
             </ul>
         </div>

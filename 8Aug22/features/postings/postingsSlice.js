@@ -4,23 +4,14 @@ export const postingsSlice = createSlice( {
     name: 'postings',
     initialState: {
         location: 'Please Select',
-        jobs: [
-            {
-                id: 1,
-                title: "Test Job",
-                company: "Github",
-                type: "Full Time",
-                location: "remote",
-                description: "test description",
-                url: "www.github.com/appacademy"
-            }
-        ],
-        filteredJobs: []
+        jobs: []
     },
     reducers: {
         findJobs: (state, action) => {
-            state.location = action.payload;
-            state.filteredJobs = state.jobs.filter( job => job.location == state.location );
+            state.location = action.location;
+            state.jobs = action.jobs;
+
+            return state;
         }
     }
 } )

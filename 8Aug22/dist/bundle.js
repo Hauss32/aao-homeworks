@@ -1983,7 +1983,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _job__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./job */ "./components/job.jsx");
-/* harmony import */ var _features_postings_postingsSlice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../features/postings/postingsSlice */ "./features/postings/postingsSlice.js");
+/* harmony import */ var _features_postings_jobs_callout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../features/postings/jobs_callout */ "./features/postings/jobs_callout.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2007,12 +2007,9 @@ function Postings() {
   var postings = state.postings;
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var location = postings.location,
-      jobs = postings.jobs,
-      filteredJobs = postings.filteredJobs;
-  var jobsCount = filteredJobs.length;
-  var allLocations = jobs.map(function (job) {
-    return job.location;
-  });
+      jobs = postings.jobs;
+  var jobsCount = jobs.length;
+  var allLocations = ["New York", "San Francisco", "Los Angeles"];
   allLocations = _toConsumableArray(new Set(allLocations)).sort(); //get sorted unique locations
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Location: ", location), allLocations.map(function (location) {
@@ -2021,18 +2018,56 @@ function Postings() {
       "aria-label": "Filter jobs to ".concat(location),
       onClick: function onClick(event) {
         event.preventDefault();
-        return dispatch({
-          type: "postings/findJobs",
-          payload: event.currentTarget.textContent
+        var city = event.currentTarget.textContent;
+        var jobsPromise = (0,_features_postings_jobs_callout__WEBPACK_IMPORTED_MODULE_3__["default"])(city);
+        jobsPromise.then(function (data) {
+          var jobs = JSON.parse(data);
+          var location = city;
+          dispatch({
+            type: "postings/findJobs",
+            location: location,
+            jobs: jobs
+          });
         });
       }
     }, location);
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Jobs Count: ", jobsCount), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, filteredJobs.map(function (job) {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Jobs Count: ", jobsCount), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, jobs.map(function (job) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_job__WEBPACK_IMPORTED_MODULE_2__["default"], {
       job: job,
       key: job.id
     });
   })));
+}
+
+/***/ }),
+
+/***/ "./features/postings/jobs_callout.js":
+/*!*******************************************!*\
+  !*** ./features/postings/jobs_callout.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ getJobs)
+/* harmony export */ });
+function getJobs(city) {
+  return new Promise(function (resolve, reject) {
+    var url = "https://79vzv34gc4.execute-api.us-west-1.amazonaws.com/default/jobListings?location=".concat(city);
+    url = encodeURI(url);
+    var req = new XMLHttpRequest();
+    req.open('GET', url, true);
+    req.send();
+
+    req.onload = function () {
+      if (req.status === 200 || req.status == 201) {
+        resolve(req.response);
+      } else {
+        console.error('Error fetching jobs.');
+        reject(req.response);
+      }
+    };
+  });
 }
 
 /***/ }),
@@ -2055,23 +2090,13 @@ var postingsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice
   name: 'postings',
   initialState: {
     location: 'Please Select',
-    jobs: [{
-      id: 1,
-      title: "Test Job",
-      company: "Github",
-      type: "Full Time",
-      location: "remote",
-      description: "test description",
-      url: "www.github.com/appacademy"
-    }],
-    filteredJobs: []
+    jobs: []
   },
   reducers: {
     findJobs: function findJobs(state, action) {
-      state.location = action.payload;
-      state.filteredJobs = state.jobs.filter(function (job) {
-        return job.location == state.location;
-      });
+      state.location = action.location;
+      state.jobs = action.jobs;
+      return state;
     }
   }
 });
