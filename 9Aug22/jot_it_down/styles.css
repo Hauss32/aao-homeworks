@@ -13,19 +13,23 @@ body {
     top: 0;
 }
 
-header, footer {
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .6);
+}
+
+nav, footer {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(0, 0, 0, .6);
-}
-
-header {
-    height: 80px;
-    position: absolute;
-    top: 0;
-    left: 0;
 }
 
 ul {
@@ -73,17 +77,41 @@ button {
     font-weight: 700;
 }
 
+main {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
 footer {
     position: absolute;
     height: 60px;
     bottom: 0;
     left: 0;
-    justify-content: flex-end;
+    justify-content: space-between;
     font-size: .7em;
+    background-color: rgba(0, 0, 0, .6);
 }
 
 footer ul {
     margin-right: 30px;
+}
+
+footer p {
+    margin-left: 40px;
+    font-size: 1.8em;
+    color: rgba(250, 235, 215, 0.6);
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-left: 30px;
+}
+
+.main-text {
+    font-size: 1.7em;
+    margin-top: 90px;
 }
 
 .cta {
@@ -113,4 +141,85 @@ footer ul {
 .actions li {
     width: 130px;
     box-sizing: border-box;
+}
+
+.forms-container, .lists-container {
+    height: calc(100vh - 220px);
+    overflow-y: scroll;
+    -webkit-mask-image: linear-gradient(black 70%, transparent);
+    mask-image: linear-gradient(black 70%, transparent);
+}
+
+.forms-container div,
+.lists-container div {
+    margin-bottom: 150px;
+}
+
+.forms-container {
+    width: 500px;
+}
+
+.lists-container {
+    width: 500px;
+    padding: 0 15px;
+}
+
+.lists-container li {
+    text-shadow: none;
+    list-style: circle;
+    padding-left: 0;
+    padding-top: 15px;
+    margin-left: 15px;
+}
+
+.lists-container ul {
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+
+.forms-container {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-top: 20px;
+    padding: 0 15px;
+}
+
+.forms-container form {
+    margin-bottom: 60px;
+}
+
+.forms-container label, input {
+    display: block;
+    margin-top: 10px;
+    font-family: 'Amatic SC', cursive;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.forms-container label {
+    margin-top: 10px;
+}
+
+.forms-container input {
+    background-color: white;
+    border-color: rgb(177, 165, 154);
+    padding: 5px 10px;
+    width: 400px;
+    margin-top: 0;
+    word-spacing: 3px;
+    
+}
+
+.forms-container input[type=submit] {
+    width: 200px;
+    height: 40px;
+    background-color: antiquewhite;
+    margin-top: 10px;
+}
+
+.forms-container input[type=submit]:hover {
+    border-style: inset;
+    background-color: rgb(244, 229, 210);
+    cursor: pointer;
+    font-size: .7em;
 }
