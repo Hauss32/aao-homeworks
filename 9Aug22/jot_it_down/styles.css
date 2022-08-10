@@ -122,6 +122,13 @@ footer p {
     border-color:rgb(177, 165, 154);
 }
 
+.cta a {
+    height: 100%;
+    width: 100%;
+    color: black;
+    text-decoration: none;
+}
+
 .cta:hover {
     border-style: inset;
     background-color: rgb(244, 229, 210);
