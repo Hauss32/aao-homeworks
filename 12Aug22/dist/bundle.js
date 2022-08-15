@@ -1888,8 +1888,7 @@ var App = /*#__PURE__*/function (_React$Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      /*#__PURE__*/
-      react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Hello, TODOs!");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Hello, TODOs!");
     }
   }]);
 

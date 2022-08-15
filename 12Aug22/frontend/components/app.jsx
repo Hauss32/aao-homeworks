@@ -6,6 +6,8 @@ export default class App extends React.Component {
     }
 
     render() {
-        <h1>Hello, TODOs!</h1>
+        return (
+            <h1>Hello, TODOs!</h1>
+        )
     }
 }
