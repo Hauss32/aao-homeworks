@@ -1909,6 +1909,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "addTodo": () => (/* binding */ addTodo),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "receiveTodos": () => (/* binding */ receiveTodos),
 /* harmony export */   "removeTodo": () => (/* binding */ removeTodo),
 /* harmony export */   "todosSlice": () => (/* binding */ todosSlice),
 /* harmony export */   "updateTodo": () => (/* binding */ updateTodo)
@@ -1919,6 +1920,13 @@ var todosSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
   name: 'todos',
   initialState: {},
   reducers: {
+    receiveTodos: function receiveTodos(state, action) {
+      var todosArr = action.payload;
+      todosArr.forEach(function (todo) {
+        return state[todo.id] = todo;
+      });
+      return state;
+    },
     addTodo: function addTodo(state, action) {
       var todo = action.payload;
       var todoID = todo.id;
@@ -1945,7 +1953,8 @@ var todosSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
 var _todosSlice$actions = todosSlice.actions,
     addTodo = _todosSlice$actions.addTodo,
     removeTodo = _todosSlice$actions.removeTodo,
-    updateTodo = _todosSlice$actions.updateTodo;
+    updateTodo = _todosSlice$actions.updateTodo,
+    receiveTodos = _todosSlice$actions.receiveTodos;
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (todosSlice.reducer);
 

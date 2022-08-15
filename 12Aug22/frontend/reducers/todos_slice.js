@@ -4,6 +4,14 @@ export const todosSlice = createSlice( {
     name: 'todos',
     initialState: {},
     reducers: {
+        receiveTodos: (state, action) => {
+            const todosArr = action.payload;
+
+            todosArr.forEach( todo => state[todo.id] = todo );
+
+            return state;
+        },
+
         addTodo: (state, action) => {
             const todo = action.payload;
             const todoID = todo.id;
@@ -34,6 +42,6 @@ export const todosSlice = createSlice( {
     }
 } )
 
-export const { addTodo, removeTodo, updateTodo } = todosSlice.actions;
+export const { addTodo, removeTodo, updateTodo, receiveTodos } = todosSlice.actions;
 
 export default todosSlice.reducer;
