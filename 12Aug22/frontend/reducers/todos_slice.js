@@ -11,10 +11,29 @@ export const todosSlice = createSlice( {
             state[todoID] = todo;
 
             return state;
+        },
+
+        removeTodo: (state, action) => {
+            const todoID = action.payload;
+
+            delete state[todoID];
+
+            return state;
+        },
+
+        updateTodo: (state, action) => {
+            const newTodo = action.payload;
+            const todoID = newTodo.id;
+            const currTodo = state[todoID];
+            const keysToUpdate = Object.keys(newTodo);
+
+            keysToUpdate.forEach( key => currTodo[key] = newTodo[key] );
+
+            return state;
         }
     }
 } )
 
-export const { addTodo } = todosSlice.actions;
+export const { addTodo, removeTodo, updateTodo } = todosSlice.actions;
 
 export default todosSlice.reducer;
