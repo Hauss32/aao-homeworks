@@ -1915,12 +1915,12 @@ __webpack_require__.r(__webpack_exports__);
 
 var todosSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
   name: 'todos',
-  initialState: {
-    todos: []
-  },
+  initialState: {},
   reducers: {
     addTodo: function addTodo(state, action) {
-      state.todos.push(action.payload);
+      var todo = action.payload;
+      var todoID = todo.id;
+      state[todoID] = todo;
       return state;
     }
   }
