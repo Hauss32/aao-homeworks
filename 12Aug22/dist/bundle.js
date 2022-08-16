@@ -1931,7 +1931,9 @@ var todosSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
     },
     addTodo: function addTodo(state, action) {
       var todo = action.payload;
-      var todoID = todo.id;
+      var allIDs = Object.keys(state.todos);
+      var maxID = Math.max.apply(Math, allIDs);
+      var todoID = maxID + 1;
       state.todos[todoID] = todo;
       return state;
     },

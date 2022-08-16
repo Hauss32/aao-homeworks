@@ -16,7 +16,9 @@ export const todosSlice = createSlice( {
 
         addTodo: (state, action) => {
             const todo = action.payload;
-            const todoID = todo.id;
+            const allIDs = Object.keys(state.todos)
+            const maxID = Math.max(...allIDs);
+            const todoID = maxID + 1;
 
             state.todos[todoID] = todo;
 
