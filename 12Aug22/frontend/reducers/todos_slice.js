@@ -18,6 +18,8 @@ export const todosSlice = createSlice( {
             const maxID = (allIDs.length == 0) ? 0 : Math.max(...allIDs);
             const todoID = maxID + 1;
 
+            todo.id = todoID;
+
             state[todoID] = todo;
 
             return state;

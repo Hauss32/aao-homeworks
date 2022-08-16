@@ -10,11 +10,11 @@ export default function AddTodoForm() {
             <form className="add-todo-form">
                 <label>
                     Title
-                    <input type="text" name="title" id="title" placeholder="Add title here..."/>
+                    <input type="text" name="title" id="title" placeholder="Add title here..." required/>
                 </label>
                 <label>
                     Body
-                    <textarea name="body" id="body" placeholder="Add ToDo details here..."></textarea>
+                    <textarea name="body" id="body" placeholder="Add ToDo details here..." required></textarea>
                 </label>
                 <input type="submit" value="Add ToDo" onClick={ (event) => handleClick(event, dispatch) }/>
             </form>
@@ -26,11 +26,13 @@ function handleClick(event, dispatch) {
     event.preventDefault();
 
     const form = event.currentTarget.parentElement;
-    console.log(form);
     const formData = new FormData(form);
     const title = formData.get('title');
     const body = formData.get('body');
     const done = false;
 
-    dispatch( { type: "todos/addTodo", payload: { title, body, done } } );
+    if (title && body) {
+        dispatch( { type: "todos/addTodo", payload: { title, body, done } } );
+        form.reset();
+    }
 }

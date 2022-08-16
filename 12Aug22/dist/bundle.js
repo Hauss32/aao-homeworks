@@ -1865,11 +1865,13 @@ function AddTodoForm() {
     type: "text",
     name: "title",
     id: "title",
-    placeholder: "Add title here..."
+    placeholder: "Add title here...",
+    required: true
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Body", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("textarea", {
     name: "body",
     id: "body",
-    placeholder: "Add ToDo details here..."
+    placeholder: "Add ToDo details here...",
+    required: true
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "submit",
     value: "Add ToDo",
@@ -1882,19 +1884,22 @@ function AddTodoForm() {
 function handleClick(event, dispatch) {
   event.preventDefault();
   var form = event.currentTarget.parentElement;
-  console.log(form);
   var formData = new FormData(form);
   var title = formData.get('title');
   var body = formData.get('body');
   var done = false;
-  dispatch({
-    type: "todos/addTodo",
-    payload: {
-      title: title,
-      body: body,
-      done: done
-    }
-  });
+
+  if (title && body) {
+    dispatch({
+      type: "todos/addTodo",
+      payload: {
+        title: title,
+        body: body,
+        done: done
+      }
+    });
+    form.reset();
+  }
 }
 
 /***/ }),
@@ -1995,6 +2000,7 @@ var todosSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
       var allIDs = Object.keys(state);
       var maxID = allIDs.length == 0 ? 0 : Math.max.apply(Math, allIDs);
       var todoID = maxID + 1;
+      todo.id = todoID;
       state[todoID] = todo;
       return state;
     },
