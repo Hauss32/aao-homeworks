@@ -1918,30 +1918,32 @@ __webpack_require__.r(__webpack_exports__);
 
 var todosSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
   name: 'todos',
-  initialState: {},
+  initialState: {
+    todos: {}
+  },
   reducers: {
     receiveTodos: function receiveTodos(state, action) {
       var todosArr = action.payload;
       todosArr.forEach(function (todo) {
-        return state[todo.id] = todo;
+        return state.todos[todo.id] = todo;
       });
       return state;
     },
     addTodo: function addTodo(state, action) {
       var todo = action.payload;
       var todoID = todo.id;
-      state[todoID] = todo;
+      state.todos[todoID] = todo;
       return state;
     },
     removeTodo: function removeTodo(state, action) {
       var todoID = action.payload;
-      delete state[todoID];
+      delete state.todos[todoID];
       return state;
     },
     updateTodo: function updateTodo(state, action) {
       var newTodo = action.payload;
       var todoID = newTodo.id;
-      var currTodo = state[todoID];
+      var currTodo = state.todos[todoID];
       var keysToUpdate = Object.keys(newTodo);
       keysToUpdate.forEach(function (key) {
         return currTodo[key] = newTodo[key];

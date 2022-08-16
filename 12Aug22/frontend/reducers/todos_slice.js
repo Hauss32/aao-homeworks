@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const todosSlice = createSlice( {
     name: 'todos',
-    initialState: {},
+    initialState: {
+        todos: {}
+    },
     reducers: {
         receiveTodos: (state, action) => {
             const todosArr = action.payload;
 
-            todosArr.forEach( todo => state[todo.id] = todo );
+            todosArr.forEach( todo => state.todos[todo.id] = todo );
 
             return state;
         },
@@ -16,7 +18,7 @@ export const todosSlice = createSlice( {
             const todo = action.payload;
             const todoID = todo.id;
 
-            state[todoID] = todo;
+            state.todos[todoID] = todo;
 
             return state;
         },
@@ -24,7 +26,7 @@ export const todosSlice = createSlice( {
         removeTodo: (state, action) => {
             const todoID = action.payload;
 
-            delete state[todoID];
+            delete state.todos[todoID];
 
             return state;
         },
@@ -32,7 +34,7 @@ export const todosSlice = createSlice( {
         updateTodo: (state, action) => {
             const newTodo = action.payload;
             const todoID = newTodo.id;
-            const currTodo = state[todoID];
+            const currTodo = state.todos[todoID];
             const keysToUpdate = Object.keys(newTodo);
 
             keysToUpdate.forEach( key => currTodo[key] = newTodo[key] );
