@@ -1838,6 +1838,67 @@ function createListenerMiddleware(middlewareOptions) {
 
 /***/ }),
 
+/***/ "./frontend/components/add_todo_form.jsx":
+/*!***********************************************!*\
+  !*** ./frontend/components/add_todo_form.jsx ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AddTodoForm)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _reducers_todos_slice__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/todos_slice */ "./frontend/reducers/todos_slice.js");
+
+
+
+function AddTodoForm() {
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "add-todo-form-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
+    className: "add-todo-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Title", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "text",
+    name: "title",
+    id: "title",
+    placeholder: "Add title here..."
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Body", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("textarea", {
+    name: "body",
+    id: "body",
+    placeholder: "Add ToDo details here..."
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "submit",
+    value: "Add ToDo",
+    onClick: function onClick(event) {
+      return handleClick(event, dispatch);
+    }
+  })));
+}
+
+function handleClick(event, dispatch) {
+  event.preventDefault();
+  var form = event.currentTarget.parentElement;
+  console.log(form);
+  var formData = new FormData(form);
+  var title = formData.get('title');
+  var body = formData.get('body');
+  var done = false;
+  dispatch({
+    type: "todos/addTodo",
+    payload: {
+      title: title,
+      body: body,
+      done: done
+    }
+  });
+}
+
+/***/ }),
+
 /***/ "./frontend/components/app.jsx":
 /*!*************************************!*\
   !*** ./frontend/components/app.jsx ***!
@@ -1850,6 +1911,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _add_todo_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./add_todo_form */ "./frontend/components/add_todo_form.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1874,6 +1936,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
 
@@ -1888,7 +1951,7 @@ var App = /*#__PURE__*/function (_React$Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Hello, TODOs!");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Hello, TODOs!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_add_todo_form__WEBPACK_IMPORTED_MODULE_1__["default"], null));
     }
   }]);
 
@@ -1918,34 +1981,32 @@ __webpack_require__.r(__webpack_exports__);
 
 var todosSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
   name: 'todos',
-  initialState: {
-    todos: {}
-  },
+  initialState: {},
   reducers: {
     receiveTodos: function receiveTodos(state, action) {
       var todosArr = action.payload;
       todosArr.forEach(function (todo) {
-        return state.todos[todo.id] = todo;
+        return state[todo.id] = todo;
       });
       return state;
     },
     addTodo: function addTodo(state, action) {
       var todo = action.payload;
-      var allIDs = Object.keys(state.todos);
-      var maxID = Math.max.apply(Math, allIDs);
+      var allIDs = Object.keys(state);
+      var maxID = allIDs.length == 0 ? 0 : Math.max.apply(Math, allIDs);
       var todoID = maxID + 1;
-      state.todos[todoID] = todo;
+      state[todoID] = todo;
       return state;
     },
     removeTodo: function removeTodo(state, action) {
       var todoID = action.payload;
-      delete state.todos[todoID];
+      delete state[todoID];
       return state;
     },
     updateTodo: function updateTodo(state, action) {
       var newTodo = action.payload;
       var todoID = newTodo.id;
-      var currTodo = state.todos[todoID];
+      var currTodo = state[todoID];
       var keysToUpdate = Object.keys(newTodo);
       keysToUpdate.forEach(function (key) {
         return currTodo[key] = newTodo[key];
@@ -39311,6 +39372,7 @@ __webpack_require__.r(__webpack_exports__);
 document.addEventListener('DOMContentLoaded', function () {
   var container = document.getElementById('root');
   var root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(container);
+  window.store = _frontend_store_store__WEBPACK_IMPORTED_MODULE_3__["default"];
   root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_redux__WEBPACK_IMPORTED_MODULE_2__.Provider, {
     store: _frontend_store_store__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_frontend_components_app__WEBPACK_IMPORTED_MODULE_4__["default"], null)));

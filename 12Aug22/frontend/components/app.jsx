@@ -1,4 +1,5 @@
 import React from "react";
+import AddTodoForm from "./add_todo_form";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -7,7 +8,10 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <h1>Hello, TODOs!</h1>
+            <div>
+                <h1>Hello, TODOs!</h1>
+                <AddTodoForm/>
+            </div>
         )
     }
 }

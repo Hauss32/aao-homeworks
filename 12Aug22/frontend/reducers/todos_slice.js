@@ -2,25 +2,23 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const todosSlice = createSlice( {
     name: 'todos',
-    initialState: {
-        todos: {}
-    },
+    initialState: {},
     reducers: {
         receiveTodos: (state, action) => {
             const todosArr = action.payload;
 
-            todosArr.forEach( todo => state.todos[todo.id] = todo );
+            todosArr.forEach( todo => state[todo.id] = todo );
 
             return state;
         },
 
         addTodo: (state, action) => {
             const todo = action.payload;
-            const allIDs = Object.keys(state.todos)
-            const maxID = Math.max(...allIDs);
+            const allIDs = Object.keys(state);
+            const maxID = (allIDs.length == 0) ? 0 : Math.max(...allIDs);
             const todoID = maxID + 1;
 
-            state.todos[todoID] = todo;
+            state[todoID] = todo;
 
             return state;
         },
@@ -28,7 +26,7 @@ export const todosSlice = createSlice( {
         removeTodo: (state, action) => {
             const todoID = action.payload;
 
-            delete state.todos[todoID];
+            delete state[todoID];
 
             return state;
         },
@@ -36,7 +34,7 @@ export const todosSlice = createSlice( {
         updateTodo: (state, action) => {
             const newTodo = action.payload;
             const todoID = newTodo.id;
-            const currTodo = state.todos[todoID];
+            const currTodo = state[todoID];
             const keysToUpdate = Object.keys(newTodo);
 
             keysToUpdate.forEach( key => currTodo[key] = newTodo[key] );

@@ -7,6 +7,7 @@ import App from './frontend/components/app';
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById( 'root' );
     const root = createRoot( container );
+    window.store = store;
 
     root.render( 
         <Provider store={ store }>
