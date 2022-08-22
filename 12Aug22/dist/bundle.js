@@ -1851,8 +1851,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _reducers_todos_slice__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/todos_slice */ "./frontend/reducers/todos_slice.js");
-
 
 
 function AddTodoForm() {
@@ -1917,6 +1915,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _add_todo_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./add_todo_form */ "./frontend/components/add_todo_form.jsx");
+/* harmony import */ var _update_todo_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./update_todo_form */ "./frontend/components/update_todo_form.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1942,6 +1941,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
 
@@ -1956,7 +1956,7 @@ var App = /*#__PURE__*/function (_React$Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Hello, TODOs!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_add_todo_form__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Hello, TODOs!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_add_todo_form__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_update_todo_form__WEBPACK_IMPORTED_MODULE_2__["default"], null));
     }
   }]);
 
@@ -1964,6 +1964,118 @@ var App = /*#__PURE__*/function (_React$Component) {
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 
 
+
+/***/ }),
+
+/***/ "./frontend/components/update_todo_form.jsx":
+/*!**************************************************!*\
+  !*** ./frontend/components/update_todo_form.jsx ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ UpdateTodoForm)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+function UpdateTodoForm() {
+  var todos = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.todos;
+  });
+  todos = Object.values(todos); //just need the ToDo objects as array
+
+  var todoDropdownOptions = todos.map(function (todo) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+      value: todo.id,
+      key: todo.id
+    }, todo.title);
+  });
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "update-todo-form-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
+    className: "update-todo-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "hidden",
+    name: "id",
+    id: "todo-id"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Select ToDo", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
+    name: "todo",
+    id: "todo",
+    defaultValue: "",
+    onChange: function onChange(event) {
+      return handleTodoSelection(event, todos);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: "",
+    disabled: true
+  }, "Choose a ToDo..."), todoDropdownOptions)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Title", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "text",
+    name: "title",
+    id: "title",
+    placeholder: "Add title here...",
+    required: true
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Body", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("textarea", {
+    name: "body",
+    id: "body",
+    placeholder: "Add ToDo details here...",
+    required: true
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Done?", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "checkbox",
+    name: "done",
+    id: "done"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "submit",
+    value: "Update ToDo",
+    onClick: function onClick(event) {
+      return handleSubmit(event, dispatch);
+    }
+  })));
+}
+
+function handleSubmit(event, dispatch) {
+  event.preventDefault();
+  var form = event.currentTarget.parentElement;
+  var formData = new FormData(form);
+  var id = formData.get('id');
+  var title = formData.get('title');
+  var body = formData.get('body');
+  var done = formData.get('done');
+
+  if (title && body) {
+    dispatch({
+      type: "todos/updateTodo",
+      payload: {
+        id: id,
+        title: title,
+        body: body,
+        done: done
+      }
+    });
+    form.reset();
+  }
+}
+
+function handleTodoSelection(event, todos) {
+  var form = event.currentTarget.parentElement.parentElement;
+  var selectedID = event.currentTarget.value;
+  var todoToUpdate = todos.find(function (todo) {
+    return todo.id == selectedID;
+  });
+  var idEle = form.querySelector('#todo-id');
+  var titleEle = form.querySelector('#title');
+  var bodyEle = form.querySelector('#body');
+  var doneEle = form.querySelector('#done'); //fill in the form based on dropdown selection
+
+  idEle.value = selectedID;
+  titleEle.value = todoToUpdate.title;
+  bodyEle.value = todoToUpdate.body;
+  doneEle.checked = todoToUpdate.done;
+}
 
 /***/ }),
 

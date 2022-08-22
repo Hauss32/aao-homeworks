@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../reducers/todos_slice";
 
 export default function AddTodoForm() {
     const dispatch = useDispatch();
