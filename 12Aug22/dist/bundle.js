@@ -1902,6 +1902,109 @@ function handleClick(event, dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/add_todo_step.jsx":
+/*!***********************************************!*\
+  !*** ./frontend/components/add_todo_step.jsx ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AddStepForm)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+function AddStepForm() {
+  var todos = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.todos;
+  });
+  todos = Object.values(todos); //just need the ToDo objects as array
+
+  var todoDropdownOptions = todos.map(function (todo) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+      value: todo.id,
+      key: todo.id
+    }, todo.title);
+  });
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "add-step-form-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
+    className: "add-step-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "hidden",
+    name: "id",
+    id: "todo-id"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Select ToDo", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
+    name: "todo",
+    id: "todo",
+    defaultValue: "",
+    onChange: function onChange(event) {
+      return handleTodoSelection(event, todos);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: "",
+    disabled: true
+  }, "Choose a ToDo..."), todoDropdownOptions)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ol", {
+    className: "steps-list"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Step Description (short)", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "text",
+    name: "step",
+    id: "step"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "submit",
+    value: "Add Step",
+    onClick: function onClick(event) {
+      return handleSubmit(event, dispatch);
+    }
+  })));
+}
+
+function handleSubmit(event, dispatch) {
+  event.preventDefault();
+  var form = event.currentTarget.parentElement;
+  var formData = new FormData(form);
+  var id = formData.get('id');
+  var step = formData.get('step');
+  var stepsListEle = form.querySelector('.steps-list');
+
+  if (id && step) {
+    dispatch({
+      type: "todos/addStep",
+      payload: {
+        id: id,
+        step: step
+      }
+    });
+    form.reset();
+    stepsListEle.innerHTML = '';
+  }
+}
+
+function handleTodoSelection(event, todos) {
+  var form = event.currentTarget.parentElement.parentElement;
+  var selectedID = event.currentTarget.value;
+  var todoToUpdate = todos.find(function (todo) {
+    return todo.id == selectedID;
+  });
+  var stepsArr = todoToUpdate.steps;
+  var idEle = form.querySelector('#todo-id');
+  var stepsListEle = form.querySelector('.steps-list');
+  var existingStepEles = stepsArr.map(function (step, idx) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+      key: idx
+    }, step);
+  }); //fill in the form based on dropdown selection
+
+  idEle.value = selectedID;
+  stepsListEle.append(existingStepEles);
+}
+
+/***/ }),
+
 /***/ "./frontend/components/app.jsx":
 /*!*************************************!*\
   !*** ./frontend/components/app.jsx ***!
@@ -1915,8 +2018,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _add_todo_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./add_todo_form */ "./frontend/components/add_todo_form.jsx");
-/* harmony import */ var _delete_todo_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./delete_todo_form */ "./frontend/components/delete_todo_form.jsx");
-/* harmony import */ var _update_todo_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./update_todo_form */ "./frontend/components/update_todo_form.jsx");
+/* harmony import */ var _add_todo_step__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./add_todo_step */ "./frontend/components/add_todo_step.jsx");
+/* harmony import */ var _delete_todo_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./delete_todo_form */ "./frontend/components/delete_todo_form.jsx");
+/* harmony import */ var _update_todo_form__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./update_todo_form */ "./frontend/components/update_todo_form.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1944,6 +2048,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
 
@@ -1958,7 +2063,7 @@ var App = /*#__PURE__*/function (_React$Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Hello, TODOs!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_add_todo_form__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_update_todo_form__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_delete_todo_form__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Hello, TODOs!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_add_todo_form__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_update_todo_form__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_delete_todo_form__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_add_todo_step__WEBPACK_IMPORTED_MODULE_2__["default"], null));
     }
   }]);
 
