@@ -1915,12 +1915,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _steps_list__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./steps_list */ "./frontend/components/steps_list.jsx");
+
 
 
 function AddStepForm() {
-  var todos = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+  var todosState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.todos;
   });
+  var currTodo = todosState.currTodo;
+  console.log(todosState);
+  var todos = todosState.allTodos;
   todos = Object.values(todos); //just need the ToDo objects as array
 
   var todoDropdownOptions = todos.map(function (todo) {
@@ -1943,13 +1948,13 @@ function AddStepForm() {
     id: "todo",
     defaultValue: "",
     onChange: function onChange(event) {
-      return handleTodoSelection(event, todos);
+      return handleTodoSelection(event, dispatch);
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
     value: "",
     disabled: true
-  }, "Choose a ToDo..."), todoDropdownOptions)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ol", {
-    className: "steps-list"
+  }, "Choose a ToDo..."), todoDropdownOptions)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_steps_list__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    todo: currTodo
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Step Description (short)", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
     name: "step",
@@ -1969,7 +1974,7 @@ function handleSubmit(event, dispatch) {
   var formData = new FormData(form);
   var id = formData.get('id');
   var step = formData.get('step');
-  var stepsListEle = form.querySelector('.steps-list');
+  var stepsListEle = form.querySelector('ol');
 
   if (id && step) {
     dispatch({
@@ -1980,27 +1985,23 @@ function handleSubmit(event, dispatch) {
       }
     });
     form.reset();
-    stepsListEle.innerHTML = '';
+    dispatch({
+      type: "todos/setCurrTodo",
+      payload: undefined
+    }); //reset currTodo
   }
 }
 
-function handleTodoSelection(event, todos) {
+function handleTodoSelection(event, dispatch) {
   var form = event.currentTarget.parentElement.parentElement;
   var selectedID = event.currentTarget.value;
-  var todoToUpdate = todos.find(function (todo) {
-    return todo.id == selectedID;
-  });
-  var stepsArr = todoToUpdate.steps;
   var idEle = form.querySelector('#todo-id');
-  var stepsListEle = form.querySelector('.steps-list');
-  var existingStepEles = stepsArr.map(function (step) {
-    return "<li>".concat(step, "</li>");
+  dispatch({
+    type: "todos/setCurrTodo",
+    payload: selectedID
   }); //fill in the form based on dropdown selection
 
   idEle.value = selectedID;
-  existingStepEles.forEach(function (stepEle) {
-    return stepsListEle.insertAdjacentHTML('beforeend', stepEle);
-  });
 }
 
 /***/ }),
@@ -2091,7 +2092,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function RemoveTodoForm() {
   var todos = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return state.todos;
+    return state.todos.allTodos;
   });
   todos = Object.values(todos); //just need the ToDo objects as array
 
@@ -2181,6 +2182,81 @@ function handleTodoSelection(event, todos) {
 
 /***/ }),
 
+/***/ "./frontend/components/steps_list.jsx":
+/*!********************************************!*\
+  !*** ./frontend/components/steps_list.jsx ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ StepsList)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+function StepsList(props) {
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var todo = props.todo;
+  var steps = todo ? todo.steps : [];
+  var stepEles = steps.map(function (step, idx) {
+    var stepStatus = step.done ? 'complete' : 'incomplete';
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+      key: idx,
+      className: stepStatus
+    }, step.description);
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ol", {
+    onClick: function onClick(event) {
+      return handleStepClick(event, todo, dispatch);
+    }
+  }, stepEles);
+}
+
+function handleStepClick(event, todo, dispatch) {
+  if (!todo) {
+    return;
+  }
+
+  var clickedEle = event.target;
+
+  if (clickedEle.tagName == 'LI') {
+    var stepText = clickedEle.textContent;
+
+    var currSteps = _toConsumableArray(todo.steps);
+
+    var stepIdx = currSteps.indexOf(stepText);
+
+    if (stepIdx > -1) {
+      currSteps.splice(index, 1);
+    }
+
+    dispatch({
+      type: "todos/updateTodo",
+      payload: {
+        id: todo.id,
+        steps: currSteps
+      }
+    });
+  }
+}
+
+/***/ }),
+
 /***/ "./frontend/components/update_todo_form.jsx":
 /*!**************************************************!*\
   !*** ./frontend/components/update_todo_form.jsx ***!
@@ -2198,7 +2274,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function UpdateTodoForm() {
   var todos = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return state.todos;
+    return state.todos.allTodos;
   });
   todos = Object.values(todos); //just need the ToDo objects as array
 
@@ -2305,6 +2381,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   "receiveTodos": () => (/* binding */ receiveTodos),
 /* harmony export */   "removeTodo": () => (/* binding */ removeTodo),
+/* harmony export */   "setCurrTodo": () => (/* binding */ setCurrTodo),
 /* harmony export */   "todosSlice": () => (/* binding */ todosSlice),
 /* harmony export */   "updateTodo": () => (/* binding */ updateTodo)
 /* harmony export */ });
@@ -2312,7 +2389,10 @@ __webpack_require__.r(__webpack_exports__);
 
 var todosSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
   name: 'todos',
-  initialState: {},
+  initialState: {
+    currTodo: undefined,
+    allTodos: []
+  },
   reducers: {
     receiveTodos: function receiveTodos(state, action) {
       var todosArr = action.payload;
@@ -2323,34 +2403,43 @@ var todosSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
     },
     addTodo: function addTodo(state, action) {
       var todo = action.payload;
-      var allIDs = Object.keys(state);
+      var allIDs = Object.keys(state.allTodos);
       var maxID = allIDs.length == 0 ? 0 : Math.max.apply(Math, allIDs);
       var todoID = maxID + 1;
       todo.id = todoID;
       todo.steps = [];
-      state[todoID] = todo;
+      state.allTodos[todoID] = todo;
       return state;
     },
     removeTodo: function removeTodo(state, action) {
       var todoID = action.payload;
-      delete state[todoID];
+      delete state.allTodos[todoID];
       return state;
     },
     updateTodo: function updateTodo(state, action) {
       var newTodo = action.payload;
       var todoID = newTodo.id;
-      var currTodo = state[todoID];
+      var currTodo = state.allTodos[todoID];
       var keysToUpdate = Object.keys(newTodo);
       keysToUpdate.forEach(function (key) {
         return currTodo[key] = newTodo[key];
       });
       return state;
     },
+    setCurrTodo: function setCurrTodo(state, action) {
+      var todoID = parseInt(action.payload);
+      var todo = state.allTodos[todoID];
+      state.currTodo = todo;
+      return state;
+    },
     addStep: function addStep(state, action) {
       var todoID = action.payload.id;
       var newStep = action.payload.step;
-      var todo = state[todoID];
-      todo.steps.push(newStep);
+      var todo = state.allTodos[todoID];
+      todo.steps.push({
+        done: false,
+        description: newStep
+      });
       return state;
     }
   }
@@ -2359,6 +2448,7 @@ var _todosSlice$actions = todosSlice.actions,
     addTodo = _todosSlice$actions.addTodo,
     removeTodo = _todosSlice$actions.removeTodo,
     updateTodo = _todosSlice$actions.updateTodo,
+    setCurrTodo = _todosSlice$actions.setCurrTodo,
     receiveTodos = _todosSlice$actions.receiveTodos;
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (todosSlice.reducer);

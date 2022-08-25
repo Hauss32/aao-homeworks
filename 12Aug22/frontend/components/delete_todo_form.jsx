@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function RemoveTodoForm() {
-    let todos = useSelector(state => state.todos);
+    let todos = useSelector(state => state.todos.allTodos);
     todos = Object.values(todos); //just need the ToDo objects as array
 
     const todoDropdownOptions = todos.map(todo => <option value={todo.id} key={todo.id}>{todo.title}</option>);
