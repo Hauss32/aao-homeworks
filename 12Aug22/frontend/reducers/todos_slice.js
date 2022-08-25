@@ -19,6 +19,7 @@ export const todosSlice = createSlice( {
             const todoID = maxID + 1;
 
             todo.id = todoID;
+            todo.steps = [];
 
             state[todoID] = todo;
 
@@ -40,6 +41,16 @@ export const todosSlice = createSlice( {
             const keysToUpdate = Object.keys(newTodo);
 
             keysToUpdate.forEach( key => currTodo[key] = newTodo[key] );
+
+            return state;
+        },
+
+        addStep: (state, action) => {
+            const todoID = action.payload.id;
+            const newStep = action.payload.step;
+            const todo = state[todoID];
+
+            todo.steps.push( newStep );
 
             return state;
         }

@@ -54,9 +54,9 @@ function handleTodoSelection(event, todos) {
     const idEle = form.querySelector('#todo-id');
     const stepsListEle = form.querySelector('.steps-list');
 
-    const existingStepEles = stepsArr.map( (step, idx) => (<li key={idx}>{step}</li>) );
+    const existingStepEles = stepsArr.map( step => `<li>${step}</li>` );
 
     //fill in the form based on dropdown selection
     idEle.value = selectedID;
-    stepsListEle.append(existingStepEles);
+    existingStepEles.forEach(stepEle => stepsListEle.insertAdjacentHTML('beforeend', stepEle) );
 }

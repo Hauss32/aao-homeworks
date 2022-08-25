@@ -1993,14 +1993,14 @@ function handleTodoSelection(event, todos) {
   var stepsArr = todoToUpdate.steps;
   var idEle = form.querySelector('#todo-id');
   var stepsListEle = form.querySelector('.steps-list');
-  var existingStepEles = stepsArr.map(function (step, idx) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
-      key: idx
-    }, step);
+  var existingStepEles = stepsArr.map(function (step) {
+    return "<li>".concat(step, "</li>");
   }); //fill in the form based on dropdown selection
 
   idEle.value = selectedID;
-  stepsListEle.append(existingStepEles);
+  existingStepEles.forEach(function (stepEle) {
+    return stepsListEle.insertAdjacentHTML('beforeend', stepEle);
+  });
 }
 
 /***/ }),
@@ -2327,6 +2327,7 @@ var todosSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
       var maxID = allIDs.length == 0 ? 0 : Math.max.apply(Math, allIDs);
       var todoID = maxID + 1;
       todo.id = todoID;
+      todo.steps = [];
       state[todoID] = todo;
       return state;
     },
@@ -2343,6 +2344,13 @@ var todosSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
       keysToUpdate.forEach(function (key) {
         return currTodo[key] = newTodo[key];
       });
+      return state;
+    },
+    addStep: function addStep(state, action) {
+      var todoID = action.payload.id;
+      var newStep = action.payload.step;
+      var todo = state[todoID];
+      todo.steps.push(newStep);
       return state;
     }
   }
