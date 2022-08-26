@@ -2210,8 +2210,6 @@ function StepsList(props) {
 }
 
 function handleStepClick(event, todo, dispatch) {
-  console.log('Clicked!');
-
   if (!todo) {
     return;
   }
