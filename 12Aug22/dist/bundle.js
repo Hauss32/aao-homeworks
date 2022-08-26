@@ -1924,7 +1924,6 @@ function AddStepForm() {
     return state.todos;
   });
   var currTodo = todosState.currTodo;
-  console.log(todosState);
   var todos = todosState.allTodos;
   todos = Object.values(todos); //just need the ToDo objects as array
 
@@ -1974,7 +1973,6 @@ function handleSubmit(event, dispatch) {
   var formData = new FormData(form);
   var id = formData.get('id');
   var step = formData.get('step');
-  var stepsListEle = form.querySelector('ol');
 
   if (id && step) {
     dispatch({
@@ -1984,11 +1982,7 @@ function handleSubmit(event, dispatch) {
         step: step
       }
     });
-    form.reset();
-    dispatch({
-      type: "todos/setCurrTodo",
-      payload: undefined
-    }); //reset currTodo
+    form.querySelector('#step').value = ''; //reset step input
   }
 }
 
@@ -2195,18 +2189,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 
 
 function StepsList(props) {
@@ -2228,6 +2210,8 @@ function StepsList(props) {
 }
 
 function handleStepClick(event, todo, dispatch) {
+  console.log('Clicked!');
+
   if (!todo) {
     return;
   }
@@ -2236,20 +2220,11 @@ function handleStepClick(event, todo, dispatch) {
 
   if (clickedEle.tagName == 'LI') {
     var stepText = clickedEle.textContent;
-
-    var currSteps = _toConsumableArray(todo.steps);
-
-    var stepIdx = currSteps.indexOf(stepText);
-
-    if (stepIdx > -1) {
-      currSteps.splice(index, 1);
-    }
-
     dispatch({
-      type: "todos/updateTodo",
+      type: "todos/removeStep",
       payload: {
         id: todo.id,
-        steps: currSteps
+        step: stepText
       }
     });
   }
@@ -2440,6 +2415,23 @@ var todosSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
         done: false,
         description: newStep
       });
+      state.currTodo = todo;
+      return state;
+    },
+    removeStep: function removeStep(state, action) {
+      var todoID = action.payload.id;
+      var stepText = action.payload.step;
+      var todo = state.allTodos[todoID];
+      var steps = todo.steps;
+      var stepIdx = steps.findIndex(function (step) {
+        return step.description == stepText;
+      });
+
+      if (stepIdx > -1) {
+        steps.splice(stepIdx, 1);
+        state.currTodo = todo;
+      }
+
       return state;
     }
   }

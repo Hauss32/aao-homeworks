@@ -19,6 +19,7 @@ export default function StepsList(props)  {
 }
 
 function handleStepClick(event, todo, dispatch) {
+    console.log('Clicked!');
     if ( !todo ) {
         return;
     }
@@ -27,13 +28,6 @@ function handleStepClick(event, todo, dispatch) {
 
     if ( clickedEle.tagName == 'LI' ) {
         const stepText = clickedEle.textContent;
-        const currSteps = [...todo.steps];
-        const stepIdx = currSteps.indexOf(stepText);
-
-        if ( stepIdx > -1 ) {
-            currSteps.splice(index, 1);
-        }
-
-        dispatch({ type: "todos/updateTodo", payload: { id: todo.id, steps: currSteps } });
+        dispatch({ type: "todos/removeStep", payload: { id: todo.id, step: stepText } });
     }
 }

@@ -5,7 +5,6 @@ import StepsList from "./steps_list";
 export default function AddStepForm() {
     const todosState = useSelector(state => state.todos);
     const currTodo = todosState.currTodo;
-    console.log(todosState);
     let todos = todosState.allTodos;
     todos = Object.values(todos); //just need the ToDo objects as array
 
@@ -41,12 +40,10 @@ function handleSubmit(event, dispatch) {
     const formData = new FormData(form);
     const id = formData.get('id');
     const step = formData.get('step');
-    const stepsListEle = form.querySelector('ol');
 
     if (id && step) {
         dispatch({ type: "todos/addStep", payload: { id, step } });
-        form.reset();
-        dispatch({ type: "todos/setCurrTodo", payload: undefined }); //reset currTodo
+        form.querySelector('#step').value = ''; //reset step input
     }
 }
 

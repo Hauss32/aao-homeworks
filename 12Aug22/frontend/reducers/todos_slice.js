@@ -63,6 +63,22 @@ export const todosSlice = createSlice( {
             const todo = state.allTodos[todoID];
 
             todo.steps.push( { done: false, description: newStep } );
+            state.currTodo = todo;
+
+            return state;
+        },
+
+        removeStep: (state, action) => {
+            const todoID = action.payload.id;
+            const stepText = action.payload.step;
+            const todo = state.allTodos[todoID];
+            const steps = todo.steps;
+            const stepIdx = steps.findIndex( step => step.description == stepText );
+
+            if (stepIdx > -1) {
+                steps.splice(stepIdx, 1);
+                state.currTodo = todo;
+            }
 
             return state;
         }
