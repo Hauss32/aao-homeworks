@@ -2455,15 +2455,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 /* harmony import */ var _reducers_todos_slice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../reducers/todos_slice */ "./frontend/reducers/todos_slice.js");
+/* harmony import */ var _util_logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/logger */ "./frontend/util/logger.js");
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.configureStore)({
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.configureStore)({
   reducer: {
     todos: _reducers_todos_slice__WEBPACK_IMPORTED_MODULE_0__["default"]
-  }
+  },
+  middleware: [_util_logger__WEBPACK_IMPORTED_MODULE_1__["default"]]
 }));
+
+/***/ }),
+
+/***/ "./frontend/util/logger.js":
+/*!*********************************!*\
+  !*** ./frontend/util/logger.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var logger = function logger(store) {
+  return function (next) {
+    return function (action) {
+      console.log('Previous State: ', store.getState());
+      next(action);
+      console.log('New State: ', store.getState());
+    };
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (logger);
 
 /***/ }),
 
