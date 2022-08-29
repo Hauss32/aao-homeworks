@@ -3,10 +3,28 @@ import { createSlice } from "@reduxjs/toolkit";
 export const todosSlice = createSlice( {
     name: 'todos',
     initialState: {
+        currFormName: undefined,
         currTodo: undefined,
         allTodos: []
     },
     reducers: {
+        setCurrTodo: (state, action) => {
+            const todoID = parseInt(action.payload);
+            const todo = state.allTodos[todoID];
+    
+            state.currTodo = todo;
+    
+            return state;
+        },
+
+        setCurrFormName: (state, action) => {
+            const formName = action.payload;
+
+            state.currFormName = formName;
+
+            return state;
+        },
+
         receiveTodos: (state, action) => {
             const todosArr = action.payload;
 
@@ -44,15 +62,6 @@ export const todosSlice = createSlice( {
             const keysToUpdate = Object.keys(newTodo);
 
             keysToUpdate.forEach( key => currTodo[key] = newTodo[key] );
-
-            return state;
-        },
-
-        setCurrTodo: (state, action) => {
-            const todoID = parseInt(action.payload);
-            const todo = state.allTodos[todoID];
-
-            state.currTodo = todo;
 
             return state;
         },
