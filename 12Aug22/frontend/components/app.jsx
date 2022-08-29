@@ -12,11 +12,28 @@ export default class App extends React.Component {
     render() {
         return (
             <div>
-                <h1>Hello, TODOs!</h1>
-                <AddTodoForm/>
-                <UpdateTodoForm/>
-                <RemoveTodoForm/>
-                <AddStepForm/>
+                <h1>ToDo App!</h1>
+                <main>
+                    <section className="form-container">
+                        <AddTodoForm />
+                        <UpdateTodoForm />
+                        <RemoveTodoForm />
+                        <AddStepForm />
+                    </section>
+                    <section>
+                        <ul>
+                            <li>
+                                <h1>Todo #1</h1>
+                            </li>
+                            <li>
+                                <h1>Todo #2</h1>
+                            </li>
+                            <li>
+                                <h1>Todo #3</h1>
+                            </li>
+                        </ul>
+                    </section>
+                </main>
             </div>
         )
     }
