@@ -1902,104 +1902,6 @@ function handleClick(event, dispatch) {
 
 /***/ }),
 
-/***/ "./frontend/components/add_todo_step.jsx":
-/*!***********************************************!*\
-  !*** ./frontend/components/add_todo_step.jsx ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ AddStepForm)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _steps_list__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./steps_list */ "./frontend/components/steps_list.jsx");
-
-
-
-function AddStepForm() {
-  var todosState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return state.todos;
-  });
-  var currTodo = todosState.currTodo;
-  var todos = todosState.allTodos;
-  todos = Object.values(todos); //just need the ToDo objects as array
-
-  var todoDropdownOptions = todos.map(function (todo) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
-      value: todo.id,
-      key: todo.id
-    }, todo.title);
-  });
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "add-step-form-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
-    className: "add-step-form"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    type: "hidden",
-    name: "id",
-    id: "todo-id"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Select ToDo", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
-    name: "todo",
-    id: "todo",
-    defaultValue: "",
-    onChange: function onChange(event) {
-      return handleTodoSelection(event, dispatch);
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
-    value: "",
-    disabled: true
-  }, "Choose a ToDo..."), todoDropdownOptions)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_steps_list__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    todo: currTodo
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Step Description (short)", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    type: "text",
-    name: "step",
-    id: "step"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    type: "submit",
-    value: "Add Step",
-    onClick: function onClick(event) {
-      return handleSubmit(event, dispatch);
-    }
-  })));
-}
-
-function handleSubmit(event, dispatch) {
-  event.preventDefault();
-  var form = event.currentTarget.parentElement;
-  var formData = new FormData(form);
-  var id = formData.get('id');
-  var step = formData.get('step');
-
-  if (id && step) {
-    dispatch({
-      type: "todos/addStep",
-      payload: {
-        id: id,
-        step: step
-      }
-    });
-    form.querySelector('#step').value = ''; //reset step input
-  }
-}
-
-function handleTodoSelection(event, dispatch) {
-  var form = event.currentTarget.parentElement.parentElement;
-  var selectedID = event.currentTarget.value;
-  var idEle = form.querySelector('#todo-id');
-  dispatch({
-    type: "todos/setCurrTodo",
-    payload: selectedID
-  }); //fill in the form based on dropdown selection
-
-  idEle.value = selectedID;
-}
-
-/***/ }),
-
 /***/ "./frontend/components/app.jsx":
 /*!*************************************!*\
   !*** ./frontend/components/app.jsx ***!
@@ -2012,11 +1914,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _add_todo_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./add_todo_form */ "./frontend/components/add_todo_form.jsx");
-/* harmony import */ var _add_todo_step__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./add_todo_step */ "./frontend/components/add_todo_step.jsx");
-/* harmony import */ var _remove_todo_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./remove_todo_form */ "./frontend/components/remove_todo_form.jsx");
-/* harmony import */ var _form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./form_container */ "./frontend/components/form_container.jsx");
-/* harmony import */ var _update_todo_form__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./update_todo_form */ "./frontend/components/update_todo_form.jsx");
+/* harmony import */ var _form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./form_container */ "./frontend/components/form_container.jsx");
+/* harmony import */ var _todos__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./todos */ "./frontend/components/todos.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2043,9 +1942,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
-
-
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
 
@@ -2062,9 +1958,9 @@ var App = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "ToDo App!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
         className: "form-container"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_form_container__WEBPACK_IMPORTED_MODULE_4__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
         className: "todos-container"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Todo #1")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Todo #2")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Todo #3"))))));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_todos__WEBPACK_IMPORTED_MODULE_2__["default"], null))));
     }
   }]);
 
@@ -2301,6 +2197,108 @@ function handleStepClick(event, todo, dispatch) {
         id: todo.id,
         step: stepText
       }
+    });
+  }
+}
+
+/***/ }),
+
+/***/ "./frontend/components/todo.jsx":
+/*!**************************************!*\
+  !*** ./frontend/components/todo.jsx ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Todo)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _steps_list__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./steps_list */ "./frontend/components/steps_list.jsx");
+
+
+
+function Todo(props) {
+  var todo = props.todo;
+  var isDone = todo.done;
+  var doneText = isDone ? 'Done' : 'Incomplete';
+  var classVal = 'todo-card';
+
+  if (isDone) {
+    classVal = classVal + ' complete';
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("article", {
+    key: todo.id,
+    className: classVal
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, todo.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, todo.body), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_steps_list__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    todo: todo
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null, "Status: "), doneText));
+}
+
+function handleClick(event, dispatch) {
+  var clickedTagName = event.target.tagName;
+
+  if (clickedTagName !== 'LI') {
+    return;
+  } else {
+    var formName = event.target.getAttribute('form_name');
+    console.log(formName);
+    dispatch({
+      type: "todos/setCurrFormName",
+      payload: formName
+    });
+  }
+}
+
+/***/ }),
+
+/***/ "./frontend/components/todos.jsx":
+/*!***************************************!*\
+  !*** ./frontend/components/todos.jsx ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Todos)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _todo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./todo */ "./frontend/components/todo.jsx");
+
+
+
+function Todos() {
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var todosState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.todos.allTodos;
+  });
+  var todos = Object.values(todosState);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "todos-container"
+  }, todos.map(function (todo) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_todo__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      key: todo.id,
+      todo: todo
+    });
+  }));
+}
+
+function handleClick(event, dispatch) {
+  var clickedTagName = event.target.tagName;
+
+  if (clickedTagName !== 'LI') {
+    return;
+  } else {
+    var formName = event.target.getAttribute('form_name');
+    console.log(formName);
+    dispatch({
+      type: "todos/setCurrFormName",
+      payload: formName
     });
   }
 }

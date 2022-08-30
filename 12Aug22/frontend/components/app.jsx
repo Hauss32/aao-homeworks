@@ -1,9 +1,6 @@
 import React from "react";
-import AddTodoForm from "./add_todo_form";
-import AddStepForm from "./add_todo_step";
-import RemoveTodoForm from "./remove_todo_form";
 import FormContainer from "./form_container";
-import UpdateTodoForm from "./update_todo_form";
+import Todos from "./todos";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -16,20 +13,10 @@ export default class App extends React.Component {
                 <h1>ToDo App!</h1>
                 <main>
                     <section className="form-container">
-                        <FormContainer/>
+                        <FormContainer />
                     </section>
                     <section className="todos-container">
-                        <ul>
-                            <li>
-                                <h1>Todo #1</h1>
-                            </li>
-                            <li>
-                                <h1>Todo #2</h1>
-                            </li>
-                            <li>
-                                <h1>Todo #3</h1>
-                            </li>
-                        </ul>
+                        <Todos />
                     </section>
                 </main>
             </div>
