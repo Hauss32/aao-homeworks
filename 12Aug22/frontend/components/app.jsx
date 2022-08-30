@@ -18,7 +18,7 @@ export default class App extends React.Component {
                     <section className="form-container">
                         <FormContainer/>
                     </section>
-                    <section>
+                    <section className="todos-container">
                         <ul>
                             <li>
                                 <h1>Todo #1</h1>

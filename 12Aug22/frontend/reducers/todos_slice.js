@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const todosSlice = createSlice( {
     name: 'todos',
     initialState: {
-        currFormName: undefined,
+        currFormName: 'New',
         currTodo: undefined,
         allTodos: []
     },

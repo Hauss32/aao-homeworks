@@ -21,7 +21,13 @@ export default function FormContainer() {
             <nav className="form-selector">
                 <ul className="form-tabs" onClick={event => handleClick(event, dispatch)}>
                     {
-                        formNames.map(name => <li key={name} form_name={name}>{name}</li>)
+                        formNames.map(name => {
+                            const classVal = (name == currFormName) ? 'tab-selected' : '';
+
+                            return (
+                                <li key={name} form_name={name} className={classVal}>{name}</li>
+                            );
+                        })
                     }
                 </ul>
             </nav>
