@@ -1,5 +1,16 @@
+.forms-container {
+    width: 400px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 3px;
+}
+
 form {
-    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 10px 50px 60px 50px;
+    width: 100%;
+    border-radius: 0 3px 3px 0;
 }
 
 label {
@@ -24,4 +35,26 @@ input[type=checkbox] {
 textarea {
     height: 100px;
     font-size: 1.2em;
+}
+
+.form-tabs {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    font-size: 1.4em;
+    font-weight: 700;
+    color: gray;
+    background-color: rgb(240, 240, 240);
+    padding: 10px;
+}
+
+.form-tabs li:hover {
+    color: darkblue;
+    cursor: pointer;
+}
+
+.tab-selected {
+    color: black;
+    text-decoration: underline;
 }
