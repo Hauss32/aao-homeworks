@@ -17,7 +17,7 @@ export default function Todo(props) {
             <h1>{todo.title}</h1>
             <p>{todo.body}</p>
             <StepsList todo={todo}/>
-            <p><b>Status: </b>{doneText}</p>
+            <p>Status: {doneText}</p>
         </article>
     )
 }

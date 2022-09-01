@@ -10,7 +10,7 @@ export default class App extends React.Component {
     render() {
         return (
             <div>
-                <h1>ToDo App!</h1>
+                <h1 className="main-header">ToDo App!</h1>
                 <main>
                     <section className="form-container">
                         <FormContainer />
