@@ -35,6 +35,12 @@
     left: 30px;
 }
 
+.todos-container ol {
+    margin-top: 20px;
+    padding-left: 40px;
+    list-style-type: auto;
+}
+
 .complete {
     background-color: rgb(224, 243, 224);
 }
