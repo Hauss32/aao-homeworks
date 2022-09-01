@@ -19,7 +19,7 @@ label {
     font-size: 1.2em;
 }
 
-input, textarea, select {
+input, textarea, select, a {
     display: block;
     margin-top: 2px;
     font-size: 1em;
@@ -27,9 +27,25 @@ input, textarea, select {
     width: 300px;
 }
 
+a {
+    text-decoration: underline;
+    color: rgb(56, 56, 178);
+    cursor: pointer;
+}
+
+a.link-disabled {
+    text-decoration: none;
+    color: gray;
+    cursor: not-allowed;
+}
+
 input[type=checkbox] {
     width: auto;
     margin-left: 0;
+}
+
+input[type=submit] {
+    margin-top: 20px;
 }
 
 textarea {

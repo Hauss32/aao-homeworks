@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AddTodoForm from "./add_todo_form";
+import AddStepForm from "./add_todo_step";
 import RemoveTodoForm from "./remove_todo_form";
 import UpdateTodoForm from "./update_todo_form";
 
@@ -8,13 +9,15 @@ export default function FormContainer() {
     const FORM_TABS = {
         'New': <AddTodoForm />,
         'Update': <UpdateTodoForm />,
-        'Delete': <RemoveTodoForm />
+        'Delete': <RemoveTodoForm />,
+        'AddStep': <AddStepForm />
     }
     const dispatch = useDispatch();
     const currFormName = useSelector(state => state.todos.currFormName);
     const formComponent = (currFormName) ? FORM_TABS[currFormName] : <AddTodoForm />
 
-    const formNames = Object.keys(FORM_TABS);
+    let formNames = Object.keys(FORM_TABS);
+    formNames = formNames.filter( name => name !== 'AddStep' ); //AddStep should not be visible tab option
 
     return (
         <div className="forms-container">

@@ -1902,6 +1902,103 @@ function handleClick(event, dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/add_todo_step.jsx":
+/*!***********************************************!*\
+  !*** ./frontend/components/add_todo_step.jsx ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AddStepForm)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _steps_list__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./steps_list */ "./frontend/components/steps_list.jsx");
+
+
+
+function AddStepForm() {
+  var todosState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.todos;
+  });
+  var currTodo = todosState.currTodo;
+  var todos = todosState.allTodos;
+  todos = Object.values(todos); //just need the ToDo objects as array
+
+  var preselectedOptionEle = currTodo ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: currTodo.id
+  }, currTodo.title) : undefined;
+  var todoDropdownOptions = preselectedOptionEle || todos.map(function (todo) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+      value: todo.id,
+      key: todo.id
+    }, todo.title);
+  });
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "add-step-form-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
+    className: "add-step-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Select ToDo", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
+    name: "todo",
+    id: "todo",
+    defaultValue: currTodo.id || "",
+    onChange: function onChange(event) {
+      return handleTodoSelection(event, dispatch);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: "",
+    disabled: true
+  }, "Choose a ToDo..."), todoDropdownOptions)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_steps_list__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    todo: currTodo
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Step Description (short)", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "text",
+    name: "step",
+    id: "step"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "submit",
+    value: "Add Step",
+    onClick: function onClick(event) {
+      return handleSubmit(event, dispatch);
+    }
+  })));
+}
+
+function handleSubmit(event, dispatch) {
+  event.preventDefault();
+  var form = event.currentTarget.parentElement;
+  var formData = new FormData(form);
+  var id = formData.get('todo');
+  var step = formData.get('step');
+
+  if (id && step) {
+    dispatch({
+      type: "todos/addStep",
+      payload: {
+        id: id,
+        step: step
+      }
+    });
+    form.querySelector('#step').value = ''; //reset step input
+  }
+}
+
+function handleTodoSelection(event, dispatch) {
+  var form = event.currentTarget.parentElement.parentElement;
+  var selectedID = event.currentTarget.value;
+  var idEle = form.querySelector('#todo-id');
+  dispatch({
+    type: "todos/setCurrTodo",
+    payload: selectedID
+  }); //fill in the form based on dropdown selection
+
+  idEle.value = selectedID;
+}
+
+/***/ }),
+
 /***/ "./frontend/components/app.jsx":
 /*!*************************************!*\
   !*** ./frontend/components/app.jsx ***!
@@ -1987,8 +2084,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _add_todo_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./add_todo_form */ "./frontend/components/add_todo_form.jsx");
-/* harmony import */ var _remove_todo_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./remove_todo_form */ "./frontend/components/remove_todo_form.jsx");
-/* harmony import */ var _update_todo_form__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./update_todo_form */ "./frontend/components/update_todo_form.jsx");
+/* harmony import */ var _add_todo_step__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./add_todo_step */ "./frontend/components/add_todo_step.jsx");
+/* harmony import */ var _remove_todo_form__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./remove_todo_form */ "./frontend/components/remove_todo_form.jsx");
+/* harmony import */ var _update_todo_form__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./update_todo_form */ "./frontend/components/update_todo_form.jsx");
+
 
 
 
@@ -1997,8 +2096,9 @@ __webpack_require__.r(__webpack_exports__);
 function FormContainer() {
   var FORM_TABS = {
     'New': /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_add_todo_form__WEBPACK_IMPORTED_MODULE_2__["default"], null),
-    'Update': /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_update_todo_form__WEBPACK_IMPORTED_MODULE_4__["default"], null),
-    'Delete': /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_remove_todo_form__WEBPACK_IMPORTED_MODULE_3__["default"], null)
+    'Update': /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_update_todo_form__WEBPACK_IMPORTED_MODULE_5__["default"], null),
+    'Delete': /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_remove_todo_form__WEBPACK_IMPORTED_MODULE_4__["default"], null),
+    'AddStep': /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_add_todo_step__WEBPACK_IMPORTED_MODULE_3__["default"], null)
   };
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var currFormName = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
@@ -2006,6 +2106,10 @@ function FormContainer() {
   });
   var formComponent = currFormName ? FORM_TABS[currFormName] : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_add_todo_form__WEBPACK_IMPORTED_MODULE_2__["default"], null);
   var formNames = Object.keys(FORM_TABS);
+  formNames = formNames.filter(function (name) {
+    return name !== 'AddStep';
+  }); //AddStep should not be visible tab option
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "forms-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("nav", {
@@ -2328,6 +2432,16 @@ function UpdateTodoForm() {
   });
   todos = Object.values(todos); //just need the ToDo objects as array
 
+  var currTodo = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.todos.currTodo;
+  });
+  var addStepLinkEle = currTodo ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
+    onClick: function onClick(event) {
+      return handleAddStepsClick(event, dispatch);
+    }
+  }, "Add Todo Step(s)") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
+    className: "link-disabled"
+  }, "Add Todo Step(s)");
   var todoDropdownOptions = todos.map(function (todo) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
       value: todo.id,
@@ -2348,7 +2462,7 @@ function UpdateTodoForm() {
     id: "todo",
     defaultValue: "",
     onChange: function onChange(event) {
-      return handleTodoSelection(event, todos);
+      return handleTodoSelection(event, todos, dispatch);
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
     value: "",
@@ -2368,7 +2482,7 @@ function UpdateTodoForm() {
     type: "checkbox",
     name: "done",
     id: "done"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+  })), addStepLinkEle, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "submit",
     value: "Update ToDo",
     onClick: function onClick(event) {
@@ -2400,7 +2514,7 @@ function handleSubmit(event, dispatch) {
   }
 }
 
-function handleTodoSelection(event, todos) {
+function handleTodoSelection(event, todos, dispatch) {
   var form = event.currentTarget.parentElement.parentElement;
   var selectedID = event.currentTarget.value;
   var todoToUpdate = todos.find(function (todo) {
@@ -2409,12 +2523,24 @@ function handleTodoSelection(event, todos) {
   var idEle = form.querySelector('#todo-id');
   var titleEle = form.querySelector('#title');
   var bodyEle = form.querySelector('#body');
-  var doneEle = form.querySelector('#done'); //fill in the form based on dropdown selection
+  var doneEle = form.querySelector('#done');
+  dispatch({
+    type: "todos/setCurrTodo",
+    payload: selectedID
+  }); //fill in the form based on dropdown selection
 
   idEle.value = selectedID;
   titleEle.value = todoToUpdate.title;
   bodyEle.value = todoToUpdate.body;
   doneEle.checked = todoToUpdate.done;
+}
+
+function handleAddStepsClick(event, dispatch) {
+  event.preventDefault();
+  dispatch({
+    type: "todos/setCurrFormName",
+    payload: 'AddStep'
+  });
 }
 
 /***/ }),

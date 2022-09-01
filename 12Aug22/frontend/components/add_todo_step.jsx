@@ -7,17 +7,18 @@ export default function AddStepForm() {
     const currTodo = todosState.currTodo;
     let todos = todosState.allTodos;
     todos = Object.values(todos); //just need the ToDo objects as array
-
-    const todoDropdownOptions = todos.map(todo => <option value={todo.id} key={todo.id}>{todo.title}</option>);
+    const preselectedOptionEle = (currTodo) ? 
+        <option value={currTodo.id}>{currTodo.title}</option> :
+        undefined;
+    const todoDropdownOptions = preselectedOptionEle || todos.map(todo => <option value={todo.id} key={todo.id}>{todo.title}</option>);
     const dispatch = useDispatch();
 
     return (
         <div className="add-step-form-container">
             <form className="add-step-form">
-                <input type="hidden" name="id" id="todo-id" />
                 <label>
                     Select ToDo
-                    <select name="todo" id="todo" defaultValue={""} onChange={(event) => handleTodoSelection(event, dispatch)}>
+                    <select name="todo" id="todo" defaultValue={currTodo.id || ""} onChange={(event) => handleTodoSelection(event, dispatch)}>
                         <option value="" disabled>Choose a ToDo...</option>
                         {todoDropdownOptions}
                     </select>
@@ -35,10 +36,9 @@ export default function AddStepForm() {
 
 function handleSubmit(event, dispatch) {
     event.preventDefault();
-
     const form = event.currentTarget.parentElement;
     const formData = new FormData(form);
-    const id = formData.get('id');
+    const id = formData.get('todo');
     const step = formData.get('step');
 
     if (id && step) {

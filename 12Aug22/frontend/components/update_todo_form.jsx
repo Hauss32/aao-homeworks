@@ -5,6 +5,10 @@ export default function UpdateTodoForm() {
     let todos = useSelector( state => state.todos.allTodos );
     todos = Object.values( todos ); //just need the ToDo objects as array
 
+    const currTodo = useSelector(state => state.todos.currTodo);
+    const addStepLinkEle = (currTodo) ? 
+        <a onClick={event => handleAddStepsClick(event, dispatch) }>Add Todo Step(s)</a> : 
+        <a className="link-disabled">Add Todo Step(s)</a>;
     const todoDropdownOptions = todos.map(todo => <option value={todo.id} key={todo.id}>{todo.title}</option> );
     const dispatch = useDispatch();
 
@@ -14,7 +18,7 @@ export default function UpdateTodoForm() {
                 <input type="hidden" name="id" id="todo-id"/>
                 <label>
                     Select ToDo
-                    <select name="todo" id="todo" defaultValue={""} onChange={ (event) => handleTodoSelection(event, todos) }>
+                    <select name="todo" id="todo" defaultValue={""} onChange={ (event) => handleTodoSelection(event, todos, dispatch) }>
                         <option value="" disabled>Choose a ToDo...</option>
                         { todoDropdownOptions }
                     </select>
@@ -31,6 +35,7 @@ export default function UpdateTodoForm() {
                     Done?
                     <input type="checkbox" name="done" id="done" />
                 </label>
+                { addStepLinkEle }
                 <input type="submit" value="Update ToDo" onClick={(event) => handleSubmit(event, dispatch)} />
             </form>
         </div>
@@ -53,7 +58,7 @@ function handleSubmit(event, dispatch) {
     }
 }
 
-function handleTodoSelection(event, todos) {
+function handleTodoSelection(event, todos, dispatch) {
     const form = event.currentTarget.parentElement.parentElement;
     const selectedID = event.currentTarget.value;
     const todoToUpdate = todos.find( todo => todo.id == selectedID );
@@ -62,9 +67,18 @@ function handleTodoSelection(event, todos) {
     const bodyEle = form.querySelector('#body');
     const doneEle = form.querySelector('#done');
 
+    dispatch({ type: "todos/setCurrTodo", payload: selectedID });
+
     //fill in the form based on dropdown selection
     idEle.value = selectedID;
     titleEle.value = todoToUpdate.title;
     bodyEle.value = todoToUpdate.body;
     doneEle.checked = todoToUpdate.done;
+}
+
+function handleAddStepsClick(event, dispatch) {
+    event.preventDefault();
+
+    dispatch({ type: "todos/setCurrFormName", payload: 'AddStep' });
+
 }
